@@ -1,7 +1,0 @@
-export enum RoomTypeEnum {
-  BEDROOM = 'BEDROOM',
-  BATHROOM = 'BATHROOM',
-  KITCHEN = 'KITCHEN',
-  LIVING = 'LIVING',
-  GENERAL = 'GENERAL'
-}
