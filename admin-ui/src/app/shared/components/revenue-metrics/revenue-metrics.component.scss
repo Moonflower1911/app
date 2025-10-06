@@ -1,0 +1,167 @@
+// Material Design inspired grid-list
+.mat-grid-list-like {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // Two columns
+  gap: 8px;
+  padding: 0;
+  width: 100%;
+}
+
+.grid-tile {
+  display: flex;
+  align-items: stretch;
+  min-height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.metric-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 2px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16), 0 0 4px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.metric-content {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  height: 100%;
+  gap: 10px;
+}
+
+.metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  
+  i {
+    color: white;
+    font-size: 16px;
+    line-height: 1;
+  }
+}
+
+.metric-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.metric-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 2px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.metric-change {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 2px 4px;
+  border-radius: 10px;
+  display: inline-block;
+  width: fit-content;
+  
+  &.positive {
+    color: #2e7d32;
+    background-color: rgba(46, 125, 50, 0.1);
+  }
+  
+  &.negative {
+    color: #d32f2f;
+    background-color: rgba(211, 47, 47, 0.1);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .mat-grid-list-like {
+    grid-template-columns: 1fr 1fr; // Keep 2 columns on tablet
+    gap: 6px;
+  }
+  
+  .grid-tile {
+    min-height: 70px;
+  }
+  
+  .metric-content {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .metric-icon {
+    width: 32px;
+    height: 32px;
+    
+    i {
+      font-size: 14px;
+    }
+  }
+  
+  .metric-value {
+    font-size: 14px;
+  }
+  
+  .metric-title {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .mat-grid-list-like {
+    grid-template-columns: 1fr; // Single column on mobile
+    gap: 6px;
+  }
+  
+  .grid-tile {
+    min-height: 65px;
+  }
+  
+  .metric-content {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .metric-icon {
+    width: 32px;
+    height: 32px;
+    
+    i {
+      font-size: 14px;
+    }
+  }
+  
+  .metric-value {
+    font-size: 14px;
+  }
+  
+  .metric-title,
+  .metric-change {
+    font-size: 10px;
+  }
+}

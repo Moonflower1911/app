@@ -1,0 +1,14 @@
+div.background {
+  position: relative;
+  background-image: url('../../../../../assets/images/bg-login.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  div#logo {
+    img {
+      width: 200px !important;
+    }
+  }
+
+}

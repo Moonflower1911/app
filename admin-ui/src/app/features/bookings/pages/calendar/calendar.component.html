@@ -1,0 +1,218 @@
+<app-page-title [title]="('bookings.pages.calendar.title'|translate)"
+                [subTitle]="'bookings.pages.calendar.subtitle'|translate"></app-page-title>
+
+<!--Period input-->
+<form [formGroup]="searchForm">
+  <c-row class="mb-3">
+    <c-col [md]="3">
+      <div *ngIf="!isNavigating">
+        <input
+          [(ngModel)]="selected"
+          [ranges]="ranges"
+          (datesUpdated)="onDateRangeSelected($event)"
+          [showDropdowns]="true"
+          [opens]="'right'"
+          [alwaysShowCalendars]="true"
+          [showRangeLabelOnInput]="true"
+          [linkedCalendars]="false"
+          size="sm"
+          type="text"
+          class="form-control"
+          [locale]="{ applyLabel: ('bookings.pages.calendar.datePicker.apply' | translate), format: 'DD-MM-YYYY' }"
+          ngxDaterangepickerBootstrap
+          formControlName="period"
+        />
+      </div>
+    </c-col>
+  </c-row>
+</form>
+
+<!-- Loading State -->
+@if (isLoading) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'bookings.pages.calendar.loading.spinnerText' | translate }}</span>
+    </div>
+    <p class="mt-2">{{ 'bookings.pages.calendar.loading.message' | translate }}</p>
+  </div>
+}
+
+<!-- Content -->
+@if (!isLoading) {
+  <c-card>
+    <c-card-body class="calendar-wrapper">
+      <table cTable>
+        <thead class="fixed-header">
+        <tr>
+          <!-- Units Column -->
+          <th class="units-header">
+            <div class="units-header-content">
+              <div class="units-title">
+                {{ 'bookings.pages.calendar.table.unitsHeader' | translate }}
+              </div>
+
+              <div class="category-search">
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="{{ 'bookings.pages.calendar.table.searchPlaceholder' | translate }}"
+                  [(ngModel)]="categorySearchTerm"
+                  (input)="onCategorySearch($event)"
+                />
+              </div>
+            </div>
+          </th>
+
+          <!-- Dates -->
+          @for (date of dateRange; track date) {
+            <th class="date-header">
+              <div class="date-text">{{ formatDate(date) }}</div>
+            </th>
+          }
+        </tr>
+        </thead>
+
+        <!-- Body -->
+        <tbody>
+          @for (unit of displayedUnits; track unit.id) {
+            <ng-container>
+              <!-- Unit Header -->
+              <tr class="category-row">
+                <td class="category-header-cell">
+                  <div
+                    class="category-header-item"
+                    [style.background-color]="getUnitColor(unit)"
+                    [style.color]="getUnitTextColor(unit)"
+                    (click)="toggleUnit(unit)"
+                  >
+                    <div class="category-info">
+                      <span class="category-name">{{ unit.name }}</span>
+                      <span class="room-count">{{ getRoomCount(unit) }}</span>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- Unit Date Cells -->
+                @for (date of dateRange; track date) {
+                  <td
+                    class="category-cell"
+                    [style.background-color]="getUnitColor(unit)"
+                  >
+                    @if (getUnconfirmedBookings(unit, date); as bookings) {
+                      <div>
+                        <ng-template #popTemplate>
+                          @for (booking of bookings; track booking) {
+                            <div class="unconfirmed-booking-item">
+                              <div class="booking-header" (click)="routeToDetails(booking)">
+                                <span class="fw-semibold me-2">
+                                  {{ 'bookings.pages.calendar.bookings.referenceLabel' | translate }}
+                                </span>
+                                <strong class="booking-ref text-muted">
+                                  #{{ booking.reference }}
+                                </strong>
+                              </div>
+
+                              <div class="booking-dates">
+                                <span>
+                                  <strong>{{ 'bookings.pages.calendar.bookings.from' | translate }}</strong>
+                                  {{ booking.checkinDate | date:'yy-MM-dd' }}
+                                  <strong>{{ 'bookings.pages.calendar.bookings.to' | translate }}</strong>
+                                  {{ booking.checkoutDate | date:'yy-MM-dd' }}
+                                  ({{ getDaysDifference(booking.checkinDate, booking.checkoutDate) }} {{ 'bookings.pages.calendar.bookings.daysSuffix' | translate }})
+                                </span>
+                              </div>
+
+                              <div class="booking-contact">
+                                <span>
+                                  <strong>{{ 'bookings.pages.calendar.bookings.contact' | translate }}</strong>
+                                  {{ booking.contact?.name || ('bookings.pages.calendar.bookings.noContact' | translate) }}
+                                </span>
+                              </div>
+                            </div>
+                          }
+                        </ng-template>
+
+                        <button
+                          type="button"
+                          class="appendingBookings"
+                          containerClass="containerClass"
+                          [popover]="popTemplate"
+                          popoverTitle="{{ 'bookings.pages.calendar.table.unconfirmedBookingsTitle' | translate }}"
+                          [adaptivePosition]="true"
+                          container="body"
+                          boundariesElement="viewport"
+                          placement="bottom"
+                          triggers="click"
+                          [outsideClick]="true"
+                          [disabled]="bookings.length==0"
+                        >
+                          {{ bookings.length }}
+                        </button>
+                      </div>
+                    }
+                  </td>
+                }
+              </tr>
+
+              <!-- Room Rows -->
+              @if (!isUnitCollapsed(unit)) {
+                @for (subUnit of unit.subUnits; track subUnit.id) {
+                  <tr class="room-row">
+                    <td class="room-header-cell">
+                      <div
+                        class="room-item"
+                        [style.border-left-color]="getUnitColor(unit)"
+                      >
+                        <span class="room-number">{{ subUnit.name }}</span>
+                      </div>
+                    </td>
+
+                    @for (date of dateRange; track date) {
+                      <td
+                        class="booking-cell"
+                        [class.weekend-cell]="isWeekEnd(date)"
+                      >
+                        <!-- Empty for timeline -->
+                      </td>
+                    }
+
+                    <!-- Timeline -->
+                    <div class="timeline-overlay" [style.left.px]="getTimelineLeftOffset()">
+                      @for (booking of getBookingsForRoom(subUnit.id); track booking.id) {
+                        <div
+                          class="timeline-booking"
+                          [style.background-color]="getBookingColor(booking)"
+                          [style.border]="getBookingBorderColor(booking)"
+                          [style.left.%]="getBookingLeftPosition(booking)"
+                          [style.width.%]="getBookingWidth(booking)"
+                          [class.check-in-rounded]="true"
+                          [class.check-out-rounded]="true"
+                          [title]="
+                            ( 'bookings.pages.calendar.timeline.guestPrefix' | translate ) + ' ' + (booking.contact?.name || ( 'bookings.pages.calendar.timeline.unknownGuest' | translate )) +
+                            ' | ' + ( 'bookings.pages.calendar.timeline.statusPrefix' | translate ) + ' ' + booking.status +
+                            ' | ' + ( 'bookings.pages.calendar.timeline.typePrefix' | translate ) + ' ' + booking.type +
+                            ' | ' + ( 'bookings.pages.calendar.timeline.refPrefix' | translate ) + ' ' + booking.reference
+                          "
+                        >
+                          <div class="guest-timeline-item guest-name">
+                            <span>{{ booking.contact?.name || ('bookings.pages.calendar.timeline.unknownGuest' | translate) }}</span>
+                          </div>
+                          <div class="guest-timeline-item guest-time">
+                            <span>{{ booking.checkinDate | date:'yyyy-MM-dd' }}</span>
+                            <span>{{ 'bookings.pages.calendar.timeline.to' | translate }}</span>
+                            <span>{{ booking.checkoutDate | date:'yyyy-MM-dd' }}</span>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  </tr>
+                }
+              }
+            </ng-container>
+          }
+        </tbody>
+      </table>
+    </c-card-body>
+  </c-card>
+}
+

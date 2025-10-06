@@ -1,0 +1,100 @@
+<c-row class="mb-3">
+    <c-col [md]="4">
+        <c-input-group sizing="sm" class="search-input">
+        <span cInputGroupText>
+          <svg [cIcon]="icons.cilSearch"></svg>
+        </span>
+            <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+                   [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+        </c-input-group>
+    </c-col>
+
+    <c-col [md]="8" class="d-flex justify-content-end">
+        <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openCuModal()">
+            <i class="bi bi-plus-lg"></i> {{ 'administration.accounting.account-class.pages.list.add-button' |translate }}
+        </button>
+    </c-col>
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+    <c-row class="d-flex justify-content-center mt-5">
+        <c-spinner color="secondary"/>
+    </c-row>
+    <c-row class="d-flex justify-content-center mt-1">
+        <c-col [md]="4" class="d-flex justify-content-center text-center">
+            {{ 'commons.snippets.loading'|translate }}
+        </c-col>
+    </c-row>
+} @else {
+
+    @if (!isListEmpty) {
+        <c-row [gutter]="4" class="mb-3" [md]="3" [xs]="1">
+            @for (accountClass of listContent; track accountClass.id) {
+                <c-col>
+                    <c-card class="h-100 card-hover" [ngClass]="{'system-class': accountClass.systemCritical}">
+                        <c-card-body>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+
+                                <h6 cCardTitle class="fw-bold mb-0 text-primary">{{ accountClass.name |titlecase }}</h6>
+
+                                @if (accountClass.systemCritical) {
+                                    <app-badge color="warning" [rounded]="true" [smaller]="false">
+                                        <i class="bi bi-lock-fill"></i>
+                                        {{ 'administration.accounting.account-class.pages.list.labels.system'|translate }}
+                                    </app-badge>
+                                }
+                            </div>
+                            <p cCardText class="text-dark-emphasis">
+                                @if (accountClass.description) {
+                                    {{ accountClass.description.length > 120 ? (accountClass.description | slice:0:120) + '...' : accountClass.description }}
+                                } @else {
+                                    <span class="gray">
+                                    {{ 'administration.accounting.account-class.pages.list.labels.no-description'|translate }}
+                                    </span>
+                                }
+                            </p>
+                        </c-card-body>
+                        <c-card-footer class="bg-white">
+                            <c-row>
+                                <c-col class="d-flex align-items-center">
+                                    <app-badge [color]="accountClass.enabled?'success':'dark'" [rounded]="true"
+                                               [smaller]="false">
+                                        {{ ('administration.accounting.account-class.pages.list.labels.' + (accountClass.enabled ? 'enabled' : 'disabled'))|translate }}
+                                    </app-badge>
+                                </c-col>
+
+                                @if (!accountClass.systemCritical) {
+                                    <c-col class="d-flex justify-content-end">
+                                        <button cButton size="sm" class="me-2 btn-info-light"
+                                                (click)="openCuModal(accountClass)">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button cButton size="sm" class="btn-danger-light" (click)="confirmDeletion(accountClass)">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </c-col>
+                                }
+                            </c-row>
+                        </c-card-footer>
+                    </c-card>
+                </c-col>
+            }
+        </c-row>
+    } @else {
+        @if (!isSearchActive) {
+            <app-empty-data imageSrc="assets/images/animations/units.gif"
+                            [message]="'administration.accounting.account-class.pages.list.empty-data'|translate">
+            </app-empty-data>
+        } @else {
+            <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+            </app-empty-data>
+        }
+    }
+
+}

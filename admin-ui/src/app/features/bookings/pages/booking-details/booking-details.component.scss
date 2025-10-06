@@ -1,0 +1,158 @@
+.booking-card {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  .c-card-body {
+    padding: 24px;
+  }
+
+  .booking-header {
+    margin-bottom: 25px;
+
+    .booking-title-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .booking-reference {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .booking-type {
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .total-amount-section {
+      text-align: right;
+
+      .total-label {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .total-value {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1;
+      }
+    }
+  }
+
+  .section-block {
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .section-list {
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  // Payment Section
+  .payment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .payment-value {
+      font-weight: 600;
+
+      &.payment-paid {
+        color: #059669;
+      }
+
+      &.payment-remaining {
+        color: #d97706;
+      }
+    }
+  }
+
+  // Summary Section
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  }
+
+  .rooms-assigned-badge {
+    background-color: #3b82f6;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .notes-section {
+    .notes-content {
+      background-color: #fefce8;
+      border-radius: 8px;
+      padding: 16px;
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #374151;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+
+.info-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+}
+.guest-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+

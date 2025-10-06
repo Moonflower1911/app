@@ -1,0 +1,15 @@
+.accordion-button::after {
+  content: none !important;
+  display: none !important;
+}
+.subgroup-label{
+  font-size: 12.25px !important;
+}
+
+.accordion-body{
+  .card{
+    &:not(:first-child) {
+      margin-top: 0.5rem;
+    }
+  }
+}

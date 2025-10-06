@@ -1,0 +1,58 @@
+@use './variables' as *;
+
+
+.text-muted {
+  color: $muted-color !important;
+}
+
+.bg-indigo{
+  background-color: $indigo;
+}
+
+.bg-teal{
+  background-color: $teal;
+}
+
+
+
+body {
+  font-family: 'Poppins', serif;
+  font-weight: 400;
+  font-size: 14px !important;
+
+  .text
+  h6.section-title {
+    font-weight: 500 !important;
+    color: $secondary !important;
+
+    &.underline {
+      margin-bottom: 1.5rem;
+
+      &:after {
+        content: ' ';
+        display: block;
+        background: $secondary !important;
+        opacity: 30%;
+        border-radius: 50px;
+        height: .3rem;
+        margin-top: .1rem;
+        width: 2rem;
+      }
+    }
+  }
+
+  .text-light-danger {
+    color: #FFB399;
+  }
+
+  .text-light-success {
+    color: #A8E6A3;
+  }
+
+
+}
+
+
+.bg-warning-light{
+  background-color: $warning-01;
+}

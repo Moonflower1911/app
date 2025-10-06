@@ -1,0 +1,25 @@
+<div class="widget-card-container">
+  <div class="widget-icon" [style.background-color]="iconBackGroundColor">
+    <i [class]="iconClass" [style.color]="iconColor"></i>
+  </div>
+  <div class="widget-content">
+    <h3 class="widget-title">{{ title }}</h3>
+    <div class="widget-value">
+      <ng-container *ngIf="hasTwoNumbers(subtitle); else singleNumber">
+        <span class="first-number" [style.color]="iconBackGroundColor">{{ getFirstNumber(subtitle) }}</span>
+        <span class="separator"> / </span>
+        <span class="second-number">{{ getSecondNumber(subtitle) }}</span>
+      </ng-container>
+      <ng-template #singleNumber>
+        <span class="single-number" 
+              [ngClass]="{'colored-number': shouldColorNumber(title), 'black-number': !shouldColorNumber(title)}"
+              [style.color]="shouldColorNumber(title) ? iconBackGroundColor : '#111827'">
+          {{ subtitle }}
+        </span>
+      </ng-template>
+    </div>
+    @if(description){
+      <p class="widget-description" [innerHTML]="description"></p>
+    }
+  </div>
+</div>

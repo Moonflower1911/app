@@ -1,0 +1,124 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: gateway
+  # ===================================================================
+  # General configuration
+  # ===================================================================
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  # ==================================================================
+  # Jackson configuration
+  # ==================================================================
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  # ==================================================================
+  # Discovery configuration
+  # ==================================================================
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: "${spring.application.name}"
+        prefer-ip-address: true
+        health-check-critical-timeout: "1m"
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+    # ===================================================================
+    # Routing configuration
+    # ===================================================================
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+      routes:
+        - id: uaa
+          uri: lb://uaa
+          predicates:
+            - Path=/authMgtApi/**
+          filters:
+            - RewritePath=/authMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: unit
+          uri: lb://unit
+          predicates:
+            - Path=/unitMgtApi/**
+          filters:
+            - RewritePath=/unitMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: guest
+          uri: lb://guest
+          predicates:
+            - Path=/guestMgtApi/**
+          filters:
+            - RewritePath=/guestMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: media
+          uri: lb://media
+          predicates:
+            - Path=/mediaMgtApi/**
+          filters:
+            - RewritePath=/mediaMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: rate
+          uri: lb://rate
+          predicates:
+            - Path=/rateMgtApi/**
+          filters:
+            - RewritePath=/rateMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: booking
+          uri: lb://booking
+          predicates:
+            - Path=/bookingMgtApi/**
+          filters:
+            - RewritePath=/bookingMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: invoice
+          uri: lb://invoice
+          predicates:
+            - Path=/invoiceMgtApi/**
+          filters:
+            - RewritePath=/invoiceMgtApi/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+# ===================================================================
+# Monitoring & Traceability configuration
+# ===================================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+#    defer-datasource-initialization: true
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath*:scripts/schema.sql
+

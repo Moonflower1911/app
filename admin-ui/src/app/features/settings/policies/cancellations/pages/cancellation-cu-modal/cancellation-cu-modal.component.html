@@ -1,0 +1,194 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    {{ ('settings.policies.cancellation.pages.cu-modal.title.' + (cancellationToEdit ? 'edit' : 'create'))|translate }}
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form cForm [formGroup]="cancellationForm" (ngSubmit)="submit()">
+
+    <c-row>
+
+      <c-col [md]="6">
+        <!--Code & Name inputs-->
+        <c-row class="mb-3">
+          <!--Code input-->
+          <c-col [md]="4">
+            <label cLabel class="required"
+                   for="code">{{ 'commons.form.inputs.code-input.label' | translate }}</label>
+            <input cFormControl formControlName="code" id="code" type="text"/>
+            @if (cancellationForm.get('code')?.touched && cancellationForm.get('code')?.invalid) {
+              @if (cancellationForm.get('code')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+            @if (formErrors?.code?.unique) {
+              <c-form-feedback
+                [valid]="false">{{ 'commons.form.inputs.code-input.errors.unique' | translate }}
+              </c-form-feedback>
+            }
+          </c-col>
+          <!--Name input-->
+          <c-col [md]="8">
+            <label cLabel class="required"
+                   for="name">{{ 'commons.form.inputs.name-input.label' | translate }}</label>
+            <input cFormControl formControlName="name" id="name" type="text"/>
+            @if (cancellationForm.get('name')?.touched && cancellationForm.get('name')?.invalid) {
+              @if (cancellationForm.get('name')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+
+        <!--Rule input-->
+        <c-row class="mb-3">
+          <c-col [md]="12">
+            <label cLabel for="hours" class="required">
+              {{ 'settings.policies.cancellation.pages.cu-modal.form.rule-input.label' | translate }}
+            </label>
+            <c-input-group>
+              <input id="hours" cFormControl type="number" formControlName="hours"/>
+              <span cInputGroupText>{{ 'settings.policies.cancellation.pages.list.labels.hours'|translate }}</span>
+              <c-dropdown>
+                <button cButton cDropdownToggle color="secondary" variant="outline">
+                  {{
+                    ('settings.policies.cancellation.pages.cu-modal.form.rule-input.values.' + cancellationForm.value.timingType) |translate
+                  }}
+                </button>
+                <div cDropdownMenu>
+                  <button type="button" cDropdownItem (click)="setTimingType('AFTER_BOOKING')">
+                    {{ 'settings.policies.cancellation.pages.cu-modal.form.rule-input.values.AFTER_BOOKING'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setTimingType('BEFORE_CHECKIN')">
+                    {{ 'settings.policies.cancellation.pages.cu-modal.form.rule-input.values.BEFORE_CHECKIN'|translate }}
+                  </button>
+                </div>
+              </c-dropdown>
+            </c-input-group>
+            @if (cancellationForm.get('hours')?.touched && cancellationForm.get('hours')?.invalid) {
+              @if (cancellationForm.get('hours')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+      </c-col>
+
+      <c-col [md]="6">
+        <!--Description input-->
+        <c-row>
+          <c-col [md]="12">
+            <label cLabel for="description">
+              {{ 'commons.form.inputs.description-input.label' | translate }}
+            </label>
+            <textarea cFormControl formControlName="description" rows="4"
+                      [placeholder]="'administration.accounting.posting-account.pages.cu-modal.form.description-input.placeholder'|translate">
+            </textarea>
+            @if (cancellationForm.get('description')?.touched && cancellationForm.get('description')?.invalid) {
+              @if (cancellationForm.get('description')?.errors?.['maxlength']) {
+                <c-form-feedback [valid]="false">
+                  {{ 'commons.form.inputs.description-input.errors.max-length' | translate }}
+                </c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+      </c-col>
+
+    </c-row>
+
+    <c-row class="mb-3">
+      <!--Amount input-->
+      <c-col [md]="6">
+        <label cLabel for="hours" class="required">
+          {{ 'commons.form.inputs.amount-input.label' | translate }}
+        </label>
+        <c-input-group>
+          <input id="hours" cFormControl type="number" formControlName="amount"/>
+          <span cInputGroupText>
+            @if (cancellationForm.value.type == 'FLAT') {
+              MAD
+            } @else {
+              %
+            }
+          </span>
+          <c-dropdown>
+            <button cButton cDropdownToggle color="secondary" variant="outline">
+              {{
+                ('settings.policies.cancellation.pages.cu-modal.form.type-input.values.' + cancellationForm.value.type) |translate
+              }}
+            </button>
+            <div cDropdownMenu>
+              <button type="button" cDropdownItem (click)="setType('FLAT')">
+                {{ 'settings.policies.cancellation.pages.cu-modal.form.type-input.values.FLAT'|translate }}
+              </button>
+              <button type="button" cDropdownItem (click)="setType('AVG_NIGHT')">
+                {{ 'settings.policies.cancellation.pages.cu-modal.form.type-input.values.AVG_NIGHT'|translate }}
+              </button>
+              <button type="button" cDropdownItem (click)="setType('MAX_NIGHT')">
+                {{ 'settings.policies.cancellation.pages.cu-modal.form.type-input.values.MAX_NIGHT'|translate }}
+              </button>
+              <button type="button" cDropdownItem (click)="setType('MIN_NIGHT')">
+                {{ 'settings.policies.cancellation.pages.cu-modal.form.type-input.values.MIN_NIGHT'|translate }}
+              </button>
+              <button type="button" cDropdownItem (click)="setType('STAY')">
+                {{ 'settings.policies.cancellation.pages.cu-modal.form.type-input.values.STAY'|translate }}
+              </button>
+            </div>
+          </c-dropdown>
+        </c-input-group>
+        @if (cancellationForm.get('hours')?.touched && cancellationForm.get('hours')?.invalid) {
+          @if (cancellationForm.get('hours')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+
+      <!--Posting Account input-->
+      <c-col [md]="6">
+        <label cLabel for="postingAccount" class="required">
+          {{ 'commons.form.inputs.posting-account-input.label' | translate }}
+        </label>
+        <app-posting-account-select id="postingAccount" [accountClass]="'revenue'"
+                                    formControlName="postingAccount"></app-posting-account-select>
+        @if (cancellationForm.get('postingAccount')?.touched && cancellationForm.get('postingAccount')?.invalid) {
+          @if (cancellationForm.get('postingAccount')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <!--Enabled input-->
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <c-form-check [switch]="true">
+          <input id="enabled-input" cFormCheckInput type="checkbox" formControlName="enabled"/>
+          <label cFormCheckLabel for="enabled-input">
+            {{ 'commons.form.enabled-check.label'|translate }}</label>
+        </c-form-check>
+        <div class="form-text">
+          {{
+            'settings.policies.cancellation.pages.cu-modal.form.enabled-input.placeholder'|translate
+          }}
+        </div>
+      </c-col>
+    </c-row>
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!cancellationForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+  </form>
+</div>

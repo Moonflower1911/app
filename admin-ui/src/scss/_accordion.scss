@@ -1,0 +1,21 @@
+@use './variables' as *;
+
+.accordion {
+  .accordion-item {
+    .accordion-header {
+      background-color: transparent;
+
+      button {
+        padding: .75rem 1rem;
+        background-color: $secondary-01;
+        border-color: $secondary-02;
+        color: $primary;
+        font-weight: 500;
+
+        &.collapsed {
+          background-color: white;
+        }
+      }
+    }
+  }
+}

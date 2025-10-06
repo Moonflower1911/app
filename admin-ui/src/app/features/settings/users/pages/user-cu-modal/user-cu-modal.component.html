@@ -1,0 +1,182 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    @if (userToEdit) {
+      {{ 'administration.users.pages.edit-user.title' | translate }}
+    } @else {
+      {{ 'administration.users.pages.create-user.title' | translate }}
+    }
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+  <form (submit)="submit()" [formGroup]="userForm" cForm>
+    <!-- Full name input -->
+    <c-row class="mb-3">
+      <c-col md="12">
+        <label cLabel class="required" for="fullName">
+          {{ 'administration.users.pages.create-user.form.fullname-input.label' | translate }}
+        </label>
+        <input
+          cFormControl
+          formControlName="fullName"
+          id="fullName"
+          type="text"
+          class="text-capitalize" />
+        @if (userForm.get('fullName')?.touched && userForm.get('fullName')?.hasError('required')) {
+          <c-form-feedback [valid]="false">
+            {{ 'commons.errors.required' | translate }}
+          </c-form-feedback>
+        }
+      </c-col>
+    </c-row>
+
+    <!-- Email & Mobile inputs -->
+    <c-row class="mb-3">
+      <!-- Email input -->
+      <c-col md="6">
+        <label cLabel class="required" for="email">
+          {{ 'administration.users.pages.create-user.form.email-input.label' | translate }}
+        </label>
+        <input
+          cFormControl
+          formControlName="email"
+          id="email"
+          type="email"
+          (input)="uniqueEmailError = false" />
+        @if (userForm.get('email')?.touched && userForm.get('email')?.invalid) {
+          @if (userForm.get('email')?.hasError('required')) {
+            <c-form-feedback [valid]="false">
+              {{ 'commons.errors.required' | translate }}
+            </c-form-feedback>
+          }
+          @if (userForm.get('email')?.hasError('invalidEmail')) {
+            <c-form-feedback [valid]="false">
+              {{ 'commons.errors.email' | translate }}
+            </c-form-feedback>
+          }
+        }
+        @if (uniqueEmailError) {
+          <c-form-feedback [valid]="false">
+            This email is already assigned to an existing user
+          </c-form-feedback>
+        }
+      </c-col>
+
+      <!-- Mobile input -->
+      <c-col md="6">
+        <label cLabel for="mobile">
+          {{ 'administration.users.pages.create-user.form.mobile-input.label' | translate }}
+        </label>
+        <ngx-intl-tel-input
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.Morocco"
+          cssClass="form-control"
+          formControlName="mobile"
+          id="mobile"
+          inputId="mobile">
+        </ngx-intl-tel-input>
+      </c-col>
+    </c-row>
+
+    <!-- Roles input -->
+    <c-row class="mb-3">
+      <c-col md="12">
+        <label cLabel class="required" for="roles">
+          {{ 'administration.users.pages.create-user.form.role-input.label' | translate }}
+        </label>
+        <ng-select
+          id="roles"
+          appearance="outline"
+          [searchable]="false"
+          [clearable]="false"
+          [items]="roles"
+          formControlName="roles">
+          <ng-template ng-label-tmp let-item="item">
+            <span>{{ getRoleLabel(item) }}</span>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <span>{{ getRoleLabel(item) }}</span>
+          </ng-template>
+        </ng-select>
+        @if (userForm.get('roles')?.touched && userForm.get('roles')?.hasError('required')) {
+          <c-form-feedback [valid]="false">
+            {{ 'commons.errors.required' | translate }}
+          </c-form-feedback>
+        }
+      </c-col>
+    </c-row>
+
+    <!-- Enabled checkbox (only in edit mode) -->
+    @if (userToEdit) {
+      <c-row class="mt-4">
+        <c-col md="6">
+          <c-form-check [switch]="true">
+            <input
+              cFormCheckInput
+              type="checkbox"
+              formControlName="enabled"
+              id="enabled" />
+            <label cFormCheckLabel for="enabled">
+              {{ 'administration.users.pages.edit-user.form.enabled-input.label' | translate }}
+            </label>
+          </c-form-check>
+        </c-col>
+      </c-row>
+    }
+
+    <!-- Loading indicator -->
+    @if (isSubmitting) {
+      <c-row>
+        <c-col md="12" class="text-center mt-2">
+          <div class="d-flex align-items-center justify-content-center">
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            <small class="text-muted">
+              @if (userToEdit) {
+                Updating user...
+              } @else {
+                Creating user...
+              }
+            </small>
+          </div>
+        </c-col>
+      </c-row>
+    }
+
+    <!-- Modal footer -->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button
+          type="button"
+          cButton
+          color="dark"
+          size="sm"
+          variant="ghost"
+          (click)="closeModal()"
+          [disabled]="isSubmitting">
+          {{ 'commons.form.cancel-btn' | translate }}
+        </button>
+        <button
+          type="submit"
+          cButton
+          class="ms-3"
+          color="primary"
+          size="sm"
+          [disabled]="!userForm.valid || isSubmitting">
+          @if (userToEdit) {
+            {{ 'commons.form.update-btn' | translate }}
+          } @else {
+            {{ 'commons.form.save-btn' | translate }}
+          }
+        </button>
+      </c-col>
+    </c-row>
+  </form>
+</div>

@@ -1,0 +1,166 @@
+<c-row class="bg-info py-2 bg-opacity-10 rounded-2">
+  <form [formGroup]="restrictionsForm" (ngSubmit)="submit()">
+    <!--Title-->
+    <c-col [md]="12">
+      <div class="d-flex justify-content-between align-items-start">
+        <!-- Left side: title + subtitle -->
+        <div>
+          <h6 class="section-title underline mb-0">
+        <span class="me-2">
+          {{ 'rate-plan.pages.settings.restrictions-section.title' | translate }}
+        </span>
+          </h6>
+          <div id="daySpecificHelpBlock" class="form-text mb-3">
+            {{ 'rate-plan.pages.settings.restrictions-section.subtitle' | translate }}
+          </div>
+        </div>
+
+        <!-- Right side: button -->
+        <button cButton size="sm" type="submit" class="btn-primary-light" [disabled]="!restrictionsForm.valid">
+          <i class="bi bi-floppy me-1"></i> {{ 'commons.form.buttons.update' | translate }}
+        </button>
+      </div>
+    </c-col>
+
+    <!--Length Of Stay-->
+    <c-col class="mb-3" [md]="12">
+      <c-card>
+        <c-card-body>
+          <h6 cCardTitle class="text-info-emphasis">
+            {{ 'rate-plan.pages.settings.restrictions-section.los.title' | translate }}
+          </h6>
+          <h6 cCardSubtitle class="mb-2 small text-medium-emphasis">
+            {{ 'rate-plan.pages.settings.restrictions-section.los.subtitle' | translate }}
+          </h6>
+
+          <c-row>
+
+            <c-col [md]="6">
+              <label cLabel for="minLos" class="required">
+                {{ 'rate-plan.pages.settings.restrictions-section.los.form.min-los-input.label' | translate }}
+              </label>
+              <c-input-group class="mb-3">
+                <input cFormControl formControlName="minLos" id="minLos" type="number"/>
+                <span cInputGroupText>
+                  {{ 'rate-plan.pages.settings.restrictions-section.los.form.night-label' | translate }}
+                </span>
+                @if (((restrictionsForm.get('minLos')?.touched || restrictionsForm.get('minLos')?.dirty))) {
+                  @if (restrictionsForm.get('minLos')?.hasError('required')) {
+                    <c-form-feedback [valid]="false">{{ 'commons.errors.required'|translate }}
+                    </c-form-feedback>
+                  }
+                  @if (restrictionsForm.get('minLos')?.hasError('min')) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'rate-plan.pages.settings.restrictions-section.los.form.min-los-input.errors.min'|translate }}
+                    </c-form-feedback>
+                  }
+                }
+              </c-input-group>
+
+            </c-col>
+
+            <c-col [md]="6">
+              <label cLabel for="maxLos">
+                {{ 'rate-plan.pages.settings.restrictions-section.los.form.max-los-input.label' | translate }}
+              </label>
+              <c-input-group class="mb-3">
+                <input cFormControl formControlName="maxLos" id="maxLos" type="number"/>
+                <span cInputGroupText>
+                  {{ 'rate-plan.pages.settings.restrictions-section.los.form.night-label' | translate }}
+                </span>
+                @if (((restrictionsForm.get('maxLos')?.touched || restrictionsForm.get('maxLos')?.dirty))) {
+                  @if (restrictionsForm.get('maxLos')?.hasError('min')) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'rate-plan.pages.settings.restrictions-section.los.form.min-los-input.errors.min'|translate }}
+                    </c-form-feedback>
+                  }
+                  @if (restrictionsForm.get('maxLos')?.hasError('losRange')) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'rate-plan.pages.settings.restrictions-section.los.form.max-los-input.errors.los-range'|translate }}
+                    </c-form-feedback>
+                  }
+                }
+              </c-input-group>
+            </c-col>
+
+          </c-row>
+
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <!--Booking Window-->
+    <c-col [md]="12">
+      <c-card>
+        <c-card-body>
+          <h6 cCardTitle class="text-info-emphasis">
+            {{ 'rate-plan.pages.settings.restrictions-section.booking-window.title' | translate }}
+          </h6>
+          <h6 cCardSubtitle class="mb-2 small text-medium-emphasis">
+            {{ 'rate-plan.pages.settings.restrictions-section.booking-window.subtitle' | translate }}
+          </h6>
+
+          <c-row>
+
+            <c-col [md]="6">
+              <label cLabel for="minLead" class="required">
+                {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.min-lead-input.label' | translate }}
+              </label>
+              <c-input-group class="mb-3">
+                <input cFormControl formControlName="minLead" id="minLead" type="number"/>
+                <span cInputGroupText>
+                  {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.day-label' | translate }}
+                </span>
+                @if (((restrictionsForm.get('minLead')?.touched || restrictionsForm.get('minLead')?.dirty))) {
+                  @if (restrictionsForm.get('minLead')?.hasError('required')) {
+                    <c-form-feedback [valid]="false">{{ 'commons.errors.required'|translate }}
+                    </c-form-feedback>
+                  }
+                  @if (restrictionsForm.get('minLead')?.hasError('min')) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.min-lead-input.errors.min'|translate }}
+                    </c-form-feedback>
+                  }
+                }
+              </c-input-group>
+            </c-col>
+
+            <c-col [md]="6">
+              <label cLabel for="maxLead">
+                {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.max-lead-input.label' | translate }}
+              </label>
+              <c-input-group class="mb-3">
+                <input cFormControl formControlName="maxLead" id="maxLead" type="number"/>
+                <span cInputGroupText>
+                  {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.day-label' | translate }}
+                </span>
+                @if (((restrictionsForm.get('maxLead')?.touched || restrictionsForm.get('maxLead')?.dirty))) {
+                  @if (restrictionsForm.get('maxLead')?.hasError('min')) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.min-lead-input.errors.min'|translate }}
+                    </c-form-feedback>
+                  }
+                  @if (restrictionsForm.get('maxLead')?.hasError('leadRange')) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'rate-plan.pages.settings.restrictions-section.booking-window.form.max-lead-input.errors.lead-range'|translate }}
+                    </c-form-feedback>
+                  }
+                }
+              </c-input-group>
+            </c-col>
+
+          </c-row>
+
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </form>
+
+</c-row>
+
+
+
+
+
+
+
+

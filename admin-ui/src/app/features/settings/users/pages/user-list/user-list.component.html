@@ -1,0 +1,155 @@
+<c-row class="page-title mb-3">
+  <c-col md="6" class="d-flex align-items-center">
+    <h5 class="page-title mb-0">{{ 'administration.users.pages.list-users.title' | translate }}</h5>
+  </c-col>
+  <c-col md="6" class="d-flex justify-content-end">
+    <button
+      cButton
+      size="sm"
+      color="secondary"
+      (click)="openUserCuModal()"
+      [disabled]="isLoading">
+      {{ 'administration.users.pages.list-users.cta.add-btn' | translate }}
+    </button>
+  </c-col>
+</c-row>
+
+<c-row class="mb-3">
+  <c-col md="4">
+    <c-input-group sizing="sm" class="search-input">
+      <span cInputGroupText>
+        <svg [cIcon]="icons.cilSearch"></svg>
+      </span>
+      <input
+        id="searchBar"
+        cFormControl
+        (input)="onSearch($event)"
+        [placeholder]="'commons.form.search-input.placeholder' | translate" />
+    </c-input-group>
+  </c-col>
+</c-row>
+
+<app-table-control
+  [currentNumberElements]="currentNumberOfElements"
+  [totalElements]="totalElements"
+  [size]="pageSize"
+  [hasNext]="hasNext"
+  [hasPrevious]="hasPrevious"
+  (sizeChanged)="changeSize($event)"
+  (nextClicked)="nextPage()"
+  (previousClicked)="previousPage()">
+</app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"></c-spinner>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col md="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading' | translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+    <div class="table-responsive">
+      <table cTable hover [responsive]="true">
+        <thead>
+        <tr>
+          <th>{{ 'administration.users.pages.list-users.table.header.fullname' | translate }}</th>
+          <th>{{ 'administration.users.pages.list-users.table.header.role' | translate }}</th>
+          <th>{{ 'administration.users.pages.list-users.table.header.email' | translate }}</th>
+          <th>{{ 'administration.users.pages.list-users.table.header.mobile' | translate }}</th>
+          <th>{{ 'administration.users.pages.list-users.table.header.last-activity' | translate }}</th>
+          <th>{{ 'administration.users.pages.list-users.table.header.actions' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track user.id) {
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <c-avatar
+                    [size]="'md'"
+                    textColor="white"
+                    color="primary">
+                    {{ getNameInitials(user.fullName) }}
+                  </c-avatar>
+                  <div class="d-flex flex-column">
+                    <div>
+                      <span class="me-1">{{ user.fullName }}</span>
+                      @if (!user.enabled) {
+                        <i
+                          class="bi bi-patch-plus-fill text-danger"
+                          [adaptivePosition]="true"
+                          [tooltip]="'administration.users.pages.list-users.table.body.disabled-user' | translate">
+                        </i>
+                      } @else {
+                        @if (!user.activated) {
+                          <i
+                            class="bi bi-patch-exclamation-fill text-warning"
+                            [adaptivePosition]="true"
+                            [tooltip]="'administration.users.pages.list-users.table.body.not-activated-user' | translate">
+                          </i>
+                        } @else {
+                          <i
+                            class="bi bi-patch-check-fill text-success"
+                            [adaptivePosition]="true"
+                            [tooltip]="'administration.users.pages.list-users.table.body.activated-user' | translate">
+                          </i>
+                        }
+                      }
+                    </div>
+                    <div class="small text-body-secondary text-nowrap">
+                      <span>{{ 'commons.snippets.audit.created-by' | translate }} {{ user.audit.createdBy | auditName }}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                @for (role of user.roles; track role) {
+                  <app-badge [rounded]="true" color="danger">
+                    {{ getRoleLabel(role) }}
+                  </app-badge>
+                }
+              </td>
+              <td>
+                <span>{{ user.email }}</span>
+              </td>
+              <td>
+                {{ user.mobile ? user.mobile : ' - ' }}
+              </td>
+              <td>
+                <app-badge>
+                  <i class="bi bi-clock me-1"></i>
+                  {{ user.audit.createdAt | date: 'mediumDate' }}
+                </app-badge>
+              </td>
+              <td>
+                <div class="d-flex gap-1">
+                  <button
+                    cButton
+                    size="sm"
+                    class="btn-secondary-light"
+                    (click)="openUserCuModal(user)"
+                    title="{{ 'commons.table.actions.edit' | translate }}">
+                    <svg [cIcon]="icons.cilPen" size="sm"></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data
+        imageSrc="assets/images/animations/no-data.gif"
+        [message]="'administration.users.pages.list-users.messages.empty-data' | translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}

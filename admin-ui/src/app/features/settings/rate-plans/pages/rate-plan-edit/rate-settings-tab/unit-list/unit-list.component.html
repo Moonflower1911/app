@@ -1,0 +1,80 @@
+<!--Title-->
+<div>
+  <h6 class="section-title underline mb-0">
+    <span class="me-2"> {{ 'settings.rate-plan.pages.settings.units-section.title' | translate }}</span>
+  </h6>
+  <div id="daySpecificHelpBlock" class="form-text mb-3">
+    {{ 'settings.rate-plan.pages.settings.units-section.subtitle' | translate }}
+  </div>
+</div>
+
+<c-row class="mb-3">
+  <c-col [md]="6">
+    <c-input-group sizing="sm" class="search-input">
+        <span cInputGroupText>
+          <svg [cIcon]="icons.cilSearch"></svg>
+        </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+
+  <c-col [md]="6" class="d-flex justify-content-end">
+    <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openAddModal()">
+      <i
+        class="bi bi-plus-lg"></i> {{ 'settings.rate-plan.pages.settings.units-section.pages.list.add-btn' |translate }}
+    </button>
+  </c-col>
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+    @for (unit of listContent; track unit.id) {
+      <ul cListGroup class="mt-2">
+        <li cListGroupItem [class]="{'enabled-unit': unit.enabled, 'disabled-unit': (!unit.enabled)}"
+
+            class="d-flex justify-content-between align-items-center">
+          <div>
+            @if(unit.enabled){
+              <i class="bi bi-check-circle-fill text-secondary"></i>
+            }@else{
+              <i class="bi bi-x-circle-fill text-primary"></i>
+            }
+            {{ unit.unit.name }}
+            <app-badge [color]="'primary'" [smaller]="false">
+              {{ unit.unit.code }}
+            </app-badge>
+          </div>
+
+          <button cButton type="button" [color]="unit.enabled? 'secondary': 'primary'" size="sm" variant="outline" (click)="updateUnit(unit)">
+            {{ ('settings.rate-plan.pages.settings.units-section.pages.list.' + (unit.enabled ? 'disable-btn' : 'enable-btn'))|translate }}
+          </button>
+        </li>
+      </ul>
+    }
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/no-units.gif"
+                      [message]="'settings.rate-plan.pages.settings.units-section.pages.list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}

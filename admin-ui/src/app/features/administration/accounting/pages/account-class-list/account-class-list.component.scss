@@ -1,0 +1,17 @@
+@use '../../../../../../scss/variables' as *;
+
+.card {
+  &.system-class {
+    border-color: $warning !important;
+  }
+
+  &.card-hover {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+}

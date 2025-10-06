@@ -1,0 +1,267 @@
+<app-page-title [title]="'invoices.invoice-details.title'|translate">
+</app-page-title>
+
+@if (isLoading) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"></c-spinner>
+  </c-row>
+} @else if (error) {
+  <c-row class="mt-4">
+    <c-col>
+      <div class="alert alert-danger">{{ error }}</div>
+    </c-col>
+  </c-row>
+} @else {
+    <c-row class="mb-4">
+      <c-col [md]="9">
+        <c-card class="p-4">
+            <div class="mb-4 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    {{ 'invoices.invoice-details.invoice' | translate }} :
+                    <span class="text-primary">#{{ invoice.reference }}</span>
+                    @if (invoice.status === 'PAID') {
+                        <app-badge color="success">
+                            {{ 'invoices.invoice-list.table.body.invoice-status.PAID' | translate }}
+                        </app-badge>
+                    }
+                    @if (invoice.status === 'PENDING') {
+                        <app-badge color="warning" class="ms-2">
+                            {{ 'invoices.invoice-list.table.body.invoice-status.PENDING' | translate }}
+                        </app-badge>
+                    }
+                    @if (invoice.status === 'CANCELLED') {
+                        <app-badge color="danger">
+                            {{ 'invoices.invoice-list.table.body.invoice-status.CANCELLED' | translate }}
+                        </app-badge>
+                    }
+                </h5>
+                <button cButton color="primary" size="sm" variant="outline" (click)="downloadInvoice()">
+                    <svg [cIcon]="icons.cilCloudDownload" class="me-2"></svg>
+                    {{ 'invoices.snippets.save' | translate }}
+                </button>
+            </div>
+
+            <c-row class="bg-light p-3 rounded mb-4">
+                <c-col [md]="6">
+                    <div class="fw-semibold text-muted mb-2">{{ 'invoices.invoice-details.billing-from' | translate }}</div>
+                    <div class="fw-bold">{{ property?.name }}</div>
+                    <div>
+                        {{ property?.address?.street1 }}
+                        @if (property?.address?.street2) {, {{ property?.address?.street2 }} }
+                    </div>
+                    <div>
+                        {{ property?.address?.city }}
+                        {{ property?.address?.country }}
+                        @if (property?.address?.postCode) {, {{ property?.address?.postCode }} }
+                    </div>
+                    @if (property?.contact?.email) {
+                        <div>{{ property?.contact?.email }}</div>
+                    }
+                    @if (property?.contact?.mobile) {
+                        <div>{{ property?.contact?.mobile }}</div>
+                    }
+                </c-col>
+
+                <c-col [md]="6">
+                    <div class="fw-semibold text-muted mb-2">{{ 'invoices.invoice-details.billing-to' | translate }}</div>
+
+                    <div class="fw-bold">{{ guestInfo?.firstName && guestInfo?.lastName
+                        ? guestInfo?.firstName + ' ' + guestInfo?.lastName
+                        : guestInfo?.name }}</div>
+
+                    <div>
+                        {{ guestInfo?.address?.street1 }}
+                        @if (guestInfo?.address?.street2) {, {{guestInfo?.address?.street2}} }
+                    </div>
+
+                    <div>
+                        {{ guestInfo?.address?.city }}
+                        @if (guestInfo?.address?.country) {, {{ guestInfo?.address?.country }} }
+                        @if (guestInfo?.address?.postCode) {, {{ guestInfo?.address?.postCode }} }
+                    </div>
+                    @if (guestInfo?.contact?.email) {
+                        <div>{{ guestInfo?.contact?.email }}</div>
+                    }
+                    @if (guestInfo?.contact?.mobile) {
+                        <div>{{ guestInfo?.contact?.mobile }}</div>
+                    }
+                </c-col>
+            </c-row>
+
+            <c-row class="mb-4">
+                <c-col [md]="4">
+                    <p>
+                        <strong>{{ 'invoices.invoice-details.client' | translate }}:</strong>
+                        {{ invoice?.clientName }}
+                    </p>
+                    <p>
+                        <strong>{{ 'invoices.invoice-details.date' | translate }}:</strong> {{ invoice.date }}
+                    </p>
+                </c-col>
+
+                <c-col [md]="4">
+                    <p>
+                        <strong>{{ 'invoices.invoice-details.taxAmount' | translate }}:</strong>
+                        {{ invoice.taxAmount }}
+                    </p>
+                    <p>
+                        <strong>{{ 'invoices.invoice-details.totalAmount' | translate }}:</strong>
+                        {{ invoice.totalAmount }}
+                    </p>
+                </c-col>
+
+                <c-col [md]="4">
+                    <p>
+                        <strong>{{ 'invoices.invoice-details.proforma' | translate }}:</strong>
+                        {{ invoice.proforma ? ('invoices.snippets.yes' | translate) : ('invoices.snippets.no' | translate) }}
+                    </p>
+                    <p>
+                        <strong>{{ 'commons.snippets.audit.created-by' | translate }}:</strong>
+                        {{ invoice.audit.createdBy }}
+                    </p>
+                </c-col>
+            </c-row>
+
+            <c-row class="mb-4">
+                <div class="table-responsive p-0">
+                    <table cTable [responsive]="true">
+                        <thead>
+                        <tr>
+                            <th>{{ 'invoices.invoice-details.items.description' | translate }}</th>
+                            <th>{{ 'invoices.invoice-details.items.unitPrice' | translate }}</th>
+                            <th>{{ 'invoices.invoice-details.items.quantity' | translate }}</th>
+                            <th>{{ 'invoices.invoice-details.items.taxPercentage' | translate }}</th>
+                            <th>{{ 'invoices.invoice-details.items.taxAmount' | translate }}</th>
+                            <th>{{ 'invoices.invoice-details.items.totalAmount' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of invoice.items; track item.id) {
+                                <tr>
+                                    <td>{{ item.description }}</td>
+                                    <td>{{ item.unitPrice }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.taxPercentage}}%</td>
+                                    <td>{{ item.taxAmount}}</td>
+                                    <td>{{ item.totalAmount}}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </c-row>
+
+            <c-row class="mb-4">
+                <c-col [md]="6">
+                    <c-card>
+                        <textarea
+                                    class="form-control"
+                                    rows="6"
+                                    [(ngModel)]="invoiceNotes"
+                                    placeholder="{{ 'invoices.invoice-details.notes-placeholder' | translate }}">
+                            </textarea>
+                    </c-card>
+                </c-col>
+
+                <c-col [md]="6">
+                    <c-card>
+                        <c-card-body>
+                            <table class="table table-sm mb-0">
+                                <tbody>
+                                <tr>
+                                    <td>{{ 'invoices.invoice-details.subtotal-excl-tax' | translate }}</td>
+                                    <td class="text-end">
+                                        {{ subtotalExclTax | currency: property?.currency:'symbol':'1.2-2' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ 'invoices.invoice-details.discount' | translate }} (%)
+                                    </td>
+                                    <td class="text-end">
+                                        <input
+                                                type="number"
+                                                class="form-control form-control-sm text-end"
+                                                [(ngModel)]="discountPercent"
+                                                (ngModelChange)="recalculateTotals()"
+                                                min="0"
+                                                max="100"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ 'invoices.invoice-details.discount' | translate }} ({{property?.currency}})
+                                    </td>
+                                    <td class="text-end">
+                                        {{ discountValue | currency: property?.currency:'symbol':'1.2-2' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'invoices.invoice-details.after-discount-excl-tax' | translate }}</td>
+                                    <td class="text-end">
+                                        {{ afterDiscountExclTax | currency: property?.currency:'symbol':'1.2-2' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'invoices.invoice-details.tax' | translate }}</td>
+                                    <td class="text-end">
+                                        {{ taxAmount | currency: property?.currency:'symbol':'1.2-2' }}
+                                    </td>
+                                </tr>
+                                <tr class="fw-bold table-light">
+                                    <td>{{ 'invoices.invoice-details.total-incl-tax' | translate }}</td>
+                                    <td class="text-end">
+                                        {{ totalInclTax | currency: property?.currency:'symbol':'1.2-2' }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="3">
+          <c-card class="p-4">
+              <div class="mb-4">
+                  <h5 class="mb-0">
+                      {{ 'invoices.invoice-details.payments.title' | translate }}
+                  </h5>
+              </div>
+              <c-row>
+                  @for (payment of invoice.payments; track payment.id) {
+                      <c-col [md]="12" class="mb-3">
+                          <c-card class="border bg-light">
+                              <c-card-body>
+                                  <p class="mb-2">
+                                      <strong>{{ 'invoices.invoice-details.payments.amount' | translate }}:</strong>
+                                      <span class="ms-1">{{ payment.amount }}</span>
+                                  </p>
+
+                                  <p class="mb-2">
+                                      <strong>{{ 'invoices.invoice-details.payments.method' | translate }}:</strong>
+                                      <app-badge color="primary" class="ms-1">
+                                          {{ 'invoices.invoice-details.payment-method.' + payment.method | translate }}
+                                      </app-badge>
+                                  </p>
+
+                                  <p class="mb-0">
+                                      <strong>{{ 'invoices.invoice-details.payments.modified-at' | translate }}:</strong>
+                                      <span class="ms-1">
+                                          {{ payment.audit.modifiedAt | date: 'short' }}
+                                      </span>
+                                  </p>
+                              </c-card-body>
+                          </c-card>
+                      </c-col>
+                  }
+              </c-row>
+          </c-card>
+      </c-col>
+
+  </c-row>
+
+}

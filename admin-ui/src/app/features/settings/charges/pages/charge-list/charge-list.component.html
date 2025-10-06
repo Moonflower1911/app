@@ -1,0 +1,139 @@
+<app-page-title [title]="('settings.charges.pages.list.title'|translate)"
+                [subTitle]="'settings.charges.pages.list.subtitle'|translate"></app-page-title>
+
+<!--Search input and CTA-->
+<c-row class="mb-3">
+  <c-col [md]="4">
+    <c-input-group sizing="sm" class="search-input">
+      <span cInputGroupText>
+        <svg [cIcon]="icons.cilSearch"></svg>
+      </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+
+  <c-col [md]="8" class="d-flex justify-content-end">
+    <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openCuModal()">
+      <i class="bi bi-plus-lg"></i> {{ 'settings.charges.pages.list.add-btn' |translate }}
+    </button>
+  </c-col>
+
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+    <table cTable [responsive]="true">
+      <thead>
+      <tr>
+        <th scope="col">{{ 'commons.table.header.name' |translate }}</th>
+        <th scope="col">{{ 'commons.table.header.amount' |translate }}</th>
+        <th scope="col">{{ 'settings.charges.pages.list.table.header.posting-account' |translate }}</th>
+        <th scope="col">{{ 'settings.charges.pages.list.table.header.inclusion' |translate }}</th>
+        <th scope="col">{{ 'commons.table.header.status' |translate }}</th>
+        <th scope="col" class="text-center">{{ 'commons.table.header.actions' |translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (charge of listContent; track charge.id) {
+          <tr>
+            <td>
+              <span class="me-1">
+                {{ charge.name }}
+              </span>
+              <app-badge [color]="'primary'" [smaller]="false">
+                {{ charge.code }}
+              </app-badge>
+            </td>
+            <td>
+              <span class="fw-semibold text-primary">{{ charge.amount | number:'1.2-2' }}</span> MAD
+              @if(charge.chargingBasis!='FLAT'){
+                <span class="small text-body-secondary text-nowrap">
+                  / {{ ('commons.form.inputs.charging-basis-input.values.' + charge.chargingBasis + '.long')|translate }}
+                </span>
+              }
+            </td>
+            <td>
+              <div>{{ charge.postingAccount.name |titlecase }}</div>
+              <div class="small text-body-secondary text-nowrap">
+                  <span>
+                    {{ 'settings.charges.pages.list.table.body.posting-account'|translate }}
+                    {{ ('commons.form.inputs.posting-timing-input.values.' + charge.postingTiming)|translate }}
+                  </span>
+              </div>
+            </td>
+            <td>
+              <span>
+                <i class="bi bi-box-seam text-secondary"></i> {{ ('settings.charges.pages.list.table.body.packageable.' + charge.packageAllowed)|translate }}
+                @if (charge.packageAllowed) {
+                  <span class="small text-muted">
+                    ({{ ('settings.charges.pages.list.table.body.price-included.' + !charge.excludePrice)|translate }})
+                  </span>
+                }
+              </span>
+              |
+              <span>
+                <i class="bi bi-bag text-info"></i> {{ ('settings.charges.pages.list.table.body.extra.' + charge.extraAllowed)|translate }}
+              </span>
+            </td>
+
+            <td>
+              <app-badge [color]="charge.enabled?'success':'dark'" [rounded]="true"
+                         [smaller]="false">
+                {{ ('commons.labels.' + (charge.enabled ? 'enabled' : 'disabled'))|translate }}
+              </app-badge>
+            </td>
+            <td class="text-center">
+              <button type="button" cButton size="sm" class="btn-info-light py-1 px-2 me-1"
+                      (click)="openCuModal(charge)">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+
+    </table>
+
+    <!--Pagination row-->
+    @if (totalElements > size) {
+      <c-row class="float-end">
+        <pagination
+          (pageChanged)="changePage($event)"
+          [boundaryLinks]="true"
+          [directionLinks]="false"
+          [itemsPerPage]="size"
+          [maxSize]="5"
+          [ngModel]="pageDisplayed"
+          [rotate]="rotate" [totalItems]="totalElements"
+          firstText="&laquo;" lastText="&raquo;"
+        ></pagination>
+      </c-row>
+    }
+
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/no-services.gif"
+                      [message]="'settings.charges.pages.list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}

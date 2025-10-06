@@ -1,0 +1,16 @@
+spring:
+  # ===================================================================
+  # Datasource configuration
+  # ===================================================================
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db-media
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: mysecretpassword
+server:
+  port: 8086
+
+file:
+  upload:
+    root: ${user.home}/Projects/xStay/upload-folder
+    media: ${file.upload.root}/media

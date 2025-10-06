@@ -1,0 +1,208 @@
+<app-page-title [title]="'bookings.pages.new.title'|translate"
+                [subTitle]="'bookings.pages.new.subtitle'|translate">
+</app-page-title>
+
+<c-row>
+  <!-- Left Side: Search and Available Rooms (65%) -->
+  <c-col [md]="8">
+    <!-- Search Form Component -->
+    <c-card>
+      <c-card-header class="pb-0">
+        <h4 class="card-title mb-0">
+          <i class="bi bi-search me-1 text-primary"></i>
+          {{ 'bookings.availability.search.title'|translate }}
+        </h4>
+      </c-card-header>
+
+      <c-card-body class="search-availability">
+        <form [formGroup]="searchForm" (submit)="searchAvailability()">
+          <!--Period, adults, children inputs-->
+          <c-row>
+            <!--Period input-->
+            <c-col [md]="4">
+              <label cLabel for="period" class="required">
+                {{ 'bookings.pages.new.search-form.period-input.label' | translate }}</label>
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [locale]="{ applyLabel: 'ok', format: 'DD-MM-YYYY' }"
+                  ngxDaterangepickerBootstrap
+                  formControlName="period"
+                  [minDate]="minDate"
+                />
+              </div>
+            </c-col>
+            <!--Adults input-->
+            <c-col [md]="3">
+              <label cLabel for="adults">
+                {{ 'bookings.pages.new.search-form.adult-input.label' | translate }}
+              </label>
+              <div class="d-flex align-items-center">
+                <button type="button" cButton color="secondary" size="sm" (click)="decrementAdults()"
+                        [disabled]="searchForm.value.adults==1"
+                        class="occupancy-btn px-2 rounded-circle d-flex align-items-center justify-content-center me-2">
+                  −
+                </button>
+                <!-- Count -->
+                <span class="fw-medium text-center me-2 guest-count">{{ searchForm.value.adults }}</span>
+
+                <button type="button" cButton color="secondary" size="sm" (click)="incrementAdults()"
+                        class="occupancy-btn px-2 rounded-circle d-flex align-items-center justify-content-center me-2">
+                  +
+                </button>
+              </div>
+            </c-col>
+            <!--Children input-->
+            <c-col [md]="3">
+              <label cLabel for="children">
+                {{ 'bookings.pages.new.search-form.children-input.label' | translate }}
+              </label>
+              <div class="d-flex align-items-center">
+                <button type="button" cButton color="secondary" size="sm" (click)="removeChild()"
+                        [disabled]="getChildrenCount()==0"
+                        class="occupancy-btn px-2 rounded-circle d-flex align-items-center justify-content-center me-2">
+                  −
+                </button>
+                <!-- Count -->
+                <span class="fw-medium text-center me-2 guest-count">{{ getChildrenCount() }}</span>
+
+                <button type="button" cButton color="secondary" size="sm" (click)="addChild()"
+                        class="occupancy-btn px-2 rounded-circle d-flex align-items-center justify-content-center me-2">
+                  +
+                </button>
+              </div>
+            </c-col>
+          </c-row>
+
+          <!--Children ages-->
+          @if (searchForm.value.children.length > 0) {
+            <c-row class="mt-2">
+              <c-col [md]="12" class="d-flex flex-wrap gap-2" formArrayName="children">
+                @for (child of children.controls; track $index) {
+                  <div class="child-age d-flex align-items-center px-2 py-1 rounded" [formGroupName]="$index">
+                    <svg [cIcon]="icons.cilBaby"></svg>
+                    <select class="form-select form-select-sm border-0" formControlName="age">
+                      <option value="" disabled>Age</option>
+                      @for (age of ageOptions; track age) {
+                        <option [value]="age">
+                          {{ age }} {{ ('bookings.pages.new.search-form.age-input.' + (age > 1 ? 'plural-label' : 'single-label'))|translate }}
+                        </option>
+                      }
+                    </select>
+                    <span (click)="removeChild($index)" class="remove-child text-danger">
+                      <i class="bi bi-x-lg"></i>
+                    </span>
+                  </div>
+                }
+              </c-col>
+            </c-row>
+          }
+
+          <!--Search button-->
+          <c-row>
+            <c-col md="3" class="d-flex align-items-end">
+              <span class="text-muted small">
+                {{ searchForm.value.adults + searchForm.value.children.length }}
+                {{ 'bookings.pages.new.guest-label'|translate }},
+                {{ getNights() }} {{ 'bookings.pages.new.night-label'|translate }}
+              </span>
+            </c-col>
+
+            <c-col md="9" class="d-flex justify-content-end">
+              <button cButton color="primary" type="submit" [disabled]="!searchForm.valid">
+                @if (isSearching) {
+                  <c-spinner size="sm"/>
+                }
+                {{ 'commons.form.buttons.search'|translate }}
+              </button>
+            </c-col>
+          </c-row>
+        </form>
+      </c-card-body>
+    </c-card>
+
+    <!-- Result -->
+    @if (inventoryList.length > 0) {
+      <c-card class="mt-2">
+        <c-card-header class="pb-0">
+          <h4 class="card-title mb-0">
+            <i class="bi bi-house me-1 text-primary"></i>
+            {{ 'bookings.pages.new.result-section.title'|translate }} ({{ inventoryList.length }})
+          </h4>
+        </c-card-header>
+
+        <c-card-body>
+          @for (inventory of inventoryList; track inventory.id) {
+            <app-unit-inventory [unitInventory]="inventory" [booking]="booking"
+                                (unitInventorySelected)="addToBooking($event)"></app-unit-inventory>
+          }
+        </c-card-body>
+      </c-card>
+    }
+
+  </c-col>
+
+
+  <!--Summary-->
+  <c-col [md]="4" class="booking-summary">
+
+    <c-card class="position-sticky">
+      <!--Title & Remove button-->
+      <c-card-header class="pb-0 d-flex justify-content-between align-content-center">
+        <!--Title-->
+        <h4 class="card-title mb-0">
+          <i class="bi bi-journal-text me-1 text-primary"></i>
+          {{ 'bookings.pages.new.summary-section.title'|translate }}
+        </h4>
+        <!--Remove booking button-->
+        @if (booking) {
+          <button cButton type="button" size="sm" variant="outline" color="secondary"
+                  (click)="removeBooking()">
+            ×
+          </button>
+        }
+      </c-card-header>
+
+      <c-card-body>
+        <!--Summary elements-->
+        <div class="border-top pt-3">
+          @if (booking) {
+            @for (bookingItem of booking.items; track bookingItem.id) {
+              <app-summary-element (bookingItemDeleted)="removeBookingItem($event)"
+                                   [bookingItem]="bookingItem"></app-summary-element>
+            }
+          }
+        </div>
+
+        <!--Total & continue button-->
+        <div class="total mt-3">
+          <!--Total-->
+          <c-row>
+            <c-col [md]="12" class="d-flex justify-content-between align-items-center">
+              <span class="fw-bold fw-24">
+                {{ 'bookings.pages.new.summary-section.labels.total'|translate }}
+              </span>
+              <span class="fw-bold fw-24 text-primary">{{ getBookingTotal()| number:'1.2-2' }} Mad</span>
+            </c-col>
+          </c-row>
+
+          <!--Continue button-->
+          <c-row class="mt-4">
+            <c-col [md]="12">
+              <button cButton type="button" class="btn-primary-light w-100" (click)="goToConfirmPage()"
+                      [disabled]="!(booking && booking.items.length>0)">
+                {{ 'bookings.pages.new.summary-section.continue-btn'|translate }}
+              </button>
+            </c-col>
+          </c-row>
+        </div>
+      </c-card-body>
+
+
+    </c-card>
+
+  </c-col>
+
+</c-row>
+

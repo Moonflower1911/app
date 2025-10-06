@@ -1,0 +1,196 @@
+<!--Modal title-->
+<div class="modal-header justify-content-center align-items-center">
+  <h6 class="modal-title">
+    Room Assignment
+  </h6>
+</div>
+
+<!--Modal body-->
+<div class="modal-body">
+  <form (submit)="submit()" [formGroup]="unitForm" cForm>
+
+
+    <c-row class="justify-content-center mb-4">
+      <c-col [md]="6">
+        <c-row class="mb-3">
+          <label [sm]="2" cCol cLabel="col" for="staticEmail">
+            Unit
+          </label>
+          <c-col [sm]="10">
+            <app-unit-select [allowMultiUnit]="true" formControlName="unit" [disabled]="true"></app-unit-select>
+            <!--            <input cFormControl id="staticEmail" plaintext readonly type="text" value="email@example.com"/>-->
+          </c-col>
+        </c-row>
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col [md]="4">
+        <c-card class="bg-light">
+          <c-card-header class="pb-0 bg-light">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-0 me-2">DVP-001</h6>
+              <app-badge [smaller]="false" color="info">
+                <i class="bi bi-arrow-repeat me-1"></i> Stayover
+              </app-badge>
+            </div>
+
+
+          </c-card-header>
+
+          <c-card-body>
+            <p class="small text-muted">Ref: #20250815050420810-817</p>
+            <p class="fw-bold small mb-0 mb-1 text-secondary">
+              Guests
+            </p>
+            <p class="mb-0 pb-1">
+              <c-avatar size="sm" color="secondary">JS</c-avatar>
+              Jhon Sina,
+              <c-avatar size="sm" color="dark">+2</c-avatar>
+            </p>
+
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card class="selectable" [ngClass]="{'selected':(roomNumber==1)}" (click)="selectRoom(1)">
+          <c-card-header class="pb-0 ">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-0 me-2">DVP-003</h6>
+              <app-badge [smaller]="false" color="success">
+                <i class="bi bi-check-square me-1"></i> Clean
+              </app-badge>
+            </div>
+          </c-card-header>
+
+          <c-card-body>
+            <p class="small text-muted">Not occupied</p>
+            <p class="fw-bold small mb-0 mb-1 text-secondary">
+              Guests
+            </p>
+            <p class="mb-0 pb-1">
+              0
+            </p>
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card class="bg-light">
+          <c-card-header class="pb-0 bg-light">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-0 me-2">DVP-002</h6>
+              <app-badge [smaller]="false" color="danger">
+                <i class="bi bi-exclamation-triangle me-1"></i> Out Of Service
+              </app-badge>
+            </div>
+          </c-card-header>
+
+          <c-card-body>
+            <p class="small text-muted">Not occupied</p>
+            <p class="fw-bold small mb-0 mb-1 text-secondary">
+              Guests
+            </p>
+            <p class="mb-0 pb-1">
+              0
+            </p>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+
+    <c-row class="mt-2">
+      <c-col [md]="4">
+        <c-card class="bg-light">
+          <c-card-header class="pb-0 bg-light">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-0 me-2">DVP-006</h6>
+              <app-badge [smaller]="false" color="info">
+                <i class="bi bi-arrow-repeat me-1"></i> Stayover
+              </app-badge>
+            </div>
+
+
+          </c-card-header>
+
+          <c-card-body>
+            <p class="small text-muted">Ref: #20250817030291213-736</p>
+            <p class="fw-bold small mb-0 mb-1 text-secondary">
+              Guests
+            </p>
+            <p class="mb-0 pb-1">
+              <c-avatar size="sm" color="secondary">JS</c-avatar>
+              Reda Fousshi
+            </p>
+
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card class="selectable" [ngClass]="{'selected':roomNumber==2}" (click)="selectRoom(2)">
+          <c-card-header class="pb-0 ">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-0 me-2">DVP-004</h6>
+              <app-badge [smaller]="false" color="success">
+                <i class="bi bi-check-square me-1"></i> Clean
+              </app-badge>
+            </div>
+          </c-card-header>
+
+          <c-card-body>
+            <p class="small text-muted">Not occupied</p>
+            <p class="fw-bold small mb-0 mb-1 text-secondary">
+              Guests
+            </p>
+            <p class="mb-0 pb-1">
+              0
+            </p>
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+      <c-col [md]="4">
+        <c-card class="selectable" [ngClass]="{'selected':roomNumber==3}" (click)="selectRoom(3)">
+          <c-card-header class="pb-0 ">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-0 me-2">DVP-005</h6>
+              <app-badge [smaller]="false" color="warning">
+                <i class="bi bi-x-square me-1"></i> Dirty
+              </app-badge>
+            </div>
+          </c-card-header>
+
+          <c-card-body>
+            <p class="small text-muted">Not occupied</p>
+            <p class="fw-bold small mb-0 mb-1 text-secondary">
+              Guests
+            </p>
+            <p class="mb-0 pb-1">
+              0
+            </p>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+
+        <button type="button" cButton color="light" size="sm" variant="ghost"
+                (click)="closeModal()" class="me-2">
+          {{ 'commons.form.buttons.cancel'|translate }}
+        </button>
+
+
+        <button type="submit" cButton color="primary" size="sm">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+
+      </c-col>
+    </c-row>
+  </form>
+</div>

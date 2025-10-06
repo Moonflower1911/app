@@ -1,0 +1,294 @@
+<c-row>
+  <c-col [md]="3">
+    <c-widget-stat-f [title]="'10/11'" value="Arrival" class="card">
+      <ng-template cTemplateId="widgetIconTemplate">
+        <div class="bg-primary text-white p-3">
+          <svg [cIcon]="icons.cilChevronBottom" size="xl"></svg>
+        </div>
+      </ng-template>
+    </c-widget-stat-f>
+  </c-col>
+
+  <c-col [md]="3">
+    <c-widget-stat-f [title]="'10/10'" value="Departure" class="card">
+      <ng-template cTemplateId="widgetIconTemplate">
+        <div class="bg-info text-white p-3">
+          <svg [cIcon]="icons.cilChevronTop" size="xl"></svg>
+        </div>
+      </ng-template>
+    </c-widget-stat-f>
+  </c-col>
+
+  <c-col [md]="3">
+    <c-widget-stat-f [title]="'13'" value="Booking" class="card">
+      <ng-template cTemplateId="widgetIconTemplate">
+        <div class="bg-warning text-white p-3">
+          <svg [cIcon]="icons.cilBookmark" size="xl"></svg>
+        </div>
+      </ng-template>
+    </c-widget-stat-f>
+  </c-col>
+
+  <c-col [md]="3">
+    <c-widget-stat-f [title]="'21'" value="In-house" class="card">
+      <ng-template cTemplateId="widgetIconTemplate">
+        <div class="bg-success text-white p-3">
+          <svg [cIcon]="icons.cilHome" size="xl"></svg>
+        </div>
+      </ng-template>
+    </c-widget-stat-f>
+  </c-col>
+</c-row>
+
+<hr>
+
+<c-row class="mb-4">
+  <c-col md="7">
+    <c-card>
+      <c-card-header>
+        <strong>Property Revenue Overview</strong>
+        <small class="text-muted ms-2">Overview of July 2025 - December 2025</small>
+      </c-card-header>
+      <c-card-body class="card-body">
+        <c-row>
+          <!-- Summary Cards - Left Side -->
+          <c-col [md]="3" class="mb-3">
+            <div class="d-flex flex-column justify-content-center mt-3 summary-cards">
+              <!-- Total Income Card -->
+              <c-card class="border-primary border-1 summary-card">
+                <c-card-body class="text-center">
+                  <small class="text-muted d-block card-label">Total Income</small>
+                  <div class="text-primary card-value">{{ totalIncome.toLocaleString() }} DH</div>
+                  <small class="text-muted card-subtitle">July - December 2025</small>
+                </c-card-body>
+              </c-card>
+
+              <!-- Average Monthly Card -->
+              <c-card class="border-info border-1 summary-card">
+                <c-card-body class="text-center">
+                  <small class="text-muted d-block card-label">Average Monthly</small>
+                  <div class="text-info card-value">{{ averageIncome.toLocaleString() }} DH</div>
+                  <small class="text-muted card-subtitle">Per Month</small>
+                </c-card-body>
+              </c-card>
+
+              <!-- Highest Month Card -->
+              <c-card class="border-success border-1 summary-card">
+                <c-card-body class="text-center">
+                  <small class="text-muted d-block card-label">Highest Month</small>
+                  <div class="text-success card-value">{{ highestMonth.toLocaleString() }} DH</div>
+                  <small class="text-muted card-subtitle">Peak Performance</small>
+                </c-card-body>
+              </c-card>
+            </div>
+          </c-col>
+
+          <!-- Chart Section - Right Side -->
+          <c-col [md]="9">
+            <div class="chart-container">
+              <apx-chart
+                [series]="chartOptions.series!"
+                [chart]="chartOptions.chart!"
+                [xaxis]="chartOptions.xaxis!"
+                [yaxis]="chartOptions.yaxis!"
+                [dataLabels]="chartOptions.dataLabels!"
+                [markers]="chartOptions.markers!"
+                [tooltip]="chartOptions.tooltip!"
+                [stroke]="chartOptions.stroke!"
+                [plotOptions]="chartOptions.plotOptions!"
+                [fill]="chartOptions.fill!"
+                [legend]="chartOptions.legend!"
+                [colors]="chartOptions.colors!">
+              </apx-chart>
+            </div>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <c-col md="5">
+    <c-row class="mb-2">
+      <c-card class="card-body2">
+        <c-card-header class="d-flex justify-content-between align-items-center">
+          <strong>Property Overview</strong>
+        </c-card-header>
+        <c-card-body>
+          <c-row class="property-overview-charts">
+            <!-- Left Chart -->
+            <c-col [md]="4">
+              <div class="text-center">
+                <apx-chart
+                  [series]="donutChart1Options.series"
+                  [chart]="donutChart1Options.chart"
+                  [labels]="donutChart1Options.labels"
+                  [colors]="donutChart1Options.colors"
+                  [legend]="donutChart1Options.legend"
+                  [dataLabels]="donutChart1Options.dataLabels"
+                  [plotOptions]="donutChart1Options.plotOptions">
+                </apx-chart>
+              </div>
+            </c-col>
+
+            <!-- Center Legend -->
+            <c-col [md]="4" class="legend-center">
+              <div class="legend-item">
+                <span class="legend-dot bg-secondary"></span>
+                <span class="legend-number">17</span>
+                <small class="legend-text">Occupied</small>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot bg-danger"></span>
+                <span class="legend-number">2</span>
+                <small class="legend-text">Vacant</small>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot bg-warning"></span>
+                <span class="legend-number">6</span>
+                <small class="legend-text">Unlisted</small>
+              </div>
+            </c-col>
+
+            <!-- Right Chart -->
+            <c-col [md]="4">
+              <div class="text-center">
+                <apx-chart
+                  [series]="donutChart2Options.series"
+                  [chart]="donutChart2Options.chart"
+                  [labels]="donutChart2Options.labels"
+                  [colors]="donutChart2Options.colors"
+                  [legend]="donutChart2Options.legend"
+                  [dataLabels]="donutChart2Options.dataLabels"
+                  [plotOptions]="donutChart2Options.plotOptions">
+                </apx-chart>
+              </div>
+            </c-col>
+          </c-row>
+        </c-card-body>
+      </c-card>
+    </c-row>
+
+    <c-row class="kpi-row">
+      <c-card class="kpi-card border-0">
+        <c-card-body class="text-center">
+          <div class="kpi-icon bg-success-subtle">
+            <svg [cIcon]="icons.cilCheckCircle" size="xl" class="text-success"></svg>
+          </div>
+          <h3 class="kpi-value text-success mt-3">{{ completedBookings }}</h3>
+          <p class="kpi-label mb-2">Completed Bookings</p>
+          <small class="kpi-trend text-muted">This month</small>
+        </c-card-body>
+      </c-card>
+      <c-card class="kpi-card border-0">
+        <c-card-body class="text-center">
+          <div class="kpi-icon bg-warning-subtle">
+            <svg [cIcon]="icons.cilClock" size="xl" class="text-warning"></svg>
+          </div>
+          <h3 class="kpi-value text-warning mt-3">{{ avgStayDuration }}</h3>
+          <p class="kpi-label mb-2">Avg. Stay Duration</p>
+          <small class="kpi-trend text-muted">Days per booking</small>
+        </c-card-body>
+      </c-card>
+      <c-card class="kpi-card border-0">
+        <c-card-body class="text-center">
+          <div class="kpi-icon bg-info-subtle">
+            <svg [cIcon]="icons.cilStar" size="xl" class="text-info"></svg>
+          </div>
+          <h3 class="kpi-value text-info mt-3">{{ customerRating }}/5</h3>
+          <p class="kpi-label mb-2">Customer Rating</p>
+          <small class="kpi-trend text-success">
+            <svg [cIcon]="icons.cilArrowTop" size="sm"></svg>
+            +0.3 this month
+          </small>
+        </c-card-body>
+      </c-card>
+    </c-row>
+  </c-col>
+</c-row>
+
+<hr class="my-4">
+
+<!-- Additional Charts Row -->
+<c-row class="mb-3">
+  <!-- Booking Sources Chart -->
+  <c-col md="4">
+    <c-card class="scrollable-card">
+      <c-card-header>
+        <strong>Booking Sources</strong>
+        <small class="text-muted ms-2">Distribution by channel</small>
+      </c-card-header>
+      <c-card-body class="booking-sources-body">
+        <div class="text-center">
+          <apx-chart
+            [series]="bookingSourcesChart.series"
+            [chart]="bookingSourcesChart.chart"
+            [labels]="bookingSourcesChart.labels"
+            [colors]="bookingSourcesChart.colors"
+            [legend]="bookingSourcesChart.legend"
+            [plotOptions]="bookingSourcesChart.plotOptions"
+            [dataLabels]="bookingSourcesChart.dataLabels">
+          </apx-chart>
+        </div>
+        <div class="booking-sources-legend mt-3">
+          <div class="source-item" *ngFor="let source of bookingSources; let i = index">
+            <span class="source-dot" [style.background-color]="source.color"></span>
+            <span class="source-label">{{ source.name }}</span>
+            <span class="source-value">{{ source.percentage }}%</span>
+          </div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <!-- Recent Activities Card  -->
+  <c-col md="4">
+    <c-card class="scrollable-card">
+      <c-card-header class="d-flex justify-content-between align-items-center">
+        <strong>Recent Activities</strong>
+        <small class="text-primary view-all-link">View all</small>
+      </c-card-header>
+      <c-card-body class="p-2">
+        <div class="activities-list-main">
+          <div class="activity-item-main" *ngFor="let activity of recentActivities">
+            <div class="activity-icon-main" [ngClass]="activity.iconClass">
+              <svg [cIcon]="activity.icon" size="sm"></svg>
+            </div>
+            <div class="activity-content-main">
+              <div class="activity-description-main">{{ activity.description }}</div>
+              <small class="activity-time-main">{{ activity.time }}</small>
+            </div>
+          </div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+  <!-- Maintenance Status -->
+  <c-col md="4">
+    <c-card class="scrollable-card">
+      <c-card-header>
+        <strong>Maintenance Status</strong>
+        <small class="text-muted ms-2">Current overview</small>
+      </c-card-header>
+      <c-card-body class="maintenance-body">
+        <div class="maintenance-item" *ngFor="let item of maintenanceStatus">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <div class="maintenance-icon" [ngClass]="item.statusClass">
+                <svg [cIcon]="item.icon" size="sm"></svg>
+              </div>
+              <div class="ms-3">
+                <div class="maintenance-label">{{ item.label }}</div>
+                <small class="text-muted">{{ item.description }}</small>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="maintenance-count" [ngClass]="item.countClass">{{ item.count }}</div>
+              <small class="text-muted">tasks</small>
+            </div>
+          </div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

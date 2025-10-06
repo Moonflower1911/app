@@ -1,0 +1,106 @@
+<!--Title-->
+<div>
+  <h6 class="section-title underline mb-0">
+    <span class="me-2"> {{ 'rate-plan.pages.settings.inclusions-section.title' | translate }}</span>
+  </h6>
+  <div id="daySpecificHelpBlock" class="form-text mb-3">
+    {{ 'rate-plan.pages.settings.inclusions-section.subtitle' | translate }}
+  </div>
+</div>
+
+<c-row class="mb-3">
+  <c-col [md]="4">
+    <c-input-group sizing="sm" class="search-input">
+        <span cInputGroupText>
+          <svg [cIcon]="icons.cilSearch"></svg>
+        </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+
+  <c-col [md]="8" class="d-flex justify-content-end">
+    <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openAddModal()">
+      <i class="bi bi-plus-lg"></i> {{ 'rate-plan.pages.settings.inclusions-section.pages.list.add-btn' |translate }}
+    </button>
+  </c-col>
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+    <table cTable>
+      <thead>
+      <tr>
+        <th scope="col">
+          {{ 'commons.table.header.name'|translate }}
+        </th>
+        <th scope="col">
+          {{ 'commons.table.header.amount'|translate }}
+        </th>
+        <th scope="col">
+          {{ 'rate-plan.pages.settings.inclusions-section.pages.list.table.header.posting-timing' |translate }}
+        </th>
+        <th scope="col" class="text-center">
+          {{ 'commons.table.header.actions'|translate }}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (inclusion of listContent; track inclusion.id) {
+          <tr>
+            <td>
+              {{ inclusion.charge.name }}
+              <app-badge [color]="'primary'" [smaller]="false">
+                {{ inclusion.charge.code }}
+              </app-badge>
+            </td>
+            <td>
+              <span class="fw-semibold text-primary">{{ inclusion.amount | number:'1.2-2' }}</span> MAD
+              <span class="small text-body-secondary text-nowrap">
+                / {{ ('commons.form.inputs.charging-basis-input.values.' + inclusion.chargingBasis + '.short')|translate }}
+              </span>
+            </td>
+            <td>
+              {{ ('commons.form.inputs.posting-timing-input.values.' + inclusion.postingTiming)|translate }}
+            </td>
+            <td class="text-center">
+              <button type="button" cButton size="sm"
+                      (click)="confirmDeletion(inclusion)"
+                      class="btn-danger-light py-1 px-2 me-1">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        }
+
+      </tbody>
+    </table>
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/no-services.gif"
+                      [message]="'rate-plan.pages.settings.inclusions-section.pages.list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}
+
+
+

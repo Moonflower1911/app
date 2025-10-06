@@ -1,0 +1,527 @@
+import {INavData} from '@coreui/angular';
+
+export const navItems: INavData[] = [
+  {
+    name: 'Dashboard',
+    url: '/dashboard',
+    iconComponent: {name: 'cil-speedometer'},
+  },
+  {
+    title: true,
+    name: 'Bookings'
+  },
+  {
+    name: 'Calendar',
+    url: '/bookings/calendar',
+    iconComponent: {name: 'cil-calendar'}
+  },
+  {
+    name: 'Reservations',
+    url: '/bookings/list',
+    iconComponent: {name: 'cil-list-rich'}
+  },
+  {
+    name: 'Check-Ins',
+    url: '/bookings/check-ins',
+    iconComponent: {name: 'cil-arrow-thick-to-bottom'}
+  },
+  {
+    name: 'Check-Outs',
+    url: '/bookings/check-outs',
+    iconComponent: {name: 'cil-arrow-thick-from-left'}
+  },
+
+  {
+    title: true,
+    name: 'Guests'
+  },
+  {
+    name: 'Guests',
+    url: '/guests',
+    iconComponent: {name: 'cil-wc'}
+  },
+  {
+    name: 'Companies',
+    url: '/companies',
+    iconComponent: {name: 'cil-wc'}
+  },
+  {
+    name: 'Guest Communication',
+    url: '/theme/colors',
+    iconComponent: {name: 'cil-chat-bubble'}
+  },
+  {
+    title: true,
+    name: 'Operations'
+  },
+  {
+    name: 'Tasks',
+    url: '/theme/colors',
+    iconComponent: {name: 'cil-task'}
+  },
+  {
+    name: 'Staff Management',
+    url: '/theme/colors',
+    iconComponent: {name: 'cil-contact'}
+  },
+  {
+    title: true,
+    name: 'Financials'
+  },
+  {
+    name: 'Payments & Invoices',
+    url: '/theme/colors',
+    iconComponent: {name: 'cil-cash'}
+  },
+  {
+    name: 'Reports',
+    url: '/theme/colors',
+    iconComponent: {name: 'cil-chart'}
+  },
+  {
+    title: true,
+    name: 'Settings'
+  },
+  {
+    name: 'Properties',
+    url: '/settings/properties',
+    iconComponent: {name: 'cil-house'}
+  },
+  {
+    name: 'Units',
+    url: '/settings/units',
+    iconComponent: {name: 'cil-room'}
+  },
+  {
+    name: 'Services & Fees',
+    url: '/settings/charges',
+    iconComponent: {name: 'cil-dinner'}
+  },
+  {
+    name: 'Rate Plans',
+    url: '/settings/rate-plans',
+    iconComponent: {name: 'cil-tags'}
+  },
+  {
+    name: 'Guest Charges',
+    url: '/rate-setup/extra-guest-charges',
+    iconComponent: {name: 'cil-wc'}
+  },
+  {
+    name: 'Cancellation Policies',
+    url: 'settings/policies/cancellations',
+    iconComponent: {name: 'cil-history'}
+  },
+  {
+    name: 'Accounting',
+    url: '/settings/accounting',
+    iconComponent: {name: 'cil-bank'}
+  },
+  {
+    name: 'Users',
+    url: '/settings/users',
+    iconComponent: {name: 'cil-people'}
+  },
+  /*  {
+      title: true,
+      name: '',
+      class: 'mt-auto'
+    },
+    {
+      name: 'Settings',
+      url: '/settings',
+      iconComponent: {name: 'cil-settings'},
+      attributes: {target: '_blank'}
+    }*/
+
+  /*  {
+      name: 'Typography',
+      url: '/theme/typography',
+      linkProps: {fragment: 'headings'},
+      iconComponent: {name: 'cil-pencil'}
+    },
+    {
+      name: 'Components',
+      title: true
+    },
+    {
+      name: 'Base',
+      url: '/base',
+      iconComponent: {name: 'cil-puzzle'},
+      children: [
+        {
+          name: 'Accordion',
+          url: '/base/accordion',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Breadcrumbs',
+          url: '/base/breadcrumbs',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Calendar',
+          url: 'https://coreui.io/angular/docs/components/calendar/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Cards',
+          url: '/base/cards',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Carousel',
+          url: '/base/carousel',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Collapse',
+          url: '/base/collapse',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'List Group',
+          url: '/base/list-group',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Navs & Tabs',
+          url: '/base/navs',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Pagination',
+          url: '/base/pagination',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Placeholder',
+          url: '/base/placeholder',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Smart Table',
+          url: 'https://coreui.io/angular/docs/components/smart-table/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Smart Pagination',
+          url: 'https://coreui.io/angular/docs/components/smart-pagination/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Popovers',
+          url: '/base/popovers',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Progress',
+          url: '/base/progress',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Spinners',
+          url: '/base/spinners',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Tables',
+          url: '/base/tables',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Tabs',
+          url: '/base/tabs',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Tooltips',
+          url: '/base/tooltips',
+          icon: 'nav-icon-bullet'
+        }
+      ]
+    },
+    {
+      name: 'Buttons',
+      url: '/buttons',
+      iconComponent: {name: 'cil-cursor'},
+      children: [
+        {
+          name: 'Buttons',
+          url: '/buttons/buttons',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Button groups',
+          url: '/buttons/button-groups',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Dropdowns',
+          url: '/buttons/dropdowns',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Loading Button',
+          url: 'https://coreui.io/angular/docs/components/loading-button/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        }
+      ]
+    },
+    {
+      name: 'Forms',
+      url: '/forms',
+      iconComponent: {name: 'cil-notes'},
+      children: [
+        {
+          name: 'Form Control',
+          url: '/forms/form-control',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Checks & Radios',
+          url: '/forms/checks-radios',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Date Picker',
+          url: 'https://coreui.io/angular/docs/forms/date-picker/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Date Range Picker',
+          url: 'https://coreui.io/angular/docs/forms/date-range-picker/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Floating Labels',
+          url: '/forms/floating-labels',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Input Group',
+          url: '/forms/input-group',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Multi Select',
+          url: 'https://coreui.io/angular/docs/forms/multi-select/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Password Input',
+          url: 'https://coreui.io/angular/docs/forms/password-input/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Range',
+          url: '/forms/range',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Range Slider',
+          url: 'https://coreui.io/angular/docs/forms/range-slider/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Rating',
+          url: 'https://coreui.io/angular/docs/forms/rating/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Select',
+          url: '/forms/select',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Stepper',
+          url: 'https://coreui.io/angular/docs/forms/stepper/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Time Picker',
+          url: 'https://coreui.io/angular/docs/forms/time-picker/',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'danger',
+            text: 'PRO'
+          },
+          attributes: {target: '_blank'}
+        },
+        {
+          name: 'Layout',
+          url: '/forms/layout',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Validation',
+          url: '/forms/validation',
+          icon: 'nav-icon-bullet'
+        }
+      ]
+    },
+    {
+      name: 'Charts',
+      iconComponent: {name: 'cil-chart-pie'},
+      url: '/charts'
+    },
+    {
+      name: 'Icons',
+      iconComponent: {name: 'cil-star'},
+      url: '/icons',
+      children: [
+        {
+          name: 'CoreUI Free',
+          url: '/icons/coreui-icons',
+          icon: 'nav-icon-bullet',
+          badge: {
+            color: 'success',
+            text: 'FREE'
+          }
+        },
+        {
+          name: 'CoreUI Flags',
+          url: '/icons/flags',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'CoreUI Brands',
+          url: '/icons/brands',
+          icon: 'nav-icon-bullet'
+        }
+      ]
+    },
+    {
+      name: 'Notifications',
+      url: '/notifications',
+      iconComponent: {name: 'cil-bell'},
+      children: [
+        {
+          name: 'Alerts',
+          url: '/notifications/alerts',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Badges',
+          url: '/notifications/badges',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Modal',
+          url: '/notifications/modal',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Toast',
+          url: '/notifications/toasts',
+          icon: 'nav-icon-bullet'
+        }
+      ]
+    },
+    {
+      name: 'Widgets',
+      url: '/widgets',
+      iconComponent: {name: 'cil-calculator'},
+      badge: {
+        color: 'info',
+        text: 'NEW'
+      }
+    },
+    {
+      title: true,
+      name: 'Extras'
+    },
+    {
+      name: 'Pages',
+      url: '/login',
+      iconComponent: {name: 'cil-star'},
+      children: [
+        {
+          name: 'Login',
+          url: '/login',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Register',
+          url: '/register',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Error 404',
+          url: '/404',
+          icon: 'nav-icon-bullet'
+        },
+        {
+          name: 'Error 500',
+          url: '/500',
+          icon: 'nav-icon-bullet'
+        }
+      ]
+    },
+    {
+      title: true,
+      name: '',
+      class: 'mt-auto'
+    },
+    {
+      name: 'Docs',
+      url: 'https://coreui.io/angular/docs/',
+      iconComponent: {name: 'cil-description'},
+      attributes: {target: '_blank'}
+    }*/
+];

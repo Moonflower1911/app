@@ -1,0 +1,63 @@
+@use './variables' as *;
+
+.sidebar {
+  border-color: $primary !important;
+
+  &.sidebar-dark {
+
+    .sidebar-header {
+      border-color: $primary !important;
+    }
+
+    &:not(.sidebar-narrow-unfoldable) {
+      .sidebar-nav {
+        .nav-item, .nav-group {
+          a.nav-link {
+            margin-right: .75rem;
+            margin-left: .75rem;
+          }
+        }
+      }
+    }
+
+    .sidebar-nav {
+
+      .nav-item, .nav-group {
+        a.nav-link {
+          font-size: 14px;
+          font-weight: 300;
+
+          &.active {
+            font-weight: 400;
+
+            &:hover {
+              background-color: $info !important;
+
+              svg{
+                color: white !important;
+              }
+            }
+          }
+        }
+      }
+
+      .nav-title{
+        margin-top: 0;
+        color: $secondary !important;
+        font-weight: 500;
+        letter-spacing: .06rem;
+      }
+
+    }
+
+    .sidebar-footer {
+      border-color: $border-color !important;
+
+      button {
+        &::before {
+          background-color: $nav-item !important;
+        }
+      }
+    }
+  }
+}

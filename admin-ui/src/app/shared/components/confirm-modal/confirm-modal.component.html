@@ -1,0 +1,31 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-warning ">
+  <h6 class="modal-title text-white fw-bold">
+    {{ title|translate }}
+  </h6>
+</div>
+
+<!--Modal body-->
+<div class="modal-body">
+  <c-row>
+    <c-col>
+      <div class="icon-warning">
+        <div class="icon-warning-content">!</div>
+      </div>
+      <p class="text-center" [innerHTML]="message |translate">
+      </p>
+    </c-col>
+  </c-row>
+
+  <!--Modal footer-->
+  <c-row class="mt-2">
+    <c-col class="d-flex justify-content-end">
+      <button cButton color="dark" size="sm" variant="ghost" (click)="cancelAction()">
+        {{ 'commons.form.cancel-btn'|translate }}
+      </button>
+      <button cButton class="ms-3" color="primary" size="sm" type="submit" (click)="confirmAction()">
+        {{ 'commons.form.save-btn'|translate }}
+      </button>
+    </c-col>
+  </c-row>
+</div>

@@ -1,0 +1,104 @@
+.widget-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  min-width: 180px;
+  width: 200px;
+  height: 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: none;
+  position: relative;
+}
+
+.widget-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  background-color: #589BFF;
+}
+
+.widget-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.widget-title {
+  margin: 0 0 4px 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.widget-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  line-height: 1.1;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.first-number {
+  font-weight: 700;
+}
+
+.separator {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.second-number {
+  color: #111827;
+  font-weight: 700;
+}
+
+.single-number {
+  font-weight: 700;
+}
+
+.colored-number {
+  color: inherit; /* Will inherit the iconBackGroundColor from parent */
+}
+
+.black-number {
+  color: #111827; /* Default dark color */
+}
+
+.widget-description {
+  margin: 2px 0 0 0;
+  font-size: 9px;
+  color: #28a745;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.widget-description.negative {
+  color: #dc3545;
+}

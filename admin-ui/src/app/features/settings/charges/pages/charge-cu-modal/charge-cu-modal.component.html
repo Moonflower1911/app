@@ -1,0 +1,222 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    @if (chargeToEdit) {
+      {{ ('settings.charges.pages.cu-modal.title.edit')|translate }}
+    } @else {
+      {{ ('settings.charges.pages.cu-modal.title.create')|translate }}
+    }
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form cForm [formGroup]="chargeForm" (ngSubmit)="submit()">
+    <!--Code, Name, Amount & Description inputs-->
+    <c-row class="mb-3">
+      <c-col [md]="6">
+        <!--Code & Name inputs-->
+        <c-row class="mb-3">
+          <c-col [md]="4">
+            <label cLabel class="required"
+                   for="code">{{ 'commons.form.inputs.code-input.label' | translate }}</label>
+            <input cFormControl formControlName="code" id="code" type="text"/>
+            @if (chargeForm.get('code')?.touched && chargeForm.get('code')?.invalid) {
+              @if (chargeForm.get('code')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+            @if (formErrors?.code?.unique) {
+              <c-form-feedback [valid]="false">{{ 'commons.form.inputs.code-input.errors.unique' | translate }}
+              </c-form-feedback>
+            }
+          </c-col>
+
+          <c-col [md]="8">
+            <label cLabel class="required"
+                   for="name">{{ 'commons.form.inputs.name-input.label' | translate }}</label>
+            <input cFormControl formControlName="name" id="name" type="text"/>
+            @if (chargeForm.get('name')?.touched && chargeForm.get('name')?.invalid) {
+              @if (chargeForm.get('name')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+        <!--Amount input-->
+        <c-row>
+          <c-col [md]="12">
+            <label cLabel for="amount" class="required">
+              {{ 'commons.form.inputs.amount-input.label' | translate }}
+            </label>
+            <c-input-group>
+              <input id="amount" cFormControl type="number" formControlName="amount"/>
+              <c-dropdown class="charging-basis-btn">
+                <button cButton cDropdownToggle color="secondary" variant="outline">
+                  {{
+                    ('commons.form.inputs.charging-basis-input.values.' + chargeForm.get('chargingBasis')?.value +
+                      '.short') |translate
+                  }}
+                </button>
+                <div cDropdownMenu>
+                  <button type="button" cDropdownItem (click)="setChargingBasis('PER_PERSON')">
+                    {{ 'commons.form.inputs.charging-basis-input.values.PER_PERSON.long'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setChargingBasis('PER_ADULT')">
+                    {{ 'commons.form.inputs.charging-basis-input.values.PER_ADULT.long'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setChargingBasis('PER_CHILD')">
+                    {{ 'commons.form.inputs.charging-basis-input.values.PER_CHILD.long'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setChargingBasis('PER_STAY')">
+                    {{ 'commons.form.inputs.charging-basis-input.values.PER_STAY.long'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setChargingBasis('FLAT')">
+                    {{ 'commons.form.inputs.charging-basis-input.values.FLAT.long'|translate }}
+                  </button>
+                </div>
+              </c-dropdown>
+              <c-dropdown>
+                <button cButton cDropdownToggle color="secondary" variant="outline">
+                  {{
+                    ('commons.form.inputs.posting-timing-input.values.' + chargeForm.get('postingTiming')?.value) |translate
+                  }}
+                </button>
+                <div cDropdownMenu>
+                  <button type="button" cDropdownItem (click)="setPostingTiming('NIGHTLY')">
+                    {{ 'commons.form.inputs.posting-timing-input.values.NIGHTLY'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setPostingTiming('AT_CHECK_IN')">
+                    {{ 'commons.form.inputs.posting-timing-input.values.AT_CHECK_IN'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setPostingTiming('AT_CHECK_OUT')">
+                    {{ 'commons.form.inputs.posting-timing-input.values.AT_CHECK_OUT'|translate }}
+                  </button>
+                  <button type="button" cDropdownItem (click)="setPostingTiming('MANUAL')">
+                    {{ 'commons.form.inputs.posting-timing-input.values.MANUAL'|translate }}
+                  </button>
+                </div>
+              </c-dropdown>
+            </c-input-group>
+            @if (chargeForm.get('amount')?.touched && chargeForm.get('amount')?.invalid) {
+              @if (chargeForm.get('amount')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+      </c-col>
+      <c-col [md]="6">
+        <!--Description input-->
+        <c-row>
+          <c-col [md]="12">
+            <label cLabel for="description">
+              {{ 'commons.form.inputs.description-input.label' | translate }}
+            </label>
+            <textarea cFormControl formControlName="description" rows="4"
+                      [placeholder]="'administration.accounting.posting-account.pages.cu-modal.form.description-input.placeholder'|translate">
+            </textarea>
+            @if (chargeForm.get('description')?.touched && chargeForm.get('description')?.invalid) {
+              @if (chargeForm.get('description')?.errors?.['maxlength']) {
+                <c-form-feedback [valid]="false">
+                  {{ 'commons.form.inputs.description-input.errors.max-length' | translate }}
+                </c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+      </c-col>
+
+    </c-row>
+
+    <c-row>
+
+      <c-col [md]="6">
+        <!--Posting Account input-->
+        <c-row class="mb-3">
+          <c-col [md]="12">
+            <label cLabel for="postingAccount" class="required">
+              {{ 'commons.form.inputs.posting-account-input.label' | translate }}
+            </label>
+            <app-posting-account-select id="postingAccount" [accountClass]="'revenue'"
+                                        formControlName="postingAccount"></app-posting-account-select>
+            @if (chargeForm.get('postingAccount')?.touched && chargeForm.get('postingAccount')?.invalid) {
+              @if (chargeForm.get('postingAccount')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+        <!--Enabled input-->
+        <c-row>
+          <c-col [md]="12">
+            <c-form-check [switch]="true">
+              <input id="enabled-input" cFormCheckInput type="checkbox" formControlName="enabled"/>
+              <label cFormCheckLabel for="enabled-input">
+                {{ 'commons.form.enabled-check.label'|translate }}</label>
+            </c-form-check>
+            <div class="form-text">
+              {{
+                'administration.accounting.posting-account.pages.cu-modal.form.enabled-input.placeholder'|translate
+              }}
+            </div>
+          </c-col>
+        </c-row>
+      </c-col>
+
+      <c-col [md]="6">
+        <!--Package allowed input-->
+        <c-row class="mb-3">
+          <c-col [md]="6">
+            <c-form-check>
+              <input cFormCheckInput id="packageAllowed" type="checkbox" formControlName="packageAllowed"/>
+              <label cFormCheckLabel for="packageAllowed">
+                {{ 'settings.charges.pages.cu-modal.form.packageable-input.label' | translate }}
+              </label>
+            </c-form-check>
+          </c-col>
+          @if (chargeForm.value.packageAllowed) {
+            <c-col [md]="6">
+              <c-form-check [switch]="true">
+                <input id="exclude-input" cFormCheckInput type="checkbox" formControlName="excludePrice"/>
+                <label cFormCheckLabel for="exclude-input">
+                  {{ 'settings.charges.pages.cu-modal.form.exclude-input.label'|translate }}</label>
+              </c-form-check>
+            </c-col>
+            <div class="form-text">
+              {{ 'settings.charges.pages.cu-modal.form.exclude-input.placeholder'|translate }}
+            </div>
+          }
+        </c-row>
+        <!-- Extra Allowed -->
+        <c-row class="mb-3">
+          <c-col [md]="12">
+            <c-form-check>
+              <input cFormCheckInput id="extraAllowed" type="checkbox" formControlName="extraAllowed"/>
+              <label cFormCheckLabel for="extraAllowed">
+                {{ 'settings.charges.pages.cu-modal.form.extra-input.label' | translate }}
+              </label>
+            </c-form-check>
+          </c-col>
+        </c-row>
+      </c-col>
+
+    </c-row>
+
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!chargeForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+
+  </form>
+
+</div>

@@ -1,0 +1,209 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    {{ ('rate-management.extra-guest-charge.pages.cu-modal.title.' + (extraGuestChargeToEdit ? 'edit' : 'create'))|translate }}
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form cForm [formGroup]="extraGuestForm" (ngSubmit)="submit()">
+
+    <!--Name, description and enabled inputs-->
+    <c-row class="mb-3">
+      <c-col [md]="6">
+        <!--Name input-->
+        <c-row class="mb-4">
+          <c-col [md]="12">
+            <label cLabel class="required"
+                   for="name">{{ 'commons.form.name-input.label' | translate }}</label>
+            <input cFormControl formControlName="name" id="name" type="text"/>
+            @if (extraGuestForm.get('name')?.touched && extraGuestForm.get('name')?.invalid) {
+              @if (extraGuestForm.get('name')?.errors?.['required']) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            }
+          </c-col>
+        </c-row>
+        <!--Enabled input-->
+        <c-row>
+          <c-col [md]="12">
+            <c-form-check [switch]="true">
+              <input id="enabled-input" cFormCheckInput type="checkbox" formControlName="enabled"/>
+              <label cFormCheckLabel for="enabled-input">
+                {{ 'commons.form.enabled-check.label'|translate }}</label>
+            </c-form-check>
+            <div class="form-text">
+              {{ 'rate-management.extra-guest-charge.pages.cu-modal.form.enabled-input.placeholder'|translate }}
+            </div>
+          </c-col>
+        </c-row>
+      </c-col>
+
+      <!--Description input-->
+      <c-col [md]="6">
+        <label cLabel for="description">{{ 'commons.form.description-input.label' | translate }}</label>
+        <textarea cFormControl formControlName="description" rows="4"
+                  [placeholder]="'administration.accounting.posting-account.pages.cu-modal.form.description-input.placeholder'|translate">
+        </textarea>
+        @if (extraGuestForm.get('description')?.touched && extraGuestForm.get('description')?.invalid) {
+          @if (extraGuestForm.get('description')?.errors?.['maxlength']) {
+            <c-form-feedback [valid]="false">
+              {{ 'administration.accounting.posting-account.pages.cu-modal.form.description-input.errors.maxlength' | translate }}
+            </c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <!--Additional Guest Fee Section-->
+    <ng-container>
+      <!--Title-->
+      <h6 class="section-title underline mb-0 mt-4">
+        <span
+          class="me-2"> {{ 'units.edit-unit.tabs.rates.default.sections.additional-guest-fee.title' | translate }}</span>
+        <span class="text-primary add-btn" (click)="addRule()">
+          <i class="bi bi-plus-circle-fill"></i>
+        </span>
+      </h6>
+      <div id="daySpecificHelpBlock" class="form-text mb-3">
+        {{ 'units.edit-unit.tabs.rates.default.sections.additional-guest-fee.hint'|translate }}
+      </div>
+
+      <!--Form-->
+      <ng-container formArrayName="rules">
+        @for (ruleGroup of rules.controls; track ruleGroup; let i = $index) {
+          <c-row class="mb-3 d-flex flex-wrap gap-0" [formGroupName]="i">
+
+            <!--guestThreshold input-->
+            <c-col [md]="2">
+              <label cLabel [for]="'guestThreshold'+i"
+                     class="required">{{ 'commons.form.guest-count-input.placeholder'|translate }}</label>
+              <input cFormControl [id]="'guestThreshold'+i" type="number" formControlName="guestThreshold"/>
+              @if (ruleGroup.get('guestThreshold')?.touched && ruleGroup.get('guestThreshold')?.invalid) {
+                @if (ruleGroup.get('guestThreshold')?.errors?.['required']) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+                }
+                @if (ruleGroup.get('guestThreshold')?.errors?.['min']) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.strictly-positive' | translate }}
+                  </c-form-feedback>
+                }
+              }
+            </c-col>
+
+            <!--GuestType input-->
+            <c-col [md]="2">
+              <label cLabel [for]="'guestType'+i"
+                     class="required">{{ 'commons.form.guest-type-select.label'|translate }}</label>
+              <select cSelect [id]="'guestType'+i" formControlName="guestType">
+                <option value="ADULT" [disabled]="hasAdult(i)">
+                  {{ 'commons.form.guest-type-select.values.adult'|translate }}
+                </option>
+                <option value="CHILD">
+                  {{ 'commons.form.guest-type-select.values.child'|translate | translate }}
+                </option>
+              </select>
+              @if (ruleGroup.get('guestType')?.touched && ruleGroup.get('guestType')?.invalid) {
+                @if (ruleGroup.get('guestType')?.errors?.['required']) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+                }
+              }
+            </c-col>
+
+            <!--AgeBucket inputs-->
+            @if (ruleGroup.get('guestType')?.value === 'CHILD') {
+              <c-col [md]="4" [formGroupName]="'ageBucket'">
+                <label cLabel [for]="'ageBucket'+i"
+                       class="required">{{ 'commons.form.age-bucket-input.label' | translate }}</label>
+                <c-input-group>
+                  <input cFormControl [id]="'ageBucket'+i" type="number" formControlName="fromAge" min="0"
+                         [placeholder]="'commons.form.age-bucket-input.placeholder.from'|translate"/>
+
+                  <span cInputGroupText><i class="bi bi-arrow-right"></i></span>
+                  <input cFormControl type="number" formControlName="toAge" min="0"
+                         [placeholder]="'commons.form.age-bucket-input.placeholder.to'|translate"/>
+                  @if ((ruleGroup.get('ageBucket.fromAge')?.touched &&
+                    ruleGroup.get('ageBucket.fromAge')?.invalid) ||
+                  (ruleGroup.get('ageBucket.toAge')?.touched && ruleGroup.get('ageBucket.toAge')?.invalid)) {
+                    @if (ruleGroup.get('ageBucket.fromAge')?.errors?.['required'] ||
+                    ruleGroup.get('ageBucket.toAge')?.errors?.['required']) {
+                      <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+                    }
+                    @if (ruleGroup.get('ageBucket.fromAge')?.errors?.['min'] ||
+                    ruleGroup.get('ageBucket.toAge')?.errors?.['min']) {
+                      <c-form-feedback [valid]="false">{{ 'commons.errors.positive' | translate }}</c-form-feedback>
+                    }
+                  }
+                  @if (ruleGroup.get('ageBucket')?.errors?.['invalidAgeRange']) {
+                    <c-form-feedback [valid]="false">
+                      {{ 'units.edit-unit.tabs.rates.settings.errors.invalid-age-range' | translate }}
+                    </c-form-feedback>
+                  }
+                </c-input-group>
+              </c-col>
+            }
+
+            <c-col [md]="3">
+              <label cLabel [for]="'value'+i" class="required">
+                {{ 'commons.form.value-input.label' | translate }}
+              </label>
+              <c-input-group>
+                <input [id]="'value'+i" cFormControl type="number" formControlName="value" min="0"/>
+                <c-dropdown>
+                  <button cButton cDropdownToggle color="secondary" variant="outline">
+                    {{ ruleGroup.get('amountType')?.value === 'FLAT' ? 'MAD' : '%' }}
+                  </button>
+                  <div cDropdownMenu>
+                    <button type="button" cDropdownItem (click)="setAmountType(i, 'FLAT')">
+                      MAD
+                    </button>
+                    <button type="button" cDropdownItem (click)="setAmountType(i, 'PERCENT')">
+                      %
+                    </button>
+                  </div>
+                </c-dropdown>
+              </c-input-group>
+              @if (ruleGroup.get('value')?.touched && ruleGroup.get('value')?.invalid) {
+                @if (ruleGroup.get('value')?.errors?.['required']) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+                }
+                @if (ruleGroup.get('value')?.errors?.['min']) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.positive' | translate }}</c-form-feedback>
+                }
+              }
+            </c-col>
+
+            <!--Remove button-->
+            @if(i!=0){
+              <c-col>
+                <button cButton type="button" class="btn-without-label btn-danger-light btn-remove"
+                        (click)="removeRule(i)">
+                  <svg [cIcon]="icons.cilTrash" size="sm"></svg>
+                </button>
+              </c-col>
+            }
+          </c-row>
+        }
+      </ng-container>
+      @if (rules.errors?.['childAgeOverlap']) {
+        <c-form-feedback [valid]="false">
+          {{ 'units.edit-unit.tabs.rates.settings.errors.child-age-overlap' | translate }}
+        </c-form-feedback>
+      }
+    </ng-container>
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!extraGuestForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+  </form>
+
+</div>

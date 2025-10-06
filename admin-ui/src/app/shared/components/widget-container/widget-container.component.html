@@ -1,0 +1,28 @@
+<c-row class="mb-4">
+  <!-- Widgets Section -->
+  <c-col xs="12" 
+         [ngClass]="showRevenueMetrics ? 'col-md-7 col-lg-8' : 'col-md-12 col-lg-12'">
+    <c-row class="g-3">
+      @for (widget of widgets; track widget.title) {
+        <c-col xs="6" sm="6" md="6" lg="3" xl="3">
+          <app-widget
+            [iconClass]="widget.iconClass"
+            [title]="widget.title"
+            [subtitle]="widget.subtitle"
+            [description]="widget.description"
+            [iconColor]="widget.iconColor"
+            [iconBackGroundColor]="widget.iconBackGroundColor"
+          >
+          </app-widget>
+        </c-col>
+      }
+    </c-row>
+  </c-col>
+  
+  <!-- Revenue Metrics Section (Right side) -->
+  @if (showRevenueMetrics) {
+    <c-col xs="12" md="5" lg="4">
+      <app-revenue-metrics [metrics]="metricsData"></app-revenue-metrics>
+    </c-col>
+  }
+</c-row>

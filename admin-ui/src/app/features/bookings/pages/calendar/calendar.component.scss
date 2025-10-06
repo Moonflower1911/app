@@ -1,0 +1,419 @@
+@use "../../../../../scss/variables" as *;
+
+// Main Calendar Wrapper
+.calendar-wrapper {
+  height: 100%;
+  padding: 0 !important;
+  overflow: auto;
+  background: white;
+  //max-height: 100vh;
+  table {
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+
+      tr {
+        th {
+          // Units Header Column
+          &.units-header {
+            position: sticky;
+            left: 0;
+            text-align: left;
+            font-weight: 500;
+            width: 250px;
+            min-width: 250px;
+            z-index: 10;
+            padding: 8px 12px;
+            border-right: 1px solid $border-color;
+            background-color: $table-header-bg;
+
+            .units-header-content {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+
+              .units-title {
+                font-weight: 500;
+                color: #1f2937;
+                font-size: 0.875rem;
+                margin-bottom: 4px;
+              }
+
+
+              .category-search {
+                position: relative;
+
+                .search-input {
+                  width: 100%;
+                  padding: 6px 32px 6px 8px;
+                  border: 1px solid #d1d5db;
+                  border-radius: 4px;
+                  font-size: 0.75rem;
+                  background: white;
+                  transition: border-color 0.2s;
+
+                  &:focus {
+                    outline: none;
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 1px #3b82f6;
+                  }
+
+                  &::placeholder {
+                    color: #9ca3af;
+                  }
+                }
+
+                .search-icon {
+                  position: absolute;
+                  right: 8px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: #6b7280;
+                  font-size: 0.75rem;
+                  pointer-events: none;
+                }
+              }
+
+            }
+          }
+
+          // Date Header Columns
+          &.date-header {
+            background-color: $table-header-bg;
+            padding: 12px 8px;
+            text-align: center;
+            border-right: 1px solid #e5e7eb;
+            min-width: 100px;
+
+            .date-text {
+              height: 40px;
+              font-size: 0.75rem;
+              line-height: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Category Row Styles
+.category-row {
+  .category-header-cell {
+    border-right: 1px solid $border-color;
+    position: sticky;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+
+    .category-header-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .category-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .category-icon {
+          font-size: 0.875rem;
+        }
+
+        .category-name {
+          font-weight: 500;
+          font-size: 0.875rem;
+        }
+
+        .room-count {
+          background: rgba(255, 255, 255, 0.8);
+          padding: 2px 6px;
+          border-radius: 12px;
+          font-size: 0.75rem;
+          font-weight: 500;
+        }
+      }
+
+    }
+  }
+
+  .category-cell {
+    text-align: center;
+    border-right: 1px solid #e5e7eb;
+    .appendingBookings {
+      padding-block: 2px;
+      margin: auto;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      text-align: center;
+      font-size: 10px;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+    }
+  }
+}
+
+// Room Row Styles
+.room-row {
+  position: relative;
+
+  .room-header-cell {
+    position: sticky;
+    left: 0;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    z-index: 100;
+    padding: 0;
+    width: 250px;
+    min-width: 250px;
+
+    .room-item {
+      padding: 4px;
+      border-left: 3px solid;
+      background: #f9fafb;
+      border-radius: 0 4px 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+
+      .room-number {
+        color: #1f2937;
+        opacity: 0.8;
+        font-size: 0.875rem;
+      }
+
+      .room-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+      }
+    }
+  }
+
+  // Booking Cell Styles
+  .booking-cell {
+    padding: 0;
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    height: 18px;
+    position: relative;
+
+    &.weekend-cell {
+      background-color: rgba(232, 232, 232, 0.44);
+    }
+  }
+
+  .timeline-overlay {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: calc(100% - 250px); // Subtract the room header width
+    background-color: transparent;
+    z-index: 90;
+
+    .timeline-booking {
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      color: white;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      gap: 6px;
+      font-weight: 600;
+
+      &.check-in-rounded {
+        border-top-left-radius: calc(infinity * 1px);
+        border-bottom-left-radius: calc(infinity * 1px);
+      }
+
+      &.check-out-rounded {
+        border-top-right-radius: calc(infinity * 1px);
+        border-bottom-right-radius: calc(infinity * 1px);
+      }
+
+      .guest-timeline-item {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0 8px;
+        &.guest-name {
+          flex: 1 1 auto;
+          min-width: 50px;
+        }
+
+        &.guest-time {
+          flex-shrink: 0;
+          text-align: right;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+
+// Daterangepicker Override Styles
+:host ::ng-deep {
+  .daterangepicker {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    .ranges {
+      display: none !important;
+    }
+
+    .drp-calendar {
+      display: inline-block;
+
+      &.left {
+        margin-right: 20px;
+      }
+    }
+
+    .calendar-table {
+      .available:hover {
+        background-color: #f3f4f6;
+      }
+
+      .in-range {
+        background-color: #dbeafe;
+        color: #1e40af;
+      }
+
+      .start-date,
+      .end-date {
+        background-color: #3b82f6;
+        color: white;
+      }
+
+      .active {
+        background-color: #3b82f6;
+        color: white;
+      }
+    }
+
+    .drp-buttons {
+      text-align: center;
+      padding: 10px;
+
+      .btn {
+        margin: 0 5px;
+        padding: 5px 15px;
+        border-radius: 4px;
+        border: 1px solid #d1d5db;
+        background: white;
+        cursor: pointer;
+
+        &.btn-primary {
+          background-color: #3b82f6;
+          border-color: #3b82f6;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .timeline-container {
+    padding: 16px;
+  }
+
+  .date-input-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .calendar-wrapper {
+    .calendar-scroll {
+      table {
+        thead {
+          tr {
+            th {
+              &.units-header {
+                min-width: 200px;
+                width: 200px;
+
+                .units-header-content {
+                  gap: 6px;
+
+                  .category-search {
+                    .search-input {
+                      font-size: 0.7rem;
+                      padding: 4px 28px 4px 6px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .room-row {
+    .room-header-cell {
+      width: 200px;
+      min-width: 200px;
+    }
+
+    .timeline-overlay {
+      width: calc(100% - 200px);
+    }
+  }
+}
+
+.unconfirmed-booking-item {
+  background-color: #ffffff;
+  border: 1px solid $primary-02;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+  .booking-header {
+    font-size: 14px;
+    margin-bottom: 0.25rem;
+    color: #111827;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .booking-dates,
+  .booking-contact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 14px;
+    color: #374151;
+
+    .icon {
+      color: #4ade80;
+    }
+
+    span {
+      display: inline-block;
+    }
+  }
+}
+.containerClass{
+  width: 400px !important;
+}

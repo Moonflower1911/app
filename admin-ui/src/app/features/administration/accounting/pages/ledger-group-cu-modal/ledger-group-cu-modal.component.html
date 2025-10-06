@@ -1,0 +1,78 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    {{ ('administration.accounting.ledger-group.pages.cu-modal.title.' + (ledgerGroupToEdit ? 'edit' : 'create'))|translate }}
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form (submit)="submit()" [formGroup]="ledgerGroupForm" cForm>
+
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel class="required"
+               for="name">{{ 'commons.form.name-input.label' | translate }}</label>
+        <input cFormControl formControlName="name" id="name" type="text"/>
+        @if (ledgerGroupForm.get('name')?.touched && ledgerGroupForm.get('name')?.invalid) {
+          @if (ledgerGroupForm.get('name')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel for="description">{{ 'commons.form.description-input.label' | translate }}</label>
+        <textarea cFormControl formControlName="description" rows="3"
+                  [placeholder]="'administration.accounting.ledger-group.pages.cu-modal.form.description-input.placeholder'|translate">
+        </textarea>
+        @if (ledgerGroupForm.get('description')?.touched && ledgerGroupForm.get('description')?.invalid) {
+          @if (ledgerGroupForm.get('description')?.errors?.['maxlength']) {
+            <c-form-feedback [valid]="false">
+              {{ 'administration.accounting.ledger-group.pages.cu-modal.form.description-input.errors.maxlength' | translate }}
+            </c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel for="parent">{{ 'commons.form.parent-input.label' | translate }}</label>
+        <app-ledger-group-select formControlName="parent" [disable]="ledgerGroupToEdit?.subledgerCount>0"></app-ledger-group-select>
+      </c-col>
+    </c-row>
+
+    @if (ledgerGroupToEdit) {
+      <c-row class="mb-3">
+        <c-col [md]="12">
+          <c-form-check [switch]="true">
+            <input id="enabled-input" cFormCheckInput type="checkbox" formControlName="enabled"/>
+            <label cFormCheckLabel for="enabled-input">
+              {{ 'commons.form.enabled-check.label'|translate }}</label>
+          </c-form-check>
+          <div class="form-text">
+            {{ 'administration.accounting.ledger-group.pages.cu-modal.form.enabled-input.placeholder'|translate }}
+          </div>
+        </c-col>
+      </c-row>
+    }
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!ledgerGroupForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+
+  </form>
+
+</div>

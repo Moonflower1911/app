@@ -1,0 +1,71 @@
+@use "./variables" as vars;
+
+.btn {
+  font-family: "Plus Jakrta Sans", sans-serif;
+  font-weight: 300;
+
+  &.btn-primary, &.btn-secondary, &.btn-success {
+    color: white !important;
+  }
+
+  &.btn-light {
+    &:hover {
+      border-color: transparent !important;
+    }
+  }
+
+  &.btn-primary {
+    &.btn-light {
+      background-color: vars.$primary01;
+      color: vars.$primary !important;
+
+      &:hover {
+        background-color: vars.$primary;
+        color: white !important;
+      }
+    }
+  }
+
+  &.btn-danger {
+    &.btn-light {
+      background-color: vars.$danger01;
+      color: vars.$danger !important;
+
+      &:hover {
+        background-color: vars.$danger;
+        color: white !important;
+      }
+    }
+  }
+
+
+  &.btn-outline-secondary, &.btn-outline-success, &.btn-outline-danger, &.btn-outline-primary {
+    &:hover {
+      color: white;
+    }
+  }
+
+  &.btn-danger {
+    color: white;
+  }
+
+
+}
+
+.btn-group.show{
+  ul.dropdown-menu.show{
+    li{
+      button{
+        color: vars.$body-color !important;
+        font-weight: 400!important;
+
+        &.btn-secondary{
+          &:active{
+            background-color: vars.$secondary !important;
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+}

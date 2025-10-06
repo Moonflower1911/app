@@ -1,0 +1,23 @@
+@if (ratePlan) {
+  <app-page-title [title]="ratePlan.name | titlecase"
+                  [subTitle]="'rate-management.rate-plan.pages.edit-rate-plan.subtitle'|translate"></app-page-title>
+}
+
+<c-nav variant="tabs">
+  <c-nav-item>
+    <a cNavLink class="active" routerLink="rates"
+       routerLinkActive="active"><i
+      class="bi bi-calendar3 me-1"></i> {{ 'rate-management.rate-plan.pages.rates-grid.title'|translate }}</a>
+  </c-nav-item>
+  <c-nav-item>
+    <a cNavLink class=" active" routerLink="settings"
+       routerLinkActive="active"><i
+      class="bi bi-gear-wide-connected me-1"></i> {{ 'rate-management.rate-plan.pages.settings.title'|translate }}</a>
+  </c-nav-item>
+</c-nav>
+
+<c-card class="border-top-0 rounded-0 rounded-bottom">
+  <c-card-body>
+    <router-outlet></router-outlet>
+  </c-card-body>
+</c-card>

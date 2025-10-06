@@ -1,0 +1,13 @@
+@use '../../../../../../../../scss/variables' as *;
+
+li {
+  &.enabled-unit {
+    background-color: $secondary-02;
+    color: $secondary;
+  }
+
+  &.disabled-unit {
+    background-color: $primary-02;
+    color: $primary;
+  }
+}

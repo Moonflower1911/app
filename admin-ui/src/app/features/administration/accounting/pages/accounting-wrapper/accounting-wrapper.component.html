@@ -1,0 +1,100 @@
+<app-page-title [title]="('administration.accounting.title'|translate)"
+                [subTitle]="'administration.accounting.subtitle'|translate"></app-page-title>
+
+
+
+<c-row>
+
+  <!--Settings navigation-->
+  <c-col [md]="3">
+    <ul cListGroup flush>
+      <li cListGroupItem>
+        <a class="d-flex align-items-start p-3 text-decoration-none rounded-top" routerLink="/administration/accounting/posting-accounts"
+           routerLinkActive="active">
+          <i class="bi bi-wallet2 fs-5 me-3"></i>
+          <div>
+            <div class="fw-semibold">
+              {{ 'administration.accounting.menu.posting-accounts.title' | translate }}
+            </div>
+            <small class="text-muted">
+              {{ 'administration.accounting.menu.posting-accounts.subtitle' | translate }}
+            </small>
+          </div>
+        </a>
+      </li>
+      <li cListGroupItem>
+        <a class=" d-flex align-items-start p-3 text-decoration-none" routerLink="/administration/accounting/account-classes"
+           routerLinkActive="active">
+          <i class="bi bi-journals fs-5 me-3"></i>
+          <div>
+            <div class="fw-semibold">
+              {{ 'administration.accounting.menu.account-classes.title' | translate }}
+            </div>
+            <small class="text-muted">
+              {{ 'administration.accounting.menu.account-classes.subtitle' | translate }}
+            </small>
+          </div>
+        </a>
+      </li>
+      <li cListGroupItem>
+        <a class=" d-flex align-items-start p-3 text-decoration-none" routerLink="/administration/accounting/ledger-groups"
+        routerLinkActive="active">
+          <i class="bi bi-collection fs-5 me-3"></i>
+          <div>
+            <div class="fw-semibold">
+              {{ 'administration.accounting.menu.ledger-groups.title' | translate }}
+            </div>
+            <small class="text-muted">
+              {{ 'administration.accounting.menu.ledger-groups.subtitle' | translate }}
+            </small>
+          </div>
+        </a>
+      </li>
+      <li cListGroupItem>
+        <a class=" d-flex align-items-start p-3 text-decoration-none rounded-bottom" routerLink="/administration/accounting/taxes"
+           routerLinkActive="active">
+          <i class="bi bi-percent fs-5 me-3"></i>
+          <div>
+            <div class="fw-semibold">
+              {{ 'administration.accounting.menu.taxes.title' | translate }}
+            </div>
+            <small class="text-muted">
+              {{ 'administration.accounting.menu.taxes.subtitle' | translate }}
+            </small>
+          </div>
+        </a>
+      </li>
+<!--      <li cListGroupItem routerLinkActive="active">
+        <a class=" d-flex align-items-start p-3 text-decoration-none" routerLink="/administration/accounting/payment-types">
+          <i class="bi bi-credit-card fs-5 me-3"></i>
+          <div>
+            <div class="fw-semibold">
+              {{ 'administration.accounting.menu.payment-types.title' | translate }}
+            </div>
+            <small class="text-muted">
+              {{ 'administration.accounting.menu.payment-types.subtitle' | translate }}
+            </small>
+          </div>
+        </a>
+      </li>
+      <li cListGroupItem routerLinkActive="active">
+        <a class=" d-flex align-items-start p-3 text-decoration-none" routerLink="/administration/accounting/general-ledger-codes">
+          <i class="bi bi-code fs-5 me-3"></i>
+          <div>
+            <div class="fw-semibold">
+              {{ 'administration.accounting.menu.general-ledger-codes.title' | translate }}
+            </div>
+            <small class="text-muted">
+              {{ 'administration.accounting.menu.general-ledger-codes.subtitle' | translate }}
+            </small>
+          </div>
+        </a>
+      </li>-->
+    </ul>
+  </c-col>
+
+  <c-col [md]="9">
+    <router-outlet></router-outlet>
+  </c-col>
+
+</c-row>

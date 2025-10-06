@@ -1,0 +1,22 @@
+package com.smsmode.pricing.resource.old.rateplan;
+
+import com.smsmode.pricing.embeddable.SegmentRefEmbeddable;
+import com.smsmode.pricing.embeddable.UnitRefEmbeddable;
+import com.smsmode.pricing.resource.old.common.AuditGetResource;
+import lombok.Data;
+
+import java.util.Set;
+
+/**
+ * Resource for returning rate plan information.
+ */
+@Data
+public class RatePlanGetResource {
+    private String id;
+    private String name;
+    private boolean enabled;
+    private boolean standard;
+    private Set<SegmentRefEmbeddable> segments;
+    private UnitRefEmbeddable unit;
+    private AuditGetResource audit;
+}

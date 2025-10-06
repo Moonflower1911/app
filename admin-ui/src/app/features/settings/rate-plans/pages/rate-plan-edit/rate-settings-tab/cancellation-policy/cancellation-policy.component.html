@@ -1,0 +1,39 @@
+<c-row class="bg-danger py-2 bg-opacity-10 rounded-2  ">
+  <form [formGroup]="cancellationPolicyForm" (ngSubmit)="submit()">
+
+    <c-col [md]="12">
+
+      <div class="d-flex justify-content-between">
+        <!--Title-->
+        <div>
+          <h6 class="section-title underline mb-0">
+            <span
+              class="me-2"> {{ 'rate-plan.pages.settings.cancellation-policy-section.title' | translate }}</span>
+          </h6>
+          <div id="daySpecificHelpBlock" class="form-text mb-3">
+            {{ 'rate-plan.pages.settings.cancellation-policy-section.subtitle' | translate }}
+          </div>
+        </div>
+
+        <div>
+          <c-form-check sizing="lg" switch>
+            <input cFormCheckInput type="checkbox" formControlName="cancellationEnabled"/>
+          </c-form-check>
+        </div>
+
+      </div>
+
+      @if (cancellationPolicyForm.value.cancellationEnabled) {
+        <app-cancellation-policy-select formControlName="cancellationPolicy"></app-cancellation-policy-select>
+      }
+
+    </c-col>
+  </form>
+</c-row>
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+@use '../../../../../../../scss/variables' as *;
+
+h6.section-title {
+  color: $secondary;
+
+  .add-btn {
+    font-size: 14px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

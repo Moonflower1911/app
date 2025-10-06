@@ -1,0 +1,51 @@
+@use '../../../../../scss/variables' as *;
+
+.search-availability {
+  .occupancy-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+  }
+
+  span.guest-count {
+    min-width: 30px;
+  }
+
+  div.child-age {
+    background-color: $primary-01;
+
+    select {
+      background-color: transparent;
+      font-size: 12px;
+      font-weight: 500;
+      color: $primary;
+      width: 75px;
+      height: auto;
+      line-height: 1.2;
+      padding: 3px 20px 3px 6px;
+      margin-right: 2px;
+    }
+
+    span.remove-child {
+      line-height: 1.2;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+}
+
+
+.booking-summary{
+  .card{
+    top:80px;
+
+    div.total{
+      span.fw-24{
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

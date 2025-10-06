@@ -1,0 +1,177 @@
+@use './variables' as *;
+
+.btn {
+
+  &.btn-primary-light {
+    color: $primary;
+    background-color: $primary-01;
+    border-color: $primary-02;
+
+    &:hover {
+      color: white;
+      background-color: $primary;
+      border-color: $primary;
+    }
+  }
+
+  &.btn-secondary-light {
+    color: $secondary;
+    background-color: $secondary-01;
+    border-color: $secondary-02;
+
+    &:hover {
+      color: white;
+      background-color: $secondary;
+      border-color: $secondary;
+    }
+  }
+
+  &.btn-success-light {
+    color: $success;
+    background-color: $success-01;
+
+    &:hover {
+      color: white;
+      background-color: $success;
+    }
+  }
+
+  &.btn-info-light {
+    color: $info !important;
+    background-color: $info-01 !important;
+    border-color: $info-02 !important;
+
+    &:hover {
+      color: white !important;
+      background-color: $info !important;
+      border-color: $info !important;
+    }
+  }
+
+  &.btn-warning-light {
+    color: $warning;
+    background-color: $warning-01;
+
+    &:hover {
+      color: white;
+      background-color: $warning;
+    }
+  }
+
+  &.btn-danger-light {
+    color: $danger !important;
+    background-color: $danger-01 !important;
+    border-color: $danger-02 !important;
+
+    &:hover {
+      color: white !important;
+      background-color: $danger !important;
+      border-color: $danger !important;
+    }
+  }
+
+
+}
+
+/*
+
+button.btn {
+
+  &.btn-primary, &.btn-secondary, &.btn-success &.btn-info {
+    color: white !important;
+  }
+
+
+  &.btn-primary-light {
+    color: $primary !important;
+    background-color: $primary-01 !important;
+
+    &:hover {
+      color: white !important;
+      background-color: $primary !important;
+    }
+  }
+
+  &.btn-secondary-light {
+    color: $secondary !important;
+    background-color: $secondary-01 !important;
+
+    &:hover {
+      color: white !important;
+      background-color: $secondary !important;
+    }
+  }
+
+  &.btn-dark-light {
+    color: $dark !important;
+    background-color: $dark-10 !important;
+    border-color: $dark-10 !important;
+
+    &:hover {
+      color: white !important;
+      background-color: $dark !important;
+    }
+  }
+
+
+  &.btn-outline-secondary {
+    &:hover {
+      color: white !important;
+    }
+  }
+
+  &.btn-outline-danger {
+    &:hover {
+      color: white !important;
+    }
+  }
+
+
+  &.btn-ghost-light {
+    color: $dark;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $light;
+      color: $dark;
+    }
+  }
+
+  &.btn-primary-light {
+    background-color: $primary-10;
+    border-color: $primary-10;
+    color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      border-color: $primary;
+      color: white;
+    }
+  }
+
+  &.btn-secondary-light {
+    background-color: $secondary-10;
+    border-color: $secondary-10;
+    color: $secondary;
+
+    &:hover {
+      background-color: $secondary;
+      border-color: $secondary;
+      color: white;
+    }
+  }
+
+  &.btn-danger-light {
+    background-color: $danger-10;
+    border-color: $danger-10;
+    color: $danger;
+
+    &:hover {
+      background-color: $danger;
+      border-color: $danger;
+      color: white;
+    }
+  }
+
+}
+*/

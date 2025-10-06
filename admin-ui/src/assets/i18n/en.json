@@ -1,0 +1,3433 @@
+{
+  "header": {
+    "new-booking": "New booking"
+  },
+  "commons": {
+    "form": {
+      "inputs": {
+        "search-input": {
+          "placeholder": "Search ..."
+        },
+        "type-input": {
+          "label": "Type"
+        },
+        "name-input": {
+          "label": "Name"
+        },
+        "code-input": {
+          "label": "Code",
+          "errors": {
+            "unique": "This code is already assigned"
+          }
+        },
+        "description-input": {
+          "label": "Description",
+          "errors": {
+            "max-length": "Description text shouldn't exceed 255 characters"
+          }
+        },
+        "amount-input": {
+          "label": "Amount"
+        },
+        "posting-account-input": {
+          "label": "Posting Account"
+        },
+        "posting-timing-input": {
+          "label": "Posting Timing",
+          "values": {
+            "NIGHTLY": "Nightly",
+            "AT_CHECK_IN": "At Checkin",
+            "AT_CHECK_OUT": "At Checkout",
+            "MANUAL": "Manual"
+          }
+        },
+        "charge-input": {
+          "service-label": "Service",
+          "fee-label": "Fee"
+        },
+        "charging-basis-input": {
+          "label": "Charging Basis",
+          "values": {
+            "PER_STAY": {
+              "short": "PS",
+              "long": "Per Stay"
+            },
+            "PER_PERSON": {
+              "short": "PP",
+              "long": "Per Person"
+            },
+            "PER_ADULT": {
+              "short": "PA",
+              "long": "Per Adult"
+            },
+            "PER_CHILD": {
+              "short": "PC",
+              "long": "Per Child"
+            },
+            "FLAT": {
+              "short": "FLT",
+              "long": "Flat"
+            }
+          }
+        },
+        "guest-charge-strategy-input": {
+          "label": "Guest Charge Strategy"
+        }
+      },
+      "name-input": {
+        "label": "Name"
+      },
+      "date-range-input": {
+        "label": "Date range"
+      },
+      "type-input": {
+        "label": "Type"
+      },
+      "description-input": {
+        "label": "Description"
+      },
+      "nightly-price-input": {
+        "label": "Nightly price",
+        "placeholder": "Nightly Price"
+      },
+      "days-select": {
+        "label": "Days",
+        "placeholder": "Select one or multiple days"
+      },
+      "guest-count-input": {
+        "label": "Guest count",
+        "placeholder": "Guest Count"
+      },
+      "guest-type-select": {
+        "label": "Guest type",
+        "values": {
+          "adult": "Adult",
+          "child": "Child"
+        }
+      },
+      "age-bucket-input": {
+        "label": "Age bucket",
+        "placeholder": {
+          "from": "From",
+          "to": "To"
+        }
+      },
+      "amount-type-select": {
+        "label": "Amount type",
+        "values": {
+          "flat": "Flat",
+          "percent": "Percent"
+        }
+      },
+      "value-input": {
+        "label": "Value"
+      },
+      "parent-input": {
+        "label": "Parent"
+      },
+      "enabled-check": {
+        "label": "Enabled"
+      },
+      "segment-select": {
+        "multi": {
+          "label": "Segment(s)",
+          "placeholder": "Select one or multiple segments ..."
+        },
+        "single": {
+          "label": "Segment",
+          "placeholder": "Select a segment"
+        }
+      },
+      "ledger-group-select": {
+        "placeholder": "Select a ledger group"
+      },
+      "account-class-select": {
+        "placeholder": "Select an account class"
+      },
+      "buttons": {
+        "update": "Update",
+        "search": "Search",
+        "create": "Create",
+        "confirm": "Confirm",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "previous-btn": "Previous",
+        "next-btn": "Next"
+      },
+      "search-input": {
+        "placeholder": "Search ..."
+      },
+      "floor-size-input": {
+        "label": "Floor size",
+        "values": {
+          "SQM": "SQM",
+          "SQFT": "SQFT"
+        }
+      },
+      "save-btn": "Save",
+      "update-btn": "Update",
+      "cancel-btn": "Cancel",
+      "search-btn": "Search"
+    },
+    "table": {
+      "header": {
+        "name": "Name",
+        "code": "Code",
+        "description": "Description",
+        "type": "Type",
+        "amount": "Amount",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "body": {
+        "n-a": "N/A",
+        "no-description": "No description provided"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "view": "View"
+      }
+    },
+    "labels": {
+      "of": "Of",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "more": "more",
+      "n-a": "N/A"
+    },
+    "boolean": {
+      "true": "yes",
+      "false": "no"
+    },
+    "errors": {
+      "required": "This field is required",
+      "email": "Enter a valid email address",
+      "no-numbers": "Numbers are not allowed",
+      "strictly-positive": "The value must be strictly positive.",
+      "positive": "The value must be positive.",
+      "min-max-stay": "Maximum stay must be greater than or equal to minimum stay.",
+      "invalidDateRange": "The 'From Date' must be earlier than the 'Until Date'.",
+      "session-expired": "Your session has expired. Please sign in again to continue!",
+      "conflict": "Conflict Detected",
+      "max-two-decimals": "Use up to two decimal places"
+    },
+    "snippets": {
+      "audit": {
+        "created-by": "Created by",
+        "by": "By"
+      },
+      "no-result": "No results match your search. Please try adjusting your keywords or filters.",
+      "loading": "Loading",
+      "years": "years"
+    },
+    "countries": {
+      "AD": "Andorra",
+      "AE": "United Arab Emirates",
+      "AF": "Afghanistan",
+      "AG": "Antigua and Barbuda",
+      "AL": "Albania",
+      "AM": "Armenia",
+      "AO": "Angola",
+      "AR": "Argentina",
+      "AT": "Austria",
+      "AU": "Australia",
+      "AZ": "Azerbaijan",
+      "BA": "Bosnia and Herzegovina",
+      "BB": "Barbados",
+      "BD": "Bangladesh",
+      "BE": "Belgium",
+      "BF": "Burkina Faso",
+      "BG": "Bulgaria",
+      "BH": "Bahrain",
+      "BI": "Burundi",
+      "BJ": "Benin",
+      "BN": "Brunei Darussalam",
+      "BO": "Bolivia",
+      "BR": "Brazil",
+      "BS": "Bahamas",
+      "BT": "Bhutan",
+      "BW": "Botswana",
+      "BY": "Belarus",
+      "BZ": "Belize",
+      "CA": "Canada",
+      "CD": "Congo, The Democratic Republic of the",
+      "CF": "Central African Republic",
+      "CG": "Congo",
+      "CH": "Switzerland",
+      "CI": "Cote D'Ivoire",
+      "CL": "Chile",
+      "CM": "Cameroon",
+      "CN": "China",
+      "CO": "Colombia",
+      "CR": "Costa Rica",
+      "CU": "Cuba",
+      "CV": "Cape Verde",
+      "CY": "Cyprus",
+      "CZ": "Czech Republic",
+      "DE": "Germany",
+      "DJ": "Djibouti",
+      "DK": "Denmark",
+      "DM": "Dominica",
+      "DO": "Dominican Republic",
+      "DZ": "Algeria",
+      "EC": "Ecuador",
+      "EE": "Estonia",
+      "EG": "Egypt",
+      "ER": "Eritrea",
+      "ES": "Spain",
+      "ET": "Ethiopia",
+      "FI": "Finland",
+      "FJ": "Fiji",
+      "FM": "Micronesia, Federated States of",
+      "FR": "France",
+      "GA": "Gabon",
+      "GB": "United Kingdom",
+      "GD": "Grenada",
+      "GE": "Georgia",
+      "GH": "Ghana",
+      "GM": "Gambia",
+      "GN": "Guinea",
+      "GQ": "Equatorial Guinea",
+      "GR": "Greece",
+      "GT": "Guatemala",
+      "GW": "Guinea-Bissau",
+      "GY": "Guyana",
+      "HK": "Hong Kong",
+      "HN": "Honduras",
+      "HR": "Croatia",
+      "HT": "Haiti",
+      "HU": "Hungary",
+      "ID": "Indonesia",
+      "IE": "Ireland",
+      "IL": "Israel",
+      "IN": "India",
+      "IQ": "Iraq",
+      "IR": "Iran, Islamic Republic Of",
+      "IS": "Iceland",
+      "IT": "Italy",
+      "JM": "Jamaica",
+      "JO": "Jordan",
+      "JP": "Japan",
+      "KE": "Kenya",
+      "KG": "Kyrgyzstan",
+      "KH": "Cambodia",
+      "KI": "Kiribati",
+      "KM": "Comoros",
+      "KN": "Saint Kitts and Nevis",
+      "KP": "Korea, Democratic People's Republic of",
+      "KR": "Korea, Republic of",
+      "KW": "Kuwait",
+      "KZ": "Kazakhstan",
+      "LA": "Lao People's Democratic Republic",
+      "LB": "Lebanon",
+      "LC": "Saint Lucia",
+      "LI": "Liechtenstein",
+      "LK": "Sri Lanka",
+      "LR": "Liberia",
+      "LS": "Lesotho",
+      "LT": "Lithuania",
+      "LU": "Luxembourg",
+      "LV": "Latvia",
+      "LY": "Libyan Arab Jamahiriya",
+      "MA": "Morocco",
+      "MC": "Monaco",
+      "MD": "Moldova, Republic of",
+      "ME": "Montenegro",
+      "MG": "Madagascar",
+      "MH": "Marshall Islands",
+      "MK": "Macedonia, The Former Yugoslav Republic of",
+      "ML": "Mali",
+      "MM": "Myanmar",
+      "MN": "Mongolia",
+      "MR": "Mauritania",
+      "MT": "Malta",
+      "MU": "Mauritius",
+      "MV": "Maldives",
+      "MW": "Malawi",
+      "MX": "Mexico",
+      "MY": "Malaysia",
+      "MZ": "Mozambique",
+      "NA": "Namibia",
+      "NE": "Niger",
+      "NG": "Nigeria",
+      "NI": "Nicaragua",
+      "NL": "Netherlands",
+      "NO": "Norway",
+      "NP": "Nepal",
+      "NR": "Nauru",
+      "NU": "Niue",
+      "NZ": "New Zealand",
+      "OM": "Oman",
+      "PA": "Panama",
+      "PE": "Peru",
+      "PG": "Papua New Guinea",
+      "PH": "Philippines",
+      "PK": "Pakistan",
+      "PL": "Poland",
+      "PS": "Palestine",
+      "PT": "Portugal",
+      "PW": "Palau",
+      "PY": "Paraguay",
+      "QA": "Qatar",
+      "RO": "Romania",
+      "RS": "Serbia",
+      "RU": "Russian Federation",
+      "RW": "RWANDA",
+      "SA": "Saudi Arabia",
+      "SB": "Solomon Islands",
+      "SC": "Seychelles",
+      "SD": "Sudan",
+      "SE": "Sweden",
+      "SG": "Singapore",
+      "SI": "Slovenia",
+      "SK": "Slovakia",
+      "SL": "Sierra Leone",
+      "SM": "San Marino",
+      "SN": "Senegal",
+      "SO": "Somalia",
+      "SR": "Suriname",
+      "SS": "South Sudan",
+      "ST": "Sao Tome and Principe",
+      "SV": "El Salvador",
+      "SY": "Syrian Arab Republic",
+      "SZ": "Eswatini",
+      "TD": "Chad",
+      "TG": "Togo",
+      "TH": "Thailand",
+      "TJ": "Tajikistan",
+      "TL": "Timor-Leste",
+      "TM": "Turkmenistan",
+      "TN": "Tunisia",
+      "TO": "Tonga",
+      "TR": "Turkey",
+      "TT": "Trinidad and Tobago",
+      "TV": "Tuvalu",
+      "TW": "Taiwan",
+      "TZ": "Tanzania, United Republic of",
+      "UA": "Ukraine",
+      "UG": "Uganda",
+      "US": "United States",
+      "UY": "Uruguay",
+      "UZ": "Uzbekistan",
+      "VA": "Holy See (Vatican City State)",
+      "VC": "Saint Vincent and the Grenadines",
+      "VE": "Venezuela",
+      "VN": "Vietnam",
+      "WS": "Samoa",
+      "YE": "Yemen",
+      "ZA": "South Africa",
+      "ZM": "Zambia",
+      "ZW": "Zimbabwe"
+    },
+    "amenities": {
+      "ALL_DAY_CHECKIN": "24 Hour Check-in",
+      "AIR_CONDITIONING": "Air Conditioning",
+      "BATHTUB": "Bathtub",
+      "BEACH_VIEW": "Beach View",
+      "BUSINESS_SERVICES": "Business Services",
+      "COFFEE_MAKER": "Coffee Maker",
+      "DESK": "Desk",
+      "DRY_CLEANING": "Dry Cleaning",
+      "FITNESS_CENTER": "Fitness Center",
+      "FREE_INTERNET": "Free Internet",
+      "FREEZER": "Freezer",
+      "GARDEN": "Garden",
+      "HAIR_DRYER": "Hair Dryer",
+      "HOT_TUB": "Hot Tub",
+      "INDOOR_POOL": "Indoor Pool",
+      "LAKE_FRONT": "Lake front",
+      "LIFT": "Lift",
+      "MEALS_INCLUDED": "Meals Included",
+      "MOUNTAIN_VIEW": "Mountain view",
+      "OCEAN_VIEW": "Ocean view",
+      "PAID_PARKING": "Paid Parking",
+      "PRIVATE_BEACH_AREA": "Private beach area",
+      "ROOM_WITH_A_VIEW": "Room With A View",
+      "SHARED_WASHERS": "Shared Washers",
+      "SKI_IN_SKI_OUT": "Ski-in/Ski-out",
+      "SMOKE_ALARMS": "Smoke Alarms",
+      "SWIMMING_POOL": "Swimming Pool",
+      "TOWN": "Town",
+      "WASHING_MACHINE": "Washing Machine",
+      "WHEELCHAIR_ACCESS": "Wheelchair Access",
+      "ACTIVITIES_OLDER_CHILDREN": "Activities Older Children",
+      "ALL_INCLUSIVE": "All Inclusive",
+      "BBQ_PICNIC_AREA": "BBQ/Picnic area",
+      "BED_AND_BREAKFAST": "Bed And Breakfast",
+      "CABLE_TELEVISION": "Cable Television",
+      "CONCIERGE": "Concierge",
+      "DISHWASHER": "Dishwasher",
+      "DRYER": "Dryer",
+      "FREE_BREAKFAST": "Free Breakfast",
+      "FREE_LOCAL_CALLS": "Free Local Calls",
+      "FRIDGE": "Fridge",
+      "GOLF_COURSE_FRONT": "Golf course front",
+      "HANGERS": "Hangers",
+      "HOUSEKEEPING": "Housekeeping",
+      "IRONING_BOARD": "Ironing Board",
+      "LAKE_VIEW": "Lake view",
+      "LOCKERS_STORAGE": "Lockers Storage",
+      "MEETING_ROOM": "Meeting Room",
+      "NEAR_OCEAN": "Near ocean",
+      "OUTDOOR_DINING_AREA": "Outdoor Dining Area",
+      "PAID_PARKING_ON_PREMISES": "Paid Parking On Premises",
+      "RESORT": "Resort",
+      "RURAL": "Rural",
+      "SHOWER": "Shower",
+      "SKI_OUT": "Ski-out",
+      "SOFA_BED": "Sofa Bed",
+      "TELEVISION": "Television",
+      "VALET_PARKING": "Valet Parking",
+      "WATER_FRONT": "Water front",
+      "ACTIVITIES_YOUNG_CHILDREN": "Activities Young Children",
+      "BABY_COAT": "Baby Cot",
+      "BEACH": "Beach",
+      "BICYCLE": "Bicycle",
+      "CAR_RENTAL": "Car Rental",
+      "CREDIT_CARDS_ACCEPTED": "Credit Cards Accepted",
+      "DOORMAN": "Doorman",
+      "EARLY_ARRIVAL": "Early Arrival",
+      "FREE_CANCELATION": "Free Cancelation",
+      "FREE_PARKING": "Free Parking",
+      "GAME_ROOM": "Game Room",
+      "GOLF_COURSE_VIEW": "Golf course view",
+      "HEATING": "Heating",
+      "IN_PERSON_CHECK_IN": "In-Person check-in",
+      "KIDS_ACTIVITIES": "Kids Activities",
+      "LATE_ARRIVAL": "Late Arrival",
+      "LOYALTY_REWARDS_AVAILABLE": "Loyalty Rewards Available",
+      "MICROWAVE": "Microwave",
+      "NON_SMOKING": "Non Smoking",
+      "OUTDOOR_FURNITURE": "Outdoor furniture",
+      "PARKING_AVAILABLE": "Parking Available",
+      "RIVER": "River",
+      "SHAMPOO": "Shampoo",
+      "SHUTTLE": "Shuttle",
+      "SMART_TV": "Smart TV",
+      "STAIRS_ELEVATOR": "Stairs Elevator",
+      "TENNIS_COURT": "Tennis Court",
+      "VILLAGE": "Village",
+      "WATER_SPORTS": "Water Sports",
+      "ADJOINING_ROOMS": "Adjoining Rooms",
+      "BATH": "Bath",
+      "BEACH_FRONT": "Beach Front",
+      "BREAKFAST": "Breakfast",
+      "CLOTHES_IRON": "Clothes Iron",
+      "DEDICATED_WORKSPACE": "Dedicated Workspace",
+      "DOWNTOWN": "Downtown",
+      "ELDER_ACCESS": "Elder Access",
+      "FREE_HOUSEKEEPING": "Free Housekeeping",
+      "FREE_WIFI": "Free Wifi",
+      "GAMES": "Games",
+      "GYM": "Gym",
+      "HIGH_CHAIR": "High Chair",
+      "INDOOR_FIREPLACE": "Indoor Fireplace",
+      "LAKE": "Lake",
+      "LATE_CHECK_OUT": "Late Check Out",
+      "MASSAGE": "Massage",
+      "MOUNTAIN": "Mountain",
+      "OCEAN_FRONT": "Ocean Front",
+      "OVEN": "Oven",
+      "PETS_ALLOWED": "Pets Allowed",
+      "ROOM_SERVICE": "Room Service",
+      "SHARED_DRYER": "Shared Dryer",
+      "SKI_IN": "Ski-in",
+      "SMART_LOCK": "Smart Lock",
+      "STROLLER_PARKING": "Stroller Parking",
+      "TERRACE": "Terrace",
+      "WASHER": "Washer",
+      "WATER_VIEW": "Water view"
+    },
+    "apply": "Ok"
+  },
+  "authentication": {
+    "login": {
+      "sub-title": "Built for Managers. Loved by Guests.",
+      "form": {
+        "email-input": {
+          "label": "Email address"
+        },
+        "password-input": {
+          "label": "Password"
+        },
+        "submit-btn": "Sign in",
+        "errors": {
+          "UAA_AUTH_UNAU_ERR_1": "Invalid credentials. Please try again.",
+          "UAA_AUTH_FORB_ERR_4": "Your account is not yet validated. Please follow email instructions.",
+          "UAA_AUTH_FORB_ERR_6": "You account is disabled. Please contact the support team.",
+          "undefined": "Something went wrong at our end, and we are working to fix the problem! "
+        }
+      },
+      "forgot-password-link": "Forgot your password?"
+    },
+    "forgot-password": {
+      "title": "Forgot your password?",
+      "sub-title": "Enter your email below and we will send you a reset link",
+      "form": {
+        "email-input": {
+          "label": "Email address"
+        },
+        "submit-btn": "Request password reset",
+        "errors": {
+          "undefined": "Something went wrong at our end, and we are working to fix the problem! "
+        },
+        "success": "If an account with this email exists, you will receive a password reset link shortly. Please check your inbox (and spam folder)."
+      },
+      "login-link": "Go back to login page"
+    },
+    "reset-password": {
+      "title": "Reset your password",
+      "sub-title": "Set a new password for your account by entering and confirming it below.",
+      "form": {
+        "password-input": {
+          "placeholder": "Password",
+          "errors": {
+            "strong": "Password should be at least 8 characters long lower and upper case, with a number and a special character"
+          }
+        },
+        "confirm-password-input": {
+          "placeholder": "Confirm your password",
+          "errors": {
+            "mismatch": "Passwords do not match"
+          }
+        },
+        "submit-btn": "Submit",
+        "errors": {
+          "undefined": "Something went wrong at our end, and we are working to fix the problem! ",
+          "UAA_RNF_ERR_3": "We couldn’t verify your reset request. The key might be incorrect.",
+          "UAA_AUTH_FORB_ERR_5": "The reset key has expired. A new password reset email has been sent to your registered email address."
+        },
+        "success": "Your password has been updated! You can now sign in with your new credentials."
+      },
+      "login-link": "Go back to login page",
+      "errors": {
+        "no-token": "The reset password link is invalid or missing the required token."
+      }
+    },
+    "account-validation": {
+      "title": "Validate your account",
+      "sub-title": "Set a password for your account by entering and confirming it below.",
+      "form": {
+        "password-input": {
+          "placeholder": "Password",
+          "errors": {
+            "strong": "Password should be at least 8 characters long lower and upper case, with a number and a special character"
+          }
+        },
+        "confirm-password-input": {
+          "placeholder": "Confirm your password",
+          "errors": {
+            "mismatch": "Passwords do not match"
+          }
+        },
+        "submit-btn": "Submit",
+        "errors": {
+          "undefined": "Something went wrong at our end, and we are working to fix the problem! ",
+          "UAA_RNF_ERR_3": "We couldn’t verify your account validation request. The key might be incorrect.",
+          "UAA_AUTH_FORB_ERR_5": "The account validation key has expired. A new account validation email has been sent to your registered email address."
+        },
+        "success": "Your account has been validated! You can now sign in with your credentials."
+      },
+      "login-link": "Go back to login page",
+      "errors": {
+        "no-token": "The account validation link is invalid or missing the required token."
+      }
+    }
+  },
+  "units": {
+    "unit-list": {
+      "title": "unit listings",
+      "cta": {
+        "add-btn": "+ Add unit",
+        "add-multi-btn": "+ Add multi-unit"
+      },
+      "table": {
+        "header": {
+          "name": "Name",
+          "description": "Description",
+          "contact": "Contact",
+          "city": "City",
+          "country": "Country",
+          "ready": "Ready",
+          "actions": "Actions"
+        },
+        "body": {
+          "ready": "Ready",
+          "not-ready": "Not ready",
+          "beds": "Bed(s)",
+          "bathrooms": "Bathroom(s)"
+        }
+      },
+      "empty-data": "Jump start your <span class=\"text-primary xstay\">xStay</span> account by adding your first rental. Click the 'Add unit' button above to begin."
+    },
+    "create-multi-unit": {
+      "title": "Add Multi-unit",
+      "steps": {
+        "details": {
+          "title": "Multi-Unit Details"
+        },
+        "rental": {
+          "title": "Rental Details"
+        }
+      },
+      "info": {
+        "title": "Manage multiple units under one main listing with ease.",
+        "description": "Multi-Units allow you to manage several subunits within a single rental. Each subunit can have its own pricing, availability, and details.",
+        "example": {
+          "label": "For example:",
+          "text": "An apartment building with 5 identical rooms can be listed as a Multi-Unit rental."
+        }
+      },
+      "form": {
+        "main-unit-name": {
+          "label": "Main Unit Name",
+          "placeholder": "Main Unit Name"
+        },
+        "subunit-name": {
+          "label": "Subunit Name",
+          "placeholder": "Enter subunit name"
+        },
+        "subunit-bulk-input": {
+          "label": "Bulk"
+        },
+        "subunit-standalone-input": {
+          "label": "Standalone"
+        },
+        "quantity-input": {
+          "label": "Quantity"
+        },
+        "prefix-input": {
+          "label": "Prefix"
+        },
+        "priority": {
+          "label": "Priority"
+        },
+        "status": {
+          "label": "Status"
+        },
+        "add-subunit": {
+          "label": "Add New Subunit"
+        },
+        "existing-units": {
+          "label": "Add Existing Rental as Subunit"
+        },
+        "preview": {
+          "title": "Preview:",
+          "empty": "Enter details to see preview",
+          "no-units": "No subunits added",
+          "new-units": "new subunit(s)",
+          "existing-units": "existing unit(s)"
+        },
+        "rental-info": {
+          "title": "RENTAL INFORMATION"
+        },
+        "mobile": {
+          "label": "Phone"
+        },
+        "email": {
+          "label": "AdvanceCM Email",
+          "placeholder": "example"
+        },
+        "location": {
+          "title": "RENTAL LOCATION"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Address"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "City"
+        },
+        "postal-code": {
+          "label": "Postal Code",
+          "placeholder": "Postal Code"
+        },
+        "country": {
+          "label": "Country"
+        },
+        "notifications": {
+          "success": {
+            "title": "Multi-unit created",
+            "message": "Multi-unit :unit has been successfully created"
+          },
+          "error": {
+            "title": "Multi-unit creation failed",
+            "message": "An error occurred while creating the multi-unit. Please try again or contact the support team."
+          }
+        }
+      }
+    },
+    "create-unit": {
+      "title": "Add unit",
+      "form": {
+        "name-input": {
+          "label": "Name",
+          "placeholder": "Add a name to identify this property"
+        },
+        "subtitle-input": {
+          "label": "Subtitle",
+          "placeholder": "e.g., “Cozy Studio in the Heart of the City”"
+        },
+        "color-input": {
+          "label": "Calendar color"
+        },
+        "address": {
+          "title": "Address",
+          "street1-input": {
+            "label": "Street1",
+            "placeholder": ""
+          },
+          "street2-input": {
+            "label": "Street2",
+            "placeholder": ""
+          },
+          "postcode-input": {
+            "label": "Postal code",
+            "placeholder": ""
+          },
+          "city-input": {
+            "label": "City",
+            "placeholder": ""
+          },
+          "country-input": {
+            "label": "Country",
+            "placeholder": ""
+          }
+        },
+        "contact": {
+          "title": "Contact",
+          "mobile-input": {
+            "label": "Mobile",
+            "placeholder": ""
+          },
+          "email-input": {
+            "label": "Email",
+            "placeholder": ""
+          }
+        },
+        "notifications": {
+          "success": {
+            "title": "Unit created",
+            "message": "Unit :unit has been successfully created"
+          },
+          "error": {
+            "title": "Unit creation failed",
+            "message": "An error occurred while creating the unit. Please try again or contact the support team."
+          }
+        }
+      }
+    },
+    "edit-unit": {
+      "title": {
+        "unit": "Unit: ",
+        "multi-unit": "Multi-unit: ",
+        "sub-unit": "Sub-unit: "
+      },
+      "tabs": {
+        "general-information": {
+          "title": "General information",
+          "hint": "Set name, address, images and other basic information of the rental",
+          "sections": {
+            "other": {
+              "title": "Other",
+              "form": {
+                "calendar-color-input": {
+                  "label": "Calendar color"
+                }
+              }
+            },
+            "images": {
+              "title": "Images"
+            }
+          },
+          "form": {
+            "lat-lng-input": {
+              "label": "Lat/Lng"
+            },
+            "latitude-input": {
+              "placeholder": "Latitude"
+            },
+            "longitude-input": {
+              "placeholder": "Longitude"
+            }
+          },
+          "notifications": {
+            "success": {
+              "title": "Rental updated",
+              "message": "Rental \":rentalName\" information were successfully updated."
+            },
+            "error": {
+              "title": "Rental update error",
+              "message": "An error occurred when updating rental \":rentalName\" general information."
+            }
+          },
+          "gallery": {
+            "upload-cover": "Upload your first image",
+            "delete-modal": {
+              "title": "Confirm image removal",
+              "message": "Do you want to delete this image? Please be aware that this action can't be rolled back."
+            },
+            "notifications": {
+              "upload": {
+                "success": {
+                  "title": "Images uploaded",
+                  "message": "Your images were uploaded successfully"
+                },
+                "error": {
+                  "title": "Upload error",
+                  "message": "An error occurred while uploading images"
+                }
+              },
+              "load": {
+                "error": {
+                  "title": "Loading error",
+                  "message": "An error occurred while loading images"
+                }
+              },
+              "cover": {
+                "success": {
+                  "title": "Cover updated",
+                  "message": "Image set as cover successfully"
+                },
+                "error": {
+                  "title": "Cover update error",
+                  "message": "An error occurred while setting the image as cover"
+                }
+              },
+              "delete": {
+                "success": {
+                  "title": "Image removed",
+                  "message": "Your image was removed successfully"
+                },
+                "error": {
+                  "title": "Image removal error",
+                  "message": "An error occurred while removing the image"
+                }
+              }
+            }
+          }
+        },
+        "detail-information": {
+          "title": "Detail information",
+          "hint": "Specify rooms, bedding, occupancy, amenities and other rental values",
+          "sections": {
+            "general": {
+              "form": {
+                "type-input": {
+                  "label": "Type",
+                  "values": {
+                    "ROOM": "Room",
+                    "APARTMENT": "Apartment",
+                    "HOUSE": "House",
+                    "VILLA": "Villa",
+                    "CABIN": "Cabin",
+                    "CARAVAN": "Caravan",
+                    "FARMHOUSE": "Farmhouse",
+                    "MOBILE_HOME": "Mobile Home",
+                    "RIAD": "Riad",
+                    "STUDIO": "Studio"
+                  }
+                },
+                "floor-size-input": {
+                  "label": "Floor size"
+                }
+              }
+            },
+            "occupancy": {
+              "title": "Occupancy",
+              "form": {
+                "min-occupancy": {
+                  "label": "Min occupancy"
+                },
+                "max-occupancy": {
+                  "label": "Max occupancy"
+                },
+                "adults-input": {
+                  "label": "Adults",
+                  "placeholder": "Adults"
+                },
+                "children-input": {
+                  "label": "Children",
+                  "placeholder": "Children"
+                },
+                "infants-input": {
+                  "label": "Infants",
+                  "placeholder": "Infants"
+                }
+              }
+            },
+            "additional-information": {
+              "title": "Additional information",
+              "form": {
+                "children-allowed-input": {
+                  "label": "Children allowed"
+                },
+                "events-allowed-input": {
+                  "label": "Events allowed"
+                },
+                "traveller-age-input": {
+                  "label": "Traveller age",
+                  "hint": "Specify the minimum age for a guest staying at the property"
+                },
+                "smoking-allowed-input": {
+                  "label": "Smoking allowed"
+                },
+                "pets-allowed-input": {
+                  "label": "Pets allowed"
+                }
+              }
+            },
+            "rooms-bedding": {
+              "title": "Rooms & bedding",
+              "add-room": "Add room",
+              "room": {
+                "title": "Room",
+                "form": {
+                  "type-input": {
+                    "label": "Type",
+                    "values": {
+                      "BEDROOM": "Bedroom",
+                      "GUEST_BEDROOM": "Guest Bedroom",
+                      "KID_BEDROOM": "Kids Bedroom",
+                      "MASTER_BEDROOM": "Master Bedroom",
+                      "LIVING_ROOM": "Living Room",
+                      "KITCHEN": "Kitchen",
+                      "FULL_BATHROOM": "Full Bathroom",
+                      "HALF_BATHROOM": "Half Bathroom"
+                    }
+                  },
+                  "size-input": {
+                    "label": "Floor size"
+                  },
+                  "bathroom-input": {
+                    "label": "Bathroom"
+                  },
+                  "bed-input": {
+                    "label": "Bedding",
+                    "values": {
+                      "SINGLE": "Single",
+                      "QUEEN": "Queen",
+                      "KING": "King",
+                      "BUNK": "Bunk",
+                      "SOFA": "Sofa",
+                      "TRUNDLE": "Trundle",
+                      "CRIB": "Crib"
+                    }
+                  },
+                  "add-btn": {
+                    "label": "Add bed"
+                  }
+                }
+              }
+            },
+            "amenities": {
+              "title": "Amenities"
+            }
+          },
+          "notifications": {
+            "success": {
+              "title": "Rental details updated",
+              "message": "Rental \":rentalName\" details were successfully updated."
+            },
+            "error": {
+              "title": "Rental details update error",
+              "message": "An error occurred when updating rental \":rentalName\" details."
+            }
+          }
+        },
+        "rental-instructions": {
+          "title": "Rental instructions",
+          "hint": "Configure check-in/out procedures, house rules, and payment instructions",
+          "sections": {
+            "check-times": {
+              "title": "CHECK-IN / CHECK-OUT TIMES"
+            },
+            "codes-passwords": {
+              "title": "CODES & PASSWORDS"
+            },
+            "check-in-instructions": {
+              "title": "CHECK-IN INSTRUCTIONS"
+            },
+            "check-out-instructions": {
+              "title": "CHECK-OUT INSTRUCTIONS"
+            },
+            "directions": {
+              "title": "DIRECTIONS"
+            },
+            "house-rules": {
+              "title": "HOUSE RULES"
+            },
+            "special-instructions": {
+              "title": "SPECIAL INSTRUCTIONS"
+            },
+            "payment-terms": {
+              "title": "PAYMENT TERMS"
+            },
+            "payment-instructions": {
+              "title": "PAYMENT INSTRUCTIONS"
+            }
+          },
+          "form": {
+            "check-in-time": {
+              "label": "Check-in Time"
+            },
+            "check-out-time": {
+              "label": "Check-out Time"
+            },
+            "time-zone": {
+              "label": "Time Zone",
+              "placeholder": "Select time zone"
+            },
+            "wifi-name": {
+              "label": "WiFi Name",
+              "placeholder": "WiFi Name"
+            },
+            "wifi-password": {
+              "label": "WiFi Password",
+              "placeholder": "WiFi Password"
+            },
+            "security-code": {
+              "label": "Security Code",
+              "placeholder": "Security Code"
+            },
+            "key-pickup": {
+              "label": "Key Pickup",
+              "placeholder": "Key Pickup"
+            }
+          },
+          "notifications": {
+            "success": {
+              "title": "Instructions updated",
+              "message": "Rental instructions have been successfully updated."
+            },
+            "error": {
+              "title": "Instructions update error",
+              "message": "An error occurred when updating rental instructions."
+            },
+            "load-error": {
+              "title": "Loading error",
+              "message": "An error occurred when loading rental instructions."
+            }
+          }
+        },
+        "rooms-bedding": {
+          "title": "Rooms & bedding",
+          "hint": "Define rooms available in the unit and configure bedding options for each one. This helps guests understand the sleeping arrangements and capacity.",
+          "sections": {
+            "room": {
+              "title": "Room",
+              "form": {
+                "name-input": {
+                  "label": "Name"
+                },
+                "type-input": {
+                  "label": "Type",
+                  "values": {
+                    "BEDROOM": "Bedroom",
+                    "BATHROOM": "Bathroom",
+                    "KITCHEN": "Kitchen",
+                    "LIVING": "Living",
+                    "GENERAL": "General"
+                  }
+                },
+                "sub-type-input": {
+                  "label": "Sub Type",
+                  "values": {
+                    "LIVING_ROOM": "Living Room",
+                    "BED_IN_LIVING_ROOM": "Bed in Living Room",
+                    "MASTER": "Master",
+                    "CHILDREN": "Children",
+                    "GUEST": "Guest",
+                    "FULL": "Full",
+                    "HALF": "Half",
+                    "QUARTER": "Quarter",
+                    "KITCHENETTE": "Kitchenette",
+                    "THREE_QUARTER": "Three Quarter"
+                  }
+                },
+                "bathroom-input": {
+                  "label": "Attached Bathroom",
+                  "placeholder": "Select a bathroom"
+                },
+                "description-input": {
+                  "label": "Description",
+                  "placeholder": "Room description"
+                },
+                "add-btn": "Add room"
+              }
+            },
+            "bed": {
+              "form": {
+                "type-input": {
+                  "label": "Type",
+                  "values": {
+                    "SINGLE": "Single",
+                    "QUEEN": "Queen",
+                    "KING": "King",
+                    "BUNK": "Bunk",
+                    "SOFA": "Sofa",
+                    "TRUNDLE": "Trundle",
+                    "CRIB": "Crib"
+                  }
+                },
+                "quantity-input": {
+                  "label": "Quantity"
+                },
+                "add-btn": "Add bed option"
+              },
+              "messages": {
+                "general-room": "This is a flexible space for various uses such as guest area, study or home office.",
+                "kitchen-room": "Where coffee brews and breakfasts begin — your cozy kitchen corner awaits.",
+                "living-room": "The heart of your home — where movies roll, stories unfold, and comfort reigns.",
+                "bathroom": "Where hygiene meets comfort — the place for clean starts, fresh finishes, and daily showers."
+              }
+            }
+          },
+          "notifications": {
+            "creation": {
+              "success": {
+                "title": "Room created",
+                "message": "Room :room has been successfully created"
+              },
+              "error": {
+                "title": "Room creation failed",
+                "message": "An error occurred while creating the room: :room. Please try again or contact the support team."
+              }
+            },
+            "edition": {
+              "success": {
+                "title": "Room updated",
+                "message": "Room :room has been successfully updated"
+              },
+              "error": {
+                "title": "Room edition failed",
+                "message": "An error occurred while updating the room: :room. Please try again or contact the support team."
+              }
+            }
+          }
+        },
+        "rates": {
+          "title": "Rates",
+          "default": {
+            "title": "Default",
+            "sections": {
+              "base-details": {
+                "title": "Base Rate details"
+              },
+              "day-specific-pricing": {
+                "title": "Day Specific Pricing",
+                "hint": "Set rates for specific days. They will override the above rate."
+              },
+              "additional-guest-fee": {
+                "title": "Additional Guest Fee",
+                "hint": "Increase your rates based on the number of guests."
+              }
+            }
+          },
+          "rate-plans": {
+          },
+          "rate-tables": {
+            "list": {
+            },
+            "cu-modal": {
+              "title": {
+              },
+              "form": {
+                "type-input": {
+                  "label": "Type",
+                  "values": {
+                    "dynamic": "Dynamic",
+                    "standard": "Standard"
+                  }
+                }
+              }
+            }
+          },
+          "ratesPlans": {
+            "list": {
+              "cta": {
+                "add-plan-btn": "Add Rate Plan",
+                "add-rate-btn": "Add Rate Table"
+              },
+              "empty-data": "No rate plans available",
+              "status": {
+                "enabled": "Rate plan is enabled",
+                "disabled": "Rate plan is disabled"
+              },
+              "notifications": {
+                "error": {
+                  "title": "Failed to load rate plans",
+                  "message": "An error occurred while fetching rate plans. Please try again."
+                }
+              }
+            },
+            "create": {
+              "title": "Create Rate Plan",
+              "form": {
+                "name": {
+                  "label": "Name"
+                },
+                "segment": {
+                  "select": {
+                    "label": "Segment"
+                  }
+                },
+                "subSegment": {
+                  "select": {
+                    "label": "Sub-segment"
+                  }
+                },
+                "enabled": {
+                  "label": "Enabled"
+                }
+              },
+              "notifications": {
+                "success": {
+                  "title": "Rate plan created",
+                  "message": "The rate plan has been created successfully."
+                },
+                "error": {
+                  "title": "Creation failed",
+                  "message": "Unable to create the rate plan. Please check the form and try again."
+                }
+              }
+            },
+            "edit": {
+              "title": "Edit Rate Plan",
+              "notifications": {
+                "success": {
+                  "title": "Rate plan updated",
+                  "message": "The rate plan has been updated successfully."
+                },
+                "error": {
+                  "title": "Update failed",
+                  "message": "Unable to update the rate plan. Please try again later."
+                }
+              }
+            },
+            "delete": {
+              "modal": {
+                "title": "Delete Rate Plan",
+                "message": "Are you sure you want to delete the rate plan '{{name}}'?"
+              },
+              "notifications": {
+                "success": {
+                  "title": "Rate Plan Deleted",
+                  "message": "The rate plan '{{name}}' was deleted successfully."
+                },
+                "error": {
+                  "title": "Deletion Failed",
+                  "message": "An error occurred while deleting the rate plan."
+                }
+              }
+            }
+          },
+          "price-plans": {
+          },
+          "hint": "Configure the pricing periods and rules for this unit to control its availability and rates.",
+          "settings": {
+            "title": "Settings",
+            "BaseRate": "Rental Base Rate Details",
+            "GuestFee": "Additional Guest Fee",
+            "nightly": "Nightly",
+            "minStay": "Minimum Stay (nights)",
+            "maxStay": "Maximum Stay (nights)",
+            "daySpecificPricing": {
+              "title": "Day Specific Pricing"
+            },
+            "ApplyToDays": "Weekdays",
+            "days": {
+              "MONDAY": "Monday",
+              "TUESDAY": "Tuesday",
+              "WEDNESDAY": "Wednesday",
+              "THURSDAY": "Thursday",
+              "FRIDAY": "Friday",
+              "SATURDAY": "Saturday",
+              "SUNDAY": "Sunday"
+            },
+            "guestCount": "Guest Count",
+            "type": "Guest Type",
+            "amountType": "Amount Type",
+            "ageFrom": "Age From",
+            "ageTo": "Age To",
+            "add": "Add Fee",
+            "value": "Value",
+            "enums": {
+              "guestType": {
+                "adult": "Adult",
+                "child": "Child"
+              },
+              "amountType": {
+                "flat": "Flat",
+                "percent": "Percent"
+              }
+            },
+            "additionalGuestFee": "Additional Guest Fee",
+            "notifications": {
+              "success": {
+                "title": "Rates updated",
+                "message": "Rates updated successfully."
+              },
+              "error": {
+                "title": "Rates update error",
+                "message": "Failed to update rates. Please try again."
+              },
+              "load-error": {
+                "title": "Loading error",
+                "message": "An error occurred when loading base rates."
+              }
+            },
+            "errors": {
+              "weeklyLowerThanNightly": "Weekly price must be higher than nightly price.",
+              "monthlyLowerThanNightly": "Monthly price must be higher than nightly price.",
+              "monthlyLowerThanWeekly": "Monthly price must be higher than weekly price.",
+              "child-age-overlap": "Overlapping age ranges for children are not allowed.",
+              "invalid-age-range": "End age must be greater than start age."
+            }
+          },
+          "rateTable": {
+            "list": {
+              "name": "Name",
+              "category": "Category",
+              "duration": "Rate period",
+              "nightly": "Nightly",
+              "minStay": "Minimum Stay (nights)",
+              "empty-data": "No rate tables found.",
+              "notifications": {
+                "error": {
+                  "title": "Failed to load rate tables",
+                  "message": "An error occurred while fetching rate tables. Please try again."
+                }
+              }
+            },
+            "create": {
+              "title": "Create Rate Table",
+              "form": {
+                "name": "Name",
+                "startDate": "Start Date",
+                "endDate": "End Date",
+                "dateRange": "Date Range",
+                "type": {
+                  "standard": "Standard",
+                  "dynamic": "Dynamic"
+                },
+                "lowRate": "Low Rate",
+                "lowestOccupancy": "Lowest Occupancy",
+                "maxRate": "Max Rate",
+                "maxOccupancy": "Max Occupancy"
+              },
+              "notifications": {
+                "success": "Rate table created successfully.",
+                "error": "Failed to create rate table."
+              }
+            },
+            "edit": {
+              "title": "Edit Rate Table",
+              "notifications": {
+                "success": "Rate table updated successfully.",
+                "error": "Failed to update rate table."
+              }
+            },
+            "delete": {
+              "modal": {
+                "title": "Delete Rate Table",
+                "message": "Are you sure you want to delete the rate table \"{{name}}\"?"
+              },
+              "notifications": {
+                "success": {
+                  "title": "Deleted Successfully",
+                  "message": "Rate table \"{{name}}\" was deleted."
+                },
+                "error": {
+                  "title": "Deletion Failed",
+                  "message": "An error occurred while deleting the rate table."
+                }
+              }
+            }
+          }
+        },
+        "sub-units": {
+          "title": "Sub-units",
+          "hint": "Manage the subunits of this multi-unit rental",
+          "add-btn": "+ Add sub-units",
+          "table": {
+            "header": {
+              "priority": "Priority",
+              "status": "Status"
+            }
+          },
+          "empty-data": "No SubUnits found. Click 'Add SubUnit' to get started.",
+          "modals": {
+            "create": {
+              "title": "Add SubUnits",
+              "sections": {
+                "subunits": "SubUnits",
+                "existing-units": "Existing Units"
+              },
+              "add-new-subunit": "Add new SubUnit"
+            },
+            "edit": {
+              "title": "Edit SubUnit"
+            }
+          }
+        },
+        "fees": {
+          "title": "Fees",
+          "hint": "Manage additional fees that apply to bookings for this unit",
+          "add-btn": "Add Fee",
+          "copy-btn": "Copy",
+          "copy-from-rental": "Copy from Rental",
+          "copy-to-rental": "Copy to Rental",
+          "create": {
+            "title": "Add Fee"
+          },
+          "edit": {
+            "title": "Edit Fee"
+          },
+          "delete": {
+            "modal": {
+              "title": "Delete Fee",
+              "message": "Are you sure you want to delete the fee \"{{name}}\"? This action cannot be undone."
+            },
+            "notifications": {
+              "success": {
+                "title": "Fee Deleted",
+                "message": "Fee \"{{name}}\" has been successfully deleted"
+              },
+              "error": {
+                "title": "Delete Failed",
+                "message": "An error occurred while deleting the fee. Please try again."
+              }
+            }
+          },
+          "table": {
+            "header": {
+              "name": "Name",
+              "amount": "Amount (MAD)",
+              "required": "Required",
+              "modality": "Modality",
+              "status": "Status"
+            },
+            "body": {
+              "active": "Active",
+              "inactive": "Inactive"
+            }
+          },
+          "form": {
+            "name": {
+              "label": "Name",
+              "placeholder": "Name"
+            },
+            "amount": {
+              "label": "Amount",
+              "placeholder": "Amount"
+            },
+            "type": {
+              "label": "Type",
+              "values": {
+                "flat": "Flat",
+                "percent": "Percent"
+              }
+            },
+            "modality": {
+              "label": "Modality",
+              "values": {
+                "per-stay": "Per Stay",
+                "per-night": "Per Night",
+                "per-person": "Per Person",
+                "per-person-per-night": "Per Person/Per Night (PP/PN)"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "placeholder": "Description"
+            },
+            "active": {
+              "label": "Active"
+            },
+            "required": {
+              "label": "Required"
+            },
+            "additional-guest-prices": {
+              "title": "Additional Guest Price",
+              "hint": "Set different prices based on guest count and type for this fee"
+            },
+            "errors": {
+              "invalid-age-range": "To age must be greater than or equal to from age",
+              "child-age-overlap": "Age ranges for children cannot overlap"
+            }
+          },
+          "copy-to": {
+            "title": "Copy Fees to Rentals",
+            "steps": {
+              "select-fees": {
+                "title": "Select Fees to Copy"
+              },
+              "select-rentals": {
+                "title": "Select Rentals to Copy to"
+              }
+            },
+            "buttons": {
+              "overwrite": "Overwrite",
+              "copy": "Copy"
+            },
+            "no-fees": "No fees found for copying. Please create fees first.",
+            "no-units": "No units available for copying. Please check your unit list.",
+            "select-units": {
+              "placeholder": "Select units to copy fees to..."
+            }
+          },
+          "copy-from": {
+            "title": "Copy Fees from Rentals",
+            "steps": {
+              "select-rentals": {
+                "title": "Select Rentals"
+              },
+              "select-fees": {
+                "title": "Select Fees to Copy"
+              }
+            },
+            "buttons": {
+              "overwrite": "Overwrite",
+              "copy": "Copy"
+            },
+            "no-units": "No units available. Please check your unit list.",
+            "no-fees": "No fees found in selected units. Please select units with existing fees.",
+            "select-units": {
+              "placeholder": "Select units to copy fees from..."
+            }
+          },
+          "empty-data": "No booking fees found. Click 'Add Fee' to create your first fee.",
+          "notifications": {
+            "create": {
+              "success": {
+                "title": "Fee Created",
+                "message": "Fee '{{name}}' has been successfully created"
+              },
+              "error": {
+                "title": "Creation Failed",
+                "message": "An error occurred while creating the fee. Please try again."
+              }
+            },
+            "load": {
+              "error": {
+                "title": "Loading Error",
+                "message": "An error occurred while loading fees"
+              }
+            },
+            "copy": {
+              "success": {
+                "title": "Fees Copied Successfully",
+                "message": "{{count}} fee(s) have been successfully copied"
+              },
+              "error": {
+                "title": "Copy Failed",
+                "message": "An error occurred while copying fees. Please try again."
+              }
+            },
+            "update": {
+              "success": {
+                "title": "Fee Updated",
+                "message": "Fee \"{{name}}\" has been successfully updated"
+              },
+              "error": {
+                "title": "Update Failed",
+                "message": "An error occurred while updating the fee. Please try again."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "crm": {
+    "segment": {
+      "list-page": {
+        "table": {
+          "header": {
+            "name": "Name",
+            "parent": "Parent",
+            "description": "Description",
+            "status": "Status"
+          }
+        },
+        "messages": {
+          "empty-data": "<span class=\"text-primary font-weight-bold\">Segments</span> help you categorize your contacts and tailor your campaigns and prices. Click <span class=\"text-primary font-italic\">'Add Segment'</span> to get started!"
+        }
+      },
+      "cu-modal": {
+        "title": {
+          "create": "Add Segment",
+          "update": "Edit Segment"
+        },
+        "form": {
+          "parent-input": {
+            "label": "Parent"
+          }
+        }
+      }
+    }
+  },
+  "guests": {
+    "list": {
+      "guest-title": "Guests",
+      "company-title": "Companies",
+      "cta": {
+        "add-btn-guest": "+ Add guest",
+        "add-btn-company": "+ Add Company"
+      },
+      "delete-modal": {
+        "title": "Delete Guest",
+        "message": "Are you sure you want to delete {{name}}?"
+      },
+      "notifications": {
+        "delete": {
+          "success": {
+            "title": "Guest deleted",
+            "message": "{{name}} has been successfully deleted."
+          },
+          "error": {
+            "title": "Deletion failed",
+            "message": "An error occurred while deleting the guest."
+          }
+        }
+      },
+      "table": {
+        "header": {
+          "name": "Name",
+          "fullname": "Full name",
+          "segment": "Segment",
+          "email": "Email",
+          "identity-document": "Identity Document",
+          "telephone": "Telephone",
+          "country": "Country",
+          "created-on": "Created on",
+          "actions": "Actions"
+        },
+        "body": {
+          "provided": "ID Document provided",
+          "not-provided": "ID Document missing"
+        }
+      },
+      "empty-data": "Time to bring some life to your <span class=\"text-primary xstay\">xStay</span> account. Add your first guest now!"
+    },
+    "create": {
+      "guest-title": "Add Guest",
+      "company-title": "Add Company",
+      "form": {
+        "partyType": {
+          "label": "Party Type",
+          "guest": "Guest",
+          "company": "Company"
+        },
+        "name-input": {
+          "label": "Company Name"
+        },
+        "segment-input": {
+          "label": "Segment",
+          "placeholder": "Select a segment"
+        },
+        "fullname-input": {
+          "label": "Full Name",
+          "placeholder": {
+            "firstname": "Firstname",
+            "lastname": "Lastname"
+          }
+        },
+        "firstName-input": {
+          "label": "First name"
+        },
+        "lastName-input": {
+          "label": "Last name"
+        },
+        "birthDate-input": {
+          "label": "Birth date"
+        },
+        "email-input": {
+          "label": "Email"
+        },
+        "mobile-input": {
+          "label": "Mobile"
+        },
+        "country-input": {
+          "label": "Country"
+        },
+        "city-input": {
+          "label": "City"
+        },
+        "postCode-input": {
+          "label": "postal Code"
+        },
+        "street1-input": {
+          "label": "street1"
+        },
+        "street2-input": {
+          "label": "street2"
+        },
+        "contact": {
+          "label": "Contact"
+        },
+        "document": {
+          "label": "Document"
+        },
+        "address": {
+          "label": "Address"
+        },
+        "type-input": {
+          "label": "Document type",
+          "placeholder": "Select document type",
+          "error": {
+            "required": "Type is required"
+          }
+        },
+        "documentNumber-input": {
+          "label": "Document number",
+          "error": {
+            "required": "Document number is required"
+          }
+        },
+        "expirationDate-input": {
+          "label": "Expiration date",
+          "error": {
+            "required": "Expiration date is required"
+          }
+        },
+        "documentImage-input": {
+          "label": "Document File"
+        },
+        "idDocuments": {
+          "add-button": "+ Add Document",
+          "remove-button-aria": "Remove document :index"
+        },
+        "add-document-button": {
+          "label": "+ Add more documents"
+        },
+        "remove-document-button": {
+          "label": "Remove document"
+        },
+        "enums": {
+          "documentType": {
+            "IDENTITY_CARD": "Identity Card",
+            "PASSPORT": "Passport",
+            "DRIVER_LICENCE": "Driver Licence"
+          }
+        },
+        "notifications": {
+          "success": {
+            "title": "Guest created",
+            "message": "Guest has been successfully created"
+          },
+          "error": {
+            "title": "Guest creation failed",
+            "message": "An error occurred while creating the guest. Please try again or contact the support team."
+          }
+        }
+      }
+    },
+    "edit-guest": {
+      "title": "Edit Guest:",
+      "default-title": "Edit Guest",
+      "form": {
+        "general": {
+          "title": "General Information"
+        },
+        "name": {
+          "label": "Company Name",
+          "placeholder": "Enter the company name"
+        },
+        "segment": {
+          "label": "Segment"
+        },
+        "firstName": {
+          "label": "First Name",
+          "placeholder": "Enter first name"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "placeholder": "Enter last name"
+        },
+        "birthDate": {
+          "label": "Birth Date",
+          "placeholder": "Select birth date"
+        },
+        "address": {
+          "title": "Address",
+          "street1": {
+            "label": "Street 1",
+            "placeholder": "Enter street 1"
+          },
+          "street2": {
+            "label": "Street 2",
+            "placeholder": "Enter street 2"
+          },
+          "postCode": {
+            "label": "Post Code",
+            "placeholder": "Enter post code"
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Enter city"
+          },
+          "country": {
+            "label": "Country"
+          }
+        },
+        "contact": {
+          "title": "Contact",
+          "mobile": {
+            "label": "Mobile"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Enter email"
+          }
+        }
+      },
+      "tabs": {
+        "reservations": {
+          "title": "Reservations",
+          "hint": "Manage reservations for this guest"
+        },
+        "documents": {
+          "title": "Documents",
+          "hint": "Manage identification documents"
+        }
+      },
+      "notifications": {
+        "info": {
+          "title": "Guest updated",
+          "message": "Guest has been successfully updated"
+        },
+        "error": {
+          "title": "Guest update failed",
+          "message": "An error occurred while updating the guest. Please try again or contact the support team."
+        }
+      }
+    }
+  },
+  "documents": {
+    "commons": {
+      "form": {
+        "document-input": {
+          "label": "Document"
+        },
+        "type-input": {
+          "label": "Type",
+          "values": {
+            "PASSPORT": "Passport",
+            "IDENTITY_CARD": "ID Card",
+            "DRIVER_LICENCE": "Driver Licence",
+            "OTHER": "Other"
+          }
+        },
+        "expiration-input": {
+          "label": "Expiration date"
+        },
+        "file-input": {
+          "label": "Document File",
+          "placeholder": "Kindly upload the guest’s ID document to complete their profile"
+        }
+      }
+    },
+    "list": {
+      "empty-data": "No identity documents available. Please kindly ask the guest to provide one to complete their profile.",
+      "cta": {
+        "add-btn": "+ Add document"
+      },
+      "delete-modal": {
+        "title": "Delete Document",
+        "message": "Are you sure you want to delete this identity document?"
+      },
+      "notifications": {
+        "delete": {
+          "success": {
+            "title": "Document deleted",
+            "message": "Identity document deleted successfully."
+          },
+          "error": {
+            "title": "Delete failed",
+            "message": "An error occurred while deleting the document."
+          }
+        }
+      },
+      "table": {
+        "header": {
+          "type": "Type",
+          "documentNumber": "Document Number",
+          "expirationDate": "Expiration Date",
+          "hasImage": "File provided",
+          "created-on": "Created On",
+          "actions": "Actions"
+        }
+      }
+    },
+    "cu-modal": {
+      "title": {
+        "create": "New Identity Document",
+        "edit": "Edit Identity Document"
+      },
+      "notifications": {
+        "success": {
+          "title": {
+            "create": "Identity Document Created",
+            "edit": "Identity Document Updated"
+          },
+          "message": {
+            "create": "The guest's ID document has been successfully created.",
+            "edit": "The guest's ID document has been successfully updated."
+          }
+        },
+        "error": {
+          "title": {
+            "create": "Identity Document Creation Failed",
+            "edit": "Identity Document Update failed"
+          },
+          "message": {
+            "create": "An error occurred when creating the guest's ID document.",
+            "edit": "An error occurred when updating the guest's ID document."
+          }
+        }
+      }
+    },
+    "create": {
+      "title": "Create Document",
+      "section": {
+        "document": "Document Information"
+      },
+      "form": {
+        "type-input": {
+          "label": "Document Type"
+        },
+        "documentNumber-input": {
+          "label": "Document Number"
+        },
+        "expirationDate-input": {
+          "label": "Expiration Date"
+        },
+        "documentImage-input": {
+          "label": "Document Image"
+        }
+      },
+      "notifications": {
+        "success": {
+          "title": "Document Created",
+          "message": "The document has been successfully created."
+        },
+        "error": {
+          "title": "Creation Failed",
+          "message": "An error occurred while creating the document."
+        }
+      }
+    },
+    "edit": {
+      "title": "Edit Document",
+      "section": {
+        "document": "Document Information",
+        "image": "Document Image"
+      },
+      "form": {
+        "type-input": {
+          "label": "Document Type"
+        },
+        "documentNumber-input": {
+          "label": "Document Number"
+        },
+        "expirationDate-input": {
+          "label": "Expiration Date"
+        }
+      },
+      "gallery": {
+        "upload-btn": "Upload Document Image",
+        "replace-btn": "Replace Image"
+      },
+      "notifications": {
+        "info": {
+          "title": "Document Updated",
+          "message": "The document has been successfully updated."
+        },
+        "error": {
+          "title": "Update Failed",
+          "message": "An error occurred while updating the document."
+        },
+        "image-upload": {
+          "success": {
+            "title": "Image Uploaded",
+            "message": "The image has been uploaded successfully."
+          },
+          "error": {
+            "title": "Upload Failed",
+            "message": "An error occurred while uploading the image."
+          }
+        },
+        "image-delete": {
+          "title": "Delete Image",
+          "message": "Are you sure you want to delete the document image?",
+          "success": {
+            "title": "Image Deleted",
+            "message": "The image has been deleted successfully."
+          },
+          "error": {
+            "title": "Delete Failed",
+            "message": "An error occurred while deleting the image."
+          }
+        }
+      },
+      "load-error": "An error occurred while loading document data."
+    }
+  },
+  "tables": {
+    "cu-modal": {
+      "title": {
+        "create": "Add Standard Rate",
+        "edit": "Update Standard Rate"
+      },
+      "form": {
+        "details": {
+          "section-title": "Rental Rate Details",
+          "rateName": {
+            "label": "Rate Name"
+          },
+          "fromDate": {
+            "label": "From Date"
+          },
+          "untilDate": {
+            "label": "Until Date"
+          }
+        },
+        "rates": {
+          "section-title": "Enter Fees Below",
+          "nightly": {
+            "label": "Nightly"
+          },
+          "weekendNight": {
+            "label": "Weekend Night"
+          },
+          "weekly": {
+            "label": "Weekly"
+          },
+          "monthly": {
+            "label": "Monthly"
+          },
+          "minStay": {
+            "label": "Minimum Stay (nights)"
+          },
+          "maxStay": {
+            "label": "Maximum Stay (nights)"
+          }
+        },
+        "additionalGuestFee": {
+          "section-title": "Additional Guest Fee",
+          "fee": {
+            "label": "Fee (PP/PN)"
+          },
+          "guestCount": {
+            "label": "Guest Count"
+          }
+        },
+        "daySpecific": {
+          "section-title": "Day Specific Pricing",
+          "placeholder": "Set rates for specific days. They will override above rates.",
+          "ApplyToDays": {
+            "label": "Apply To Days"
+          },
+          "days": {
+            "MONDAY": "Monday",
+            "TUESDAY": "Tuesday",
+            "WEDNESDAY": "Wednesday",
+            "THURSDAY": "Thursday",
+            "FRIDAY": "Friday",
+            "SATURDAY": "Saturday",
+            "SUNDAY": "Sunday"
+          }
+        }
+      },
+      "notifications": {
+        "create": {
+          "success": {
+            "title": "Rates Table Created",
+            "message": "Rates Table has been successfully created"
+          },
+          "error": {
+            "title": "Rates Table Creation Failed",
+            "message": "An error occurred while creating the rates table"
+          }
+        },
+        "edit": {
+          "success": {
+            "title": "Rates Table Updated",
+            "message": "Rates Table has been successfully updated"
+          },
+          "error": {
+            "title": "Rates Table Update Failed",
+            "message": "An error occurred while updating the rates table"
+          }
+        }
+      }
+    },
+    "create": {
+      "title": "Add Standard Rate",
+      "form": {
+        "details": {
+          "section-title": "Rental Rate Details",
+          "rateName": {
+            "label": "Rate Name"
+          },
+          "fromDate": {
+            "label": "From Date"
+          },
+          "untilDate": {
+            "label": "Until Date"
+          }
+        },
+        "rates": {
+          "section-title": "Enter Fees Below",
+          "nightly": {
+            "label": "Nightly"
+          },
+          "weekendNight": {
+            "label": "Weekend Night"
+          },
+          "weekly": {
+            "label": "Weekly"
+          },
+          "monthly": {
+            "label": "Monthly"
+          },
+          "minStay": {
+            "label": "Minimum Stay (nights)"
+          },
+          "maxStay": {
+            "label": "Maximum Stay (nights)"
+          }
+        },
+        "additionalGuestFee": {
+          "section-title": "Additional Guest Fee",
+          "fee": {
+            "label": "Fee (PP/PN)"
+          },
+          "guestCount": {
+            "label": "Guest Count"
+          }
+        },
+        "daySpecific": {
+          "section-title": "Day Specific Pricing",
+          "placeholder": "Set rates for specific days. They will override above rates.",
+          "ApplyToDays": {
+            "label": "Apply To Days"
+          },
+          "days": {
+            "MONDAY": "Monday",
+            "TUESDAY": "Tuesday",
+            "WEDNESDAY": "Wednesday",
+            "THURSDAY": "Thursday",
+            "FRIDAY": "Friday",
+            "SATURDAY": "Saturday",
+            "SUNDAY": "Sunday"
+          }
+        },
+        "notifications": {
+          "success": {
+            "title": "Standard Rate Created",
+            "message": "The standard rate has been successfully created."
+          },
+          "error": {
+            "title": "Creation Failed",
+            "message": "An error occurred while creating the standard rate."
+          }
+        }
+      }
+    },
+    "list": {
+      "title": "Standard Rates",
+      "table": {
+        "header": {
+          "name": "Name",
+          "period": "Rate Period",
+          "nightly": "Nightly",
+          "weekly": "Weekly",
+          "monthly": "Monthly",
+          "minStay": "Minimum Stay",
+          "actions": "Actions"
+        }
+      },
+      "cta": {
+        "add-btn": "+ Add Standard Rate"
+      },
+      "empty-data": "No standard rates found.",
+      "delete": {
+        "title": "Delete Rate",
+        "message": "Are you sure you want to delete the rate?"
+      },
+      "notifications": {
+        "delete": {
+          "success": {
+            "title": "Rate Deleted",
+            "message": "The rate has been successfully deleted."
+          },
+          "error": {
+            "title": "Deletion Failed",
+            "message": "An error occurred while deleting the rate."
+          }
+        }
+      }
+    },
+    "edit": {
+      "form": {
+        "notifications": {
+          "success": {
+            "title": "Standard Rate Updated",
+            "message": "The standard rate has been successfully updated."
+          },
+          "error": {
+            "title": "Update Failed",
+            "message": "An error occurred while updating the standard rate."
+          }
+        }
+      }
+    },
+    "delete-modal": {
+      "title": "Confirm Rates Table Removal",
+      "message": "Do you want to delete this rates table? Please be aware that this action can't be rolled back.",
+      "notifications": {
+        "success": {
+          "title": "Rates Table removed",
+          "message": "Rates table: :ratesTableName was removed successfully!"
+        },
+        "error": {
+          "title": "Rates Table removal failed",
+          "message": "An error occurred while removing the rates table. Please try again or contact the support team."
+        }
+      }
+    }
+  },
+  "bookings": {
+    "commons": {
+      "status": {
+        "DRAFT": "Draft",
+        "CONFIRMED": "Confirmed",
+        "CHECKED_IN": "Checked In",
+        "CHECKED_OUT": "Checked Out",
+        "CANCELED": "Canceled"
+      },
+      "labels": {
+        "total-amount": "Total Amount",
+        "paid": "Paid",
+        "balance": "Balance",
+        "price": "Price"
+      },
+      "modality": {
+        "PER_STAY": {
+          "symbol": "stay",
+          "text": "Per Stay"
+        },
+        "PER_NIGHT": {
+          "symbol": "night",
+          "text": "Per Night"
+        },
+        "PER_PERSON": {
+          "symbol": "person",
+          "text": "Per Person"
+        },
+        "PER_PERSON_PER_NIGHT": {
+          "symbol": "person / night",
+          "text": "Per Person, Per Night"
+        }
+      }
+    },
+    "pages": {
+      "list": {
+        "title": "Reservations",
+        "subtitle": "All your bookings in one place",
+        "table": {
+          "header": {
+            "reference": "Reference",
+            "period": "Period",
+            "status": "Status",
+            "parent": "Parent",
+            "unit-room": "Unit/Room",
+            "guests": "Guests",
+            "actions": "Actions"
+          },
+          "body": {
+            "reference-prefix": "Ref: ",
+            "room": "Room: ",
+            "room-empty": "Not assigned yet"
+          }
+        },
+        "empty-data": "No bookings found. Start by creating your first booking to see it here."
+      },
+      "new": {
+        "title": "New booking",
+        "subtitle": "Search and select available rooms for your guests",
+        "search-form": {
+          "period-input": {
+            "label": "Period"
+          },
+          "adult-input": {
+            "label": "Adult(s)"
+          },
+          "children-input": {
+            "label": "Children"
+          },
+          "age-input": {
+            "single-label": "year",
+            "plural-label": "years"
+          }
+        },
+        "guest-label": "Guest(s)",
+        "night-label": "Night(s)",
+        "result-section": {
+          "title": "Available Rooms",
+          "element": {
+            "add-to-selection-btn": "Add to selection",
+            "display-fees-btn": "Display fee(s)",
+            "labels": {
+              "available": "available",
+              "on": "On",
+              "night": "night",
+              "max-occupancy": "Max occupancy: ",
+              "required": "required",
+              "optional": "optional",
+              "fee": "fee(s)",
+              "see-more": "See more",
+              "less": "Less",
+              "total": "Total",
+              "average-night": "Average per night"
+            }
+          }
+        },
+        "summary-section": {
+          "title": "Booking summary",
+          "continue-btn": "Continue",
+          "labels": {
+            "total": "Total",
+            "room": "Room",
+            "fee": "Fee",
+            "adult": "A",
+            "child": "C",
+            "night": "N",
+            "nightly": "night"
+          }
+        }
+      },
+      "confirm": {
+        "title": "Confirm booking",
+        "subtitle": "Complete the booking details and review your selection before confirming",
+        "details-section": {
+          "title": "Details",
+          "form": {
+            "contact-name-input": {
+              "label": "Contact name",
+              "placeholder": "Enter contact name"
+            },
+            "contact-email-input": {
+              "label": "Email",
+              "placeholder": "Enter contact email"
+            },
+            "contact-mobile-input": {
+              "label": "Mobile",
+              "placeholder": "Enter contact mobile"
+            },
+            "notes-input": {
+              "label": "Global Notes",
+              "placeholder": "General notes for the entire booking ..."
+            }
+          }
+        },
+        "booking-item": {
+          "labels": {
+            "from": "From",
+            "to": "To",
+            "nights": "Night(s)",
+            "item": "Item",
+            "night": "Night",
+            "fees": "Fees"
+          },
+          "guests-section": {
+            "title": "Guests"
+          },
+          "payments-section": {
+            "title": "Payment"
+          },
+          "notes-section": {
+            "title": "Notes",
+            "note-input": {
+              "placeholder": "Optional notes for this booking item ..."
+            }
+          }
+        },
+        "errors": {
+          "single-type": "The booking Ref: #:bookingRef is not valid to be confirmed.",
+          "not-draft-status": "The booking Ref: #:bookingRef was already confirmed.",
+          "not-found": "Couldn't find any valid booking."
+        }
+      },
+      "calendar": {
+        "title": "Calendar",
+        "subtitle": "Centralized calendar view of all bookings",
+        "datePicker": {
+          "apply": "ok",
+          "format": "DD-MM-YYYY"
+        },
+        "loading": {
+          "spinnerText": "Loading...",
+          "message": "Loading ..."
+        },
+        "table": {
+          "unitsHeader": "Units",
+          "searchPlaceholder": "Search units...",
+          "unconfirmedBookingsTitle": "Unconfirmed Bookings"
+        },
+        "bookings": {
+          "referenceLabel": "Ref:",
+          "from": "From:",
+          "to": "To:",
+          "daysSuffix": "days",
+          "contact": "Contact:",
+          "noContact": "N/A"
+        },
+        "timeline": {
+          "guestPrefix": "Guest:",
+          "statusPrefix": "Status:",
+          "typePrefix": "Type:",
+          "refPrefix": "Ref:",
+          "unknownGuest": "Guest",
+          "to": "to"
+        }
+      },
+      "details": {
+        "title": "Booking details",
+        "subtitle": "Review booking information and summary",
+        "labels": {
+          "group-booking": "Group Booking",
+          "single-booking": "Single Booking",
+          "contact-person": "Contact Person",
+          "payment-summary": "Payment Summary",
+          "booking-summary": "Booking Summary",
+          "total": "Total",
+          "paid": "Paid",
+          "remaining": "Remaining",
+          "sub-bookings": "Sub-bookings",
+          "total-guests": "Total guests",
+          "rooms-assigned": "Rooms assigned",
+          "notes": "Booking Notes",
+          "total-amount": "Total Amount",
+          "individual-bookings": "Individual Bookings"
+        }
+      }
+    },
+    "availability": {
+      "title": "Unit Booking",
+      "subtitle": "Search and select available rooms for your guests",
+      "search": {
+        "title": "Search Criteria",
+        "form": {
+          "checkin-checkout-input": {
+            "label": "Check-in/Check-out"
+          },
+          "adults-input": {
+            "label": "Adults"
+          },
+          "children-input": {
+            "label": "Children"
+          },
+          "search-btn": {
+            "label": "Search rooms"
+          }
+        }
+      },
+      "rooms": {
+        "title": "Available Rooms"
+      }
+    }
+  },
+  "dashboards": {
+    "main": {
+      "title": "Hello there, ",
+      "subtitle": "Let's make today a productive one!"
+    }
+  },
+  "administration": {
+    "accounting": {
+      "title": "Accounting",
+      "subtitle": "Customize your accounting framework",
+      "menu": {
+        "posting-accounts": {
+          "title": "Posting Accounts",
+          "subtitle": "Create and manage your detailed chart of posting accounts"
+        },
+        "account-classes": {
+          "title": "Account Classes",
+          "subtitle": "Manage account classifications for your financial structure"
+        },
+        "ledger-groups": {
+          "title": "Ledger Groups & Subgroups",
+          "subtitle": "Organize your posting accounts into custom groups for reporting"
+        },
+        "taxes": {
+          "title": "Taxes",
+          "subtitle": "Configure tax rules, rates, and exemptions"
+        },
+        "payment-types": {
+          "title": "Payment Types",
+          "subtitle": "Manage payment methods and link them to gateway integrations"
+        },
+        "general-ledger-codes": {
+          "title": "General Ledger Codes",
+          "subtitle": "Map posting accounts to your external accounting ledger codes"
+        }
+      },
+      "posting-account": {
+        "pages": {
+          "list": {
+            "add-button": "Add Posting Account",
+            "empty-data": "No posting accounts yet. Create a new one to start managing your financial transactions.",
+            "no-results": "No posting accounts match your search criteria.",
+            "table": {
+              "header": {
+                "name": "Account Name",
+                "code": "Code",
+                "status": "Status",
+                "account-class": "Account Class",
+                "ledger-group": "Ledger Group",
+                "sub-ledger-group": "Sub-Ledger Group",
+                "actions": "Actions"
+              },
+              "labels": {
+                "enabled": "Enabled",
+                "disabled": "Disabled"
+              }
+            },
+            "delete-modal": {
+              "title": "Delete Posting Account",
+              "message": "Are you sure you want to delete this posting account? This action cannot be undone."
+            }
+          },
+          "cu-modal": {
+            "title": {
+              "create": "New Posting Account",
+              "edit": "Edit Posting Account"
+            },
+            "form": {
+              "code-input": {
+                "label": "Code",
+                "placeholder": "e.g. PC001",
+                "errors": {
+                  "unique": "This code is already assigned"
+                }
+              },
+              "description-input": {
+                "placeholder": "Specify what this posting account will be used for ...",
+                "errors": {
+                  "maxlength": "Description text shouldn't exceed 255 characters"
+                }
+              },
+              "account-class-input": {
+                "label": "Account Class"
+              },
+              "ledger-group-input": {
+                "label": "Ledger Group"
+              },
+              "sub-ledger-group-input": {
+                "label": "Sub-Ledger Group"
+              },
+              "tax-rule-input": {
+                "label": "Tax Rule"
+              },
+              "tax-posting-input": {
+                "label": "Tax Posting Account"
+              },
+              "enabled-input": {
+                "label": "Enabled",
+                "placeholder": "Disabled posting account won't be available for use"
+              }
+            }
+          },
+          "delete-modal": {
+            "title": "Confirm Posting Account Deletion",
+            "message": "Do you want to delete this posting account? Please be aware that this action can't be rolled back.",
+            "notifications": {
+              "success": {
+                "title": "Posting Account Removed",
+                "message": "Posting account: :postingAccountName was removed successfully!"
+              },
+              "error": {
+                "title": "Posting Account Removal Failed",
+                "message": "An error occurred while removing the posting account. Please try again or contact the support team."
+              }
+            }
+          }
+        }
+      },
+      "account-class": {
+        "pages": {
+          "list": {
+            "add-button": "Add Account Class",
+            "empty-data": "No account classes yet. Create a new one to manage account classifications for your financial structure.",
+            "labels": {
+              "enabled": "Enabled",
+              "disabled": "Disabled",
+              "system": "System",
+              "no-description": "No description provided"
+            }
+          },
+          "cu-modal": {
+            "title": {
+              "create": "New Account Class",
+              "edit": "Edit Account Class"
+            },
+            "form": {
+              "description-input": {
+                "placeholder": "Provide details about what this account class represents",
+                "errors": {
+                  "maxlength": "Description text shouldn't exceed 255 characters"
+                }
+              },
+              "enabled-input": {
+                "label": "Enabled",
+                "placeholder": "Disabled account classes won't be available for use"
+              }
+            }
+          },
+          "delete-modal": {
+            "title": "Confirm Account Class Deletion",
+            "message": "Do you want to delete this account class? Please be aware that this action can't be rolled back.",
+            "notifications": {
+              "success": {
+                "title": "Account Class Removed",
+                "message": "Account Class: :accountClassName was removed successfully!"
+              },
+              "error": {
+                "title": "Account Class Removal Failed",
+                "message": "An error occurred while removing the account class. Please try again or contact the support team."
+              }
+            }
+          }
+        }
+      },
+      "ledger-group": {
+        "pages": {
+          "list": {
+            "add-button": "Add Ledger Group",
+            "empty-data": "No ledger groups found. Create your first one to organize your accounts for better reporting.",
+            "labels": {
+              "sub-ledgers": "sub-ledgers group(s)"
+            }
+          },
+          "cu-modal": {
+            "title": {
+              "create": "New Ledger Group",
+              "edit": "Edit Ledger Group"
+            },
+            "form": {
+              "description-input": {
+                "placeholder": "Enter a brief description of this ledger group",
+                "errors": {
+                  "maxlength": "Description text shouldn't exceed 255 characters"
+                }
+              },
+              "enabled-input": {
+                "label": "Enabled",
+                "placeholder": "Disabled ledger group won't be available for use"
+              }
+            }
+          },
+          "delete-modal": {
+            "title": "Confirm Ledger Group Deletion",
+            "message": "Do you want to delete this ledger group? Please be aware that this action can't be rolled back.",
+            "notifications": {
+              "success": {
+                "title": "Ledger Group Removed",
+                "message": "Ledger group: :ledgerGroupName was removed successfully!"
+              },
+              "error": {
+                "title": "Ledger Group Removal Failed",
+                "message": "An error occurred while removing the ledger group. Please try again or contact the support team."
+              }
+            }
+          }
+        }
+      },
+      "taxes": {
+        "rules": {
+          "title": "Rules",
+          "pages": {
+            "list": {
+              "empty-data": "VAT rules are not set up. Create one to manage tax calculation.",
+              "add-btn": "New Rule",
+              "table": {
+                "header": {
+                  "value": "Value / Amount",
+                  "application": "Application"
+                },
+                "body": {
+                  "application-type": {
+                    "INCLUSIVE": {
+                      "label": "+ Inclusive",
+                      "tooltip": ""
+                    },
+                    "EXCLUSIVE": {
+                      "label": "- Exclusive",
+                      "tooltip": ""
+                    }
+                  }
+                }
+              }
+            },
+            "cu-modal": {
+              "title": {
+                "create": "Add New Tax Rule",
+                "edit": "Edit Tax Rule"
+              },
+              "form": {
+                "amount-input": {
+                  "label": "Amount"
+                },
+                "application-input": {
+                  "label": "Application",
+                  "values": {
+                    "inclusive": "Inclusive",
+                    "exclusive": "Exclusive"
+                  }
+                },
+                "description-input": {
+                  "placeholder": "Describe what services fall under this rule ..."
+                },
+                "enabled-input": {
+                  "placeholder": "Disabled Tax rules won't be available for use"
+                }
+              }
+            },
+            "delete-modal": {
+              "title": "Confirm Tax Rule Deletion",
+              "message": "Do you want to delete this tax rule? Please be aware that this action can't be rolled back.",
+              "notifications": {
+                "success": {
+                  "title": "Tax Rule Removed",
+                  "message": "Tax Rule: :taxRuleName was removed successfully!"
+                },
+                "error": {
+                  "title": "Tax Rule Removal Failed",
+                  "message": "An error occurred while removing the tax rule. Please try again or contact the support team."
+                }
+              }
+            }
+          }
+        },
+        "exemptions": {
+          "title": "Exemptions",
+          "pages": {
+            "list": {
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "pages": {
+        "list-users": {
+          "title": "Users",
+          "cta": {
+            "add-btn": "+ Add user"
+          },
+          "table": {
+            "header": {
+              "fullname": "Full name",
+              "role": "Role",
+              "email": "Email",
+              "mobile": "Mobile",
+              "last-activity": "Created on",
+              "actions": "Actions"
+            },
+            "body": {
+              "disabled-user": "This account is disabled",
+              "not-activated-user": "This account is not yet activated",
+              "activated-user": "This account health is good"
+            }
+          }
+        },
+        "create-user": {
+          "title": "Add user",
+          "form": {
+            "fullname-input": {
+              "label": "Full name"
+            },
+            "email-input": {
+              "label": "Email"
+            },
+            "mobile-input": {
+              "label": "Mobile"
+            },
+            "role-input": {
+              "label": "Role"
+            },
+            "notifications": {
+              "success": {
+                "title": "User created",
+                "message": "User :name has been successfully created"
+              },
+              "error": {
+                "title": "User creation failed",
+                "message": "An error occurred while creating the user. Please try again or contact the support team."
+              }
+            }
+          }
+        },
+        "edit-user": {
+          "title": "Edit user",
+          "form": {
+            "enabled-input": {
+              "label": "Enabled"
+            },
+            "notifications": {
+              "success": {
+                "title": "User updated",
+                "message": "User :name has been successfully updated"
+              },
+              "error": {
+                "title": "User update failed",
+                "message": "An error occurred while updating the user. Please try again or contact the support team."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rate-management": {
+    "rate-plan": {
+      "pages": {
+        "list": {
+          "title": "Rate Plans",
+          "subtitle": "Define and manage your rate plans effectively",
+          "empty-data": "There are currently no rate plans configured. Create a new one to get started."
+        },
+        "create-modal": {
+          "title": "New rate plan",
+          "form": {
+            "code-input": {
+              "errors": {
+                "uniqueRatePlanCode": "This code is already assigned "
+              }
+            },
+            "description-input": {
+              "placeholder": "Give a description about this rate plan ..."
+            },
+            "units-input": {
+              "label": "Unit(s)"
+            },
+            "enabled-input": {
+              "placeholder": "Disabled rate plan won't be available for booking"
+            }
+          }
+        },
+        "edit-rate-plan": {
+          "title": "Rate Plan:",
+          "subtitle": "Edit pricing, restrictions, and settings for this rate plan"
+        },
+        "rates-grid": {
+          "title": "Rates Grid",
+          "table": {
+            "header": {
+              "units": "Units"
+            }
+          }
+        },
+        "edit-rate": {
+          "title": "Edit Rate",
+          "form": {
+            "range-date-input": {
+              "label": "Range Date"
+            },
+            "amount-input": {
+              "label": "Amount"
+            }
+          }
+        },
+        "settings": {
+          "title": "Settings",
+          "inclusions-section": {
+            "title": "Inclusions",
+            "subtitle": "Choose extras and services bundled into this rate plan.",
+            "add-btn": "+add charge",
+            "table": {
+              "header": {
+                "code": "Code",
+                "service": "Service",
+                "amount": "Amount",
+                "modality": "Modality"
+              }
+            }
+          }
+        }
+      }
+    },
+    "extra-guest-charge": {
+      "pages": {
+        "list": {
+          "title": "Extra Guest Charge Strategies",
+          "subtitle": "Create and manage reusable strategies for charging additional adults and children.",
+          "tooltip": "Each strategy can include multiple rules for adults and children, with thresholds, age buckets, and pricing methods. You can link these strategies to rate plans to control how extra guests are billed.",
+          "add-button": "Add New Strategy",
+          "empty-data": "Extra guest charges are not set up. Create a strategy to start defining rules."
+        },
+        "cu-modal": {
+          "title": {
+            "create": "New Extra Guest Strategy",
+            "edit": "Edit Extra Guest Strategy"
+          },
+          "form": {
+            "enabled-input": {
+              "placeholder": "Disabled extra guest charge strategy won't be available for use"
+            }
+          }
+        }
+      }
+    }
+  },
+  "rate": {
+    "rate-calendar": {
+      "start-label": "Start",
+      "end-label": "End",
+      "units-title": "Units",
+      "occupancy-label": "Occupancy"
+    },
+    "rate-management": {
+      "title": "Rate Management",
+      "subtitle": "Define and manage your rental rates effectively",
+      "buttons": {
+        "add-rate-btn": "Add Standard Rate",
+        "edit-rate-btn": "Edit Standard Rate"
+      },
+      "table": {
+        "header": {
+          "name": "Name",
+          "code": "Code",
+          "units": "Unit(s)",
+          "type": "Type",
+          "parent": "Parent",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "labels": {
+          "enabled": "Enabled",
+          "disabled": "Disabled",
+          "no-units": "No units assigned"
+        }
+      }
+    },
+    "rate-edit": {
+      "title": "Edit Standard Rate",
+      "subtitle": "Update your rental rate details",
+      "general-tab": {
+        "title": "General",
+        "additional-info": "Modify the fundamental details of your rental rate",
+        "form": {
+          "name-input": {
+            "label": "Rate Name",
+            "placeholder": "Enter the rate name ..."
+          },
+          "code-input": {
+            "label": "Rate Code",
+            "placeholder": "Enter a unique rate code ..."
+          },
+          "status-input": {
+            "label": "Status",
+            "options": {
+              "ENABLED": "Enabled",
+              "DISABLED": "Disabled"
+            }
+          },
+          "type-input": {
+            "label": "Rate Type",
+            "options": {
+              "STANDARD": "Standard",
+              "NON_REFUNDABLE": "Non-refundable"
+            }
+          },
+          "description-input": {
+            "label": "Description",
+            "placeholder": "Provide a brief description of the rate ..."
+          },
+          "save-btn": "Save",
+          "min-stay": {
+            "label": "Minimum Stay (nights)"
+          },
+          "max-stay": {
+            "label": "Maximum Stay (nights)"
+          },
+          "listing-units": {
+            "label": "Listing Units"
+          },
+          "basic-info": {
+            "title": "Basic Information"
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "general": {
+      "title": "General"
+    },
+    "crm": {
+      "title": "CRM",
+      "sections": {
+        "segments": {
+          "title": "Segments",
+          "list": {
+            "table": {
+              "header": {
+                "name": "Name",
+                "parent": "Parent",
+                "description": "Description",
+                "status": "Status"
+              }
+            }
+          }
+        }
+      }
+    },
+    "finance": {
+      "ledgerGroups": {
+        "title": "Ledger Groups & Subgroups",
+        "subtitle": "Organize your chart of accounts into hierarchical groups",
+        "buttons": {
+          "addGroup": "Add Group",
+          "expandAll": "Expand All",
+          "cancel": "Cancel",
+          "saveChanges": "Save Changes",
+          "addSubgroup": "Add Subgroup"
+        },
+        "labels": {
+          "subgroups": "subgroups",
+          "subgroup": "Subgroup"
+        },
+        "status": {
+          "enabled": "Enabled",
+          "disabled": "Disabled"
+        },
+        "tooltips": {
+          "addSubgroup": "Add Subgroup",
+          "editGroup": "Edit Group",
+          "deleteGroup": "Delete Group",
+          "editSubgroup": "Edit Subgroup",
+          "deleteSubgroup": "Delete Subgroup",
+          "changeStatus": "Change Status"
+        },
+        "messages": {
+          "noSubgroups": "No subgroups configured"
+        },
+        "modals": {
+          "editGroup": {
+            "title": "Edit Group"
+          },
+          "editSubgroup": {
+            "title": "Edit Subgroup"
+          },
+          "addGroup": {
+            "title": "Add New Group"
+          },
+          "addSubgroup": {
+            "titlePrefix": "Add New Subgroup to"
+          }
+        },
+        "forms": {
+          "name": "Name",
+          "description": "Description",
+          "status": "Status"
+        },
+        "placeholders": {
+          "enterGroupName": "Enter group name",
+          "enterGroupDescription": "Enter group description",
+          "enterSubgroupName": "Enter subgroup name",
+          "enterSubgroupDescription": "Enter subgroup description"
+        }
+      }
+    },
+    "charges": {
+      "pages": {
+        "list": {
+          "title": "Services & Fees",
+          "subtitle": "Create and manage chargeable items that can be billed to guests during their stay",
+          "add-btn": "Add Charge",
+          "table": {
+            "header": {
+              "posting-account": "Posting Account",
+              "inclusion": "Inclusion",
+              "extra": "Extra"
+            },
+            "body": {
+              "posting-account": "Posted",
+              "packageable": {
+                "true": "Packageable",
+                "false": "Not Packageable"
+              },
+              "price-included": {
+                "true": "Price included",
+                "false": "Price not-included"
+              },
+              "extra": {
+                "true": "Extra",
+                "false": "Non-Extra"
+              }
+            }
+          },
+          "empty-data": "No charges have been created yet. Add one to offer extras to your guests and handle fees."
+        },
+        "cu-modal": {
+          "title": {
+            "create": "Create Charge",
+            "edit": "Edit Charge"
+          },
+          "form": {
+            "packageable-input": {
+              "label": "Packageable"
+            },
+            "exclude-input": {
+              "label": "Exclude price",
+              "placeholder": "Excluded price will not be reflected within the package final price"
+            },
+            "extra-input": {
+              "label": "Extra"
+            }
+          }
+        }
+      }
+    },
+    "policies": {
+      "cancellation": {
+        "pages": {
+          "list": {
+            "title": "Cancellation policies",
+            "subtitle": "Define the fee and conditions applied when a reservation is cancelled.",
+            "add-btn": "New Cancellation Policy",
+            "empty-data": "No cancellation policies have been created yet. Add one to define how cancellations should be managed.",
+            "table": {
+              "header": {
+                "rule": "Rule"
+              }
+            },
+            "labels": {
+              "apply": "Applies",
+              "hours": "Hour(s)",
+              "AVG_NIGHT": "of the average night price",
+              "MAX_NIGHT": "of the night with the highest price",
+              "MIN_NIGHT": "of the night with the minimal price",
+              "STAY": "of the reservation amount"
+            }
+          },
+          "cu-modal": {
+            "title": {
+              "create": "New Cancellation Policy",
+              "edit": "Edit Cancellation Policy"
+            },
+            "form": {
+              "rule-input": {
+                "label": "Rule",
+                "values": {
+                  "AFTER_BOOKING": "After Booking",
+                  "BEFORE_CHECKIN": "Before Check-in"
+                }
+              },
+              "type-input": {
+                "values": {
+                  "FLAT": "Flat",
+                  "MAX_NIGHT": "Highest Night Price",
+                  "MIN_NIGHT": "Minimal Night Price",
+                  "AVG_NIGHT": "Average Night Price",
+                  "STAY": "Reservation Price"
+                }
+              },
+              "amount-input": {
+              },
+              "enabled-input": {
+                "placeholder": "Disabled cancellation policies won't be available for use"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rate-plan": {
+    "pages": {
+      "list": {
+        "title": "Rate Plans",
+        "subtitle": "Define and manage your rate plans effectively",
+        "empty-data": "There are currently no rate plans configured. Create a new one to get started."
+      },
+      "create-modal": {
+        "title": "New rate plan",
+        "form": {
+          "code-input": {
+            "errors": {
+              "uniqueRatePlanCode": "This code is already assigned "
+            }
+          },
+          "description-input": {
+            "placeholder": "Give a description about this rate plan ..."
+          },
+          "units-input": {
+            "label": "Unit(s)"
+          },
+          "enabled-input": {
+            "placeholder": "Disabled rate plan won't be available for booking"
+          }
+        }
+      },
+      "edit-rate-plan": {
+        "title": "Rate Plan:",
+        "subtitle": "Edit pricing, restrictions, and settings for this rate plan"
+      },
+      "rates-grid": {
+        "title": "Rates Grid",
+        "table": {
+          "header": {
+            "units": "Units"
+          }
+        }
+      },
+      "edit-rate": {
+        "title": "Edit Rate",
+        "form": {
+          "range-date-input": {
+            "label": "Range Date"
+          },
+          "single-adult-input": {
+            "label": "Single Adult"
+          },
+          "double-adult-input": {
+            "label": "Double Adult"
+          },
+          "extra-adult-input": {
+            "label": "Extra Adult"
+          },
+          "extra-child-input": {
+            "label": "Extra Child"
+          }
+        }
+      },
+      "settings": {
+        "title": "Settings",
+        "inclusions-section": {
+          "title": "Inclusions",
+          "subtitle": "Choose extras and services bundled into this rate plan.",
+          "pages": {
+            "list": {
+              "add-btn": "Add Inclusion",
+              "empty-data": "No inclusions defined. Add services to bundle them with this rate plan.",
+              "table": {
+                "header": {
+                  "service": "Service",
+                  "amount": "Amount",
+                  "posting-timing": "Posting Timing"
+                }
+              }
+            },
+            "add-modal": {
+              "title": "Add Inclusion",
+              "form": {
+                "enabled-input": {
+                  "placeholder": "Disabled inclusions will be ignored during posting and will not be applied in revenue allocation. "
+                }
+              }
+            },
+            "delete-modal": {
+              "title": "Delete Inclusion",
+              "message": "Are you sure you want to remove this inclusion from the rate plan? Guests will no longer receive this service as part of this rate plan."
+            }
+          }
+        },
+        "units-section": {
+          "title": "Units",
+          "subtitle": "Manage units that can be booked under this rate plan.",
+          "pages": {
+            "list": {
+              "add-btn": "Add Unit",
+              "empty-data": "No units defined. Add unit to this rate plan.",
+              "enable-btn": "Enable",
+              "disable-btn": "Disable"
+            },
+            "edit-modal": {
+              "title": {
+                "enable": "Enable Unit",
+                "disable": "Disable Unit"
+              },
+              "message": {
+                "enable": "Are you sure you want to enable this unit for the rate plan? Guests will be able to book it under this rate.",
+                "disable": "Are you sure you want to disable this unit for the rate plan? Guests will no longer be able to book it under this rate."
+              }
+            },
+            "add-modal": {
+              "title": "Add Unit",
+              "form": {
+                "unit-input": {
+                  "label": "Unit",
+                  "placeholder": "Select unit"
+                },
+                "enabled-input": {
+                  "placeholder": "Disabled unit will not be available to book under this rate plan."
+                }
+              }
+            }
+          }
+        },
+        "cancellation-policy-section": {
+          "title": "Cancellation Policy",
+          "subtitle": "Define the fee and conditions applied when a reservation is cancelled.",
+          "disable-modal": {
+            "title": "Disable Cancellation Policy",
+            "message": "Are you sure you want to disable the cancellation policy for this rate plan? Guests will not be charged any cancellation fees."
+          }
+        },
+        "restrictions-section": {
+          "title": "Restrictions",
+          "subtitle": "Control how and when this rate plan can be booked",
+          "los": {
+            "title": "Length Of Stay",
+            "subtitle": "Define the shortest and longest stay allowed",
+            "form": {
+              "night-label": "Night(s)",
+              "min-los-input": {
+                "label": "minLos",
+                "errors": {
+                  "min": "Minimum value is 1"
+                }
+              },
+              "max-los-input": {
+                "label": "maxLos",
+                "errors": {
+                  "los-range": "maxLos should be = or higher than minLos"
+                }
+              }
+            }
+          },
+          "booking-window": {
+            "title": "Booking Window / Advance Booking",
+            "subtitle": "Set limits on earliest and latest booking dates",
+            "form": {
+              "day-label": "Day(s)",
+              "min-lead-input": {
+                "label": "minLead",
+                "errors": {
+                  "min": "Minimum value is 0"
+                }
+              },
+              "max-lead-input": {
+                "label": "maxLead",
+                "errors": {
+                  "lead-range": "maxLead should be = or higher than minLead"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

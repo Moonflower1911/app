@@ -1,0 +1,29 @@
+<div class="mat-grid-list-like">
+  @for (metric of metrics; track metric.title) {
+    <div class="grid-tile">
+      <div class="metric-card">
+        <div class="metric-content">
+          @if (metric?.iconClass) {
+            <div class="metric-icon" [style.background-color]="metric?.backgroundColor || '#6c757d'">
+              <i [class]="metric?.iconClass"></i>
+            </div>
+          }
+          <div class="metric-info">
+            <div class="metric-title">{{ metric?.title }}</div>
+            <div class="metric-value" 
+                 [appAnimatedNumber]="getNumericValue(metric?.value || '')"
+                 [duration]="2000"
+                 [delay]="getDelay($index)">
+              {{ metric?.value }}
+            </div>
+            <div class="metric-change" 
+                 [class.positive]="metric?.isPositive" 
+                 [class.negative]="!metric?.isPositive">
+              {{ metric?.changePercentage }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

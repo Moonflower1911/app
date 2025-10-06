@@ -1,0 +1,20 @@
+<ng-select class="custom"
+           (change)="valueChanged($event)"
+           (scrollToEnd)="onScrollToEnd()"
+           (search)="searchResources($event)"
+           [(ngModel)]="selectedResource"
+           [multiple]="false"
+           [disabled]="disable"
+           [items]="resourceSearchList"
+           [placeholder]="'commons.form.account-class-select.placeholder'|translate"
+           [typeahead]="$resourceSearch"
+           [virtualScroll]="true">
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span>{{ item.name }}</span>
+    <span class="ng-value-icon right ms-1" (click)="clear(item)" aria-hidden="true">x</span>
+  </ng-template>
+
+  <ng-template let-item="item" ng-option-tmp>
+    <span>{{ item.name }}</span>
+  </ng-template>
+</ng-select>

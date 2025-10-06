@@ -1,0 +1,93 @@
+<form [formGroup]="rateForm" (ngSubmit)="submit()">
+  <c-row class="mb-3">
+    <c-col [md]="12">
+      <div class="form-group text-start">
+        <label cLabel for="dateRange" class="required">
+          {{ 'rate-management.rate-plan.pages.edit-rate.form.range-date-input.label'|translate }}</label>
+        <input id="dateRange"
+               [showDropdowns]="true"
+               [opens]="'left'"
+               [alwaysShowCalendars]="true"
+               [showRangeLabelOnInput]="true"
+               [linkedCalendars]="false"
+               size="sm"
+               type="text"
+               class="form-control"
+               [locale]="{ applyLabel: 'ok', format: 'DD-MM-YYYY' }"
+               ngxDaterangepickerBootstrap
+               formControlName="period"/>
+        @if (rateForm.get('period')?.touched && rateForm.get('period')?.invalid) {
+          @if (rateForm.get('period')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </div>
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-3">
+    <c-col [md]="6">
+      <label cLabel class="required" for="singleAdult">
+        {{ 'rate-plan.pages.edit-rate.form.single-adult-input.label'|translate|translate }}
+      </label>
+      <input id="singleAdult" cFormControl type="number" formControlName="singleAdult"/>
+      @if (rateForm.get('singleAdult')?.touched && rateForm.get('singleAdult')?.invalid) {
+        @if (rateForm.get('singleAdult')?.errors?.['required']) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+        }
+        @if (rateForm.get('singleAdult')?.errors?.['maxTwoDecimals']) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.max-two-decimals' | translate }}</c-form-feedback>
+        }
+      }
+    </c-col>
+
+    <c-col [md]="6">
+      <label cLabel  for="doubleAdult">
+        {{ 'rate-plan.pages.edit-rate.form.double-adult-input.label'|translate|translate }}
+      </label>
+      <input id="doubleAdult" cFormControl type="number" formControlName="doubleAdult"/>
+      @if (rateForm.get('doubleAdult')?.touched && rateForm.get('doubleAdult')?.invalid) {
+        @if (rateForm.get('doubleAdult')?.errors?.['maxTwoDecimals']) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.max-two-decimals' | translate }}</c-form-feedback>
+        }
+      }
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-3">
+    <c-col [md]="6">
+      <label cLabel for="extraAdult">
+        {{ 'rate-plan.pages.edit-rate.form.extra-adult-input.label'|translate|translate }}
+      </label>
+      <input id="extraAdult" cFormControl type="number" formControlName="extraAdult"/>
+      @if (rateForm.get('extraAdult')?.touched && rateForm.get('extraAdult')?.invalid) {
+        @if (rateForm.get('extraAdult')?.errors?.['maxTwoDecimals']) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.max-two-decimals' | translate }}</c-form-feedback>
+        }
+      }
+    </c-col>
+
+    <c-col [md]="6">
+      <label cLabel  for="extraChild">
+        {{ 'rate-plan.pages.edit-rate.form.extra-child-input.label'|translate|translate }}
+      </label>
+      <input id="extraChild" cFormControl type="number" formControlName="extraChild"/>
+      @if (rateForm.get('extraChild')?.touched && rateForm.get('extraChild')?.invalid) {
+        @if (rateForm.get('extraChild')?.errors?.['maxTwoDecimals']) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.max-two-decimals' | translate }}</c-form-feedback>
+        }
+      }
+    </c-col>
+  </c-row>
+
+  <c-row class="mt-4">
+    <c-col class="d-flex justify-content-end">
+      <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!rateForm.valid">
+        {{ 'commons.form.save-btn'|translate }}
+      </button>
+    </c-col>
+  </c-row>
+
+
+</form>
+

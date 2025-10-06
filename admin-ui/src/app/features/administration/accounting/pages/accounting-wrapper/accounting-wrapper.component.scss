@@ -1,0 +1,24 @@
+@use '../../../../../../scss/variables' as *;
+
+ul.list-group {
+  border-radius: 5px !important;
+
+  li.list-group-item {
+    background-color: white !important;
+    color: $primary !important;
+    padding: 0 !important;
+
+    a {
+      padding: 8px !important;
+
+      &.active {
+        background-color: $primary-01 !important;
+      }
+    }
+
+    &:hover {
+      background-color: $primary-01 !important;
+    }
+
+  }
+}

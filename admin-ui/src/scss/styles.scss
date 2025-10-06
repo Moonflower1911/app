@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+@use './variables' as *;
+// Import styles with default layout.
+@use '@coreui/coreui/scss/coreui' as * with (
+  $enable-deprecation-messages: false,
+  $primary: #013557,
+  $secondary: #2E7D8C,
+  $info: #1976D2,
+  $success: #4CAF50,
+  $warning: #FDA015,
+  $danger: #FF3D00,
+  $light: #DFDFDF,
+  $dark: #262626,
+  $body-color:#010101,
+  $body-bg: #fafafa,
+  $sidebar-bg: $primary,
+  $sidebar-nav-title-color: #61748f7d,
+  $sidebar-nav-link-color: $light,
+  $sidebar-nav-link-icon-color: $light,
+  $sidebar-nav-link-active-color: white,
+  $sidebar-nav-link-active-icon-color: white,
+  $sidebar-nav-link-active-bg: $info,
+  $sidebar-nav-link-hover-color: white,
+  $sidebar-nav-link-hover-icon-color: $secondary,
+  $sidebar-nav-link-hover-bg: transparent,
+  $sidebar-nav-link-padding-y: .3rem ,
+  $sidebar-nav-link-padding-x: .8rem,
+  $sidebar-width: 15rem,
+);
+
+// Import Chart.js custom tooltips styles
+@use "@coreui/chartjs/scss/coreui-chartjs";
+
+// Custom styles for this theme
+@use './theme';
+
+@use './custom';
+
+@use "@ng-select/ng-select/themes/default.theme.css";
+@use 'intl-tel-input/build/css/intlTelInput.css';
+@use 'ngx-toastr/toastr';
+@use "leaflet/dist/leaflet.css";
+
+

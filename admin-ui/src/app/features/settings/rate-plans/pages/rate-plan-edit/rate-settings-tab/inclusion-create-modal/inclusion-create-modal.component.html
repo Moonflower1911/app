@@ -1,0 +1,41 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    {{ ('rate-plan.pages.settings.inclusions-section.pages.add-modal.title')|translate }}
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form cForm [formGroup]="inclusionForm" (ngSubmit)="submit()">
+
+    <!--Charge input-->
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel class="required" for="code">
+          {{ 'commons.form.inputs.charge-input.service-label' | translate }}</label>
+        <app-charge-select id="charge" formControlName="charge" [isPackage]="'true'"></app-charge-select>
+        @if (inclusionForm.get('charge')?.touched && inclusionForm.get('charge')?.invalid) {
+          @if (inclusionForm.get('charge')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!inclusionForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+
+  </form>
+
+</div>

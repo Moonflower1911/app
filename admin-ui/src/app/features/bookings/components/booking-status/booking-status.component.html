@@ -1,0 +1,4 @@
+<app-badge [color]="getBadgeColor()" [smaller]="false">
+  <i class="bi me-1" [ngClass]="getBadgeIcon()"></i>
+  {{ ('bookings.commons.status.' + status) |translate }}
+</app-badge>

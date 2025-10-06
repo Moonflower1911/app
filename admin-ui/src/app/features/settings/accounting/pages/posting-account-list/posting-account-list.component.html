@@ -1,0 +1,96 @@
+<c-row class="mb-3">
+  <c-col [md]="4">
+    <c-input-group sizing="sm" class="search-input">
+        <span cInputGroupText>
+          <svg [cIcon]="icons.cilSearch"></svg>
+        </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+
+  <c-col [md]="8" class="d-flex justify-content-end">
+    <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openCuModal()">
+      <i class="bi bi-plus-lg"></i> {{ 'administration.accounting.posting-account.pages.list.add-button' |translate }}
+    </button>
+  </c-col>
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+      <table cTable [responsive]="true">
+        <thead>
+        <tr>
+          <th>{{ 'commons.table.header.name'|translate }}</th>
+          <th>{{ 'administration.accounting.posting-account.pages.list.table.header.code'|translate }}</th>
+          <th>{{ 'administration.accounting.posting-account.pages.list.table.header.ledger-group'|translate }}</th>
+          <th>{{ 'administration.accounting.posting-account.pages.list.table.header.sub-ledger-group'|translate }}</th>
+          <th>{{ 'administration.accounting.posting-account.pages.list.table.header.status'|translate }}</th>
+          <th>{{ 'commons.table.header.actions'|translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (postingAccount of listContent; track postingAccount.id) {
+            <tr>
+              <td>{{ postingAccount.name|titlecase }}</td>
+              <td>
+                <app-badge [color]="'primary'" [smaller]="false">
+                  {{ postingAccount.code }}
+                </app-badge>
+              </td>
+              <td>
+                {{ postingAccount.ledgerGroup?.name }}
+              </td>
+              <td>
+                {{ postingAccount.subLedgerGroup?.name }}
+              </td>
+              <td>
+                <app-badge [color]="postingAccount.enabled?'success':'dark'" [rounded]="true"
+                           [smaller]="false">
+                  {{ ('commons.labels.' + (postingAccount.enabled ? 'enabled' : 'disabled'))|translate }}
+                </app-badge>
+              </td>
+              <td>
+                <button type="button" cButton size="sm"
+                        (click)="openCuModal(postingAccount)"
+                        class="btn-info-light py-1 px-2 me-1">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button type="button" cButton size="sm"
+                        class="btn-danger-light py-1 px-2"
+                        (click)="confirmDeletion(postingAccount)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+
+
+      </table>
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/units.gif"
+                      [message]="'administration.accounting.ledger-group.pages.list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}

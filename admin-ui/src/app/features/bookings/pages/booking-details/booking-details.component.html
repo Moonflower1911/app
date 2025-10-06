@@ -1,0 +1,28 @@
+<app-page-title [title]="'Booking Details'"
+                [subTitle]="'View, edit, and manage every aspect of the booking.'">
+</app-page-title>
+
+@if (this.booking) {
+
+  <app-booking-header [booking]="this.booking">
+  </app-booking-header>
+
+  <c-row class="mt-3">
+
+    <c-col [md]="3">
+      <app-booking-side [notes]="getNotes()" [bookingId]="getBookingId()"
+                        [contact]="getBookingContact()"></app-booking-side>
+    </c-col>
+
+    <!--Booking items or data-->
+    <c-col [md]="9">
+      @for (bookingItem of booking.items; track bookingItem.id) {
+        <app-booking-detail-item [booking]="bookingItem">
+        </app-booking-detail-item>
+      }
+    </c-col>
+
+  </c-row>
+
+
+}

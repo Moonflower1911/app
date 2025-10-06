@@ -1,0 +1,116 @@
+<c-card>
+  <!--Details title-->
+  <c-card-header class="pb-0 d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <h4 class="card-title mb-0">
+      <i class="bi bi-info-circle me-1 text-primary"></i>
+      {{ 'bookings.pages.confirm.details-section.title'|translate }}
+    </h4>
+    @if(displayEditButton){
+      <button cButton size="sm" type="button" class="edit-button btn-dark-light" (click)="switchEditMode()">
+        <i class="bi bi-pencil-square"></i>
+      </button>
+    }
+  </c-card-header>
+
+  <c-card-body>
+    <form [formGroup]="bookingForm">
+      <!--Contact inputs-->
+      <c-row>
+        <ng-container formGroupName="contact">
+          <c-col [md]="12" class="mb-3">
+            <label cLabel class="required me-1" for="name">
+              {{ 'bookings.pages.confirm.details-section.form.contact-name-input.label'|translate }}
+            </label>
+            @if (!editMode) {
+              <div>
+                <i class="bi bi-person-circle me-2 text-secondary"></i>
+                <span
+                  class="text-muted">{{ bookingForm.value.contact?.name ? bookingForm.value.contact?.name : 'Not provided' }}</span>
+              </div>
+            } @else {
+              <input cFormControl formControlName="name" id="name" name="name" type="text"
+                     [placeholder]="'bookings.pages.confirm.details-section.form.contact-name-input.placeholder'|translate"
+              />
+              @if (((bookingForm.get('contact.name')?.touched || bookingForm.get('contact.name')?.dirty))) {
+                @if (bookingForm.get('contact.name')?.hasError('required')) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.required'|translate }}
+                  </c-form-feedback>
+                }
+              }
+            }
+          </c-col>
+
+          <c-col [md]="12" class="mb-3">
+            <label cLabel class="required me-1" for="email">
+              {{ 'bookings.pages.confirm.details-section.form.contact-email-input.label'|translate }}
+            </label>
+            @if (!editMode) {
+              <div>
+                <i class="bi bi-envelope-at me-2 text-secondary"></i>
+                <span
+                  class="text-muted">{{ bookingForm.value.contact?.email ? bookingForm.value.contact?.email : 'Not provided' }}</span>
+              </div>
+            } @else {
+              <input cFormControl formControlName="email" id="email" name="email" type="text" [plaintext]="!editMode"
+                     [readOnly]="!editMode"
+                     [placeholder]="'bookings.pages.confirm.details-section.form.contact-email-input.placeholder'|translate"/>
+              @if (((bookingForm.get('contact.email')?.touched || bookingForm.get('contact.email')?.dirty))) {
+                @if (bookingForm.get('contact.email')?.hasError('required')) {
+                  <c-form-feedback [valid]="false">{{ 'commons.errors.required'|translate }}
+                  </c-form-feedback>
+                }
+              }
+            }
+
+          </c-col>
+
+          <c-col [md]="12" class="mb-3">
+            <label cLabel for="mobile">
+              {{ 'bookings.pages.confirm.details-section.form.contact-mobile-input.label'|translate }}
+            </label>
+            @if (!editMode) {
+              <div>
+                <i class="bi bi-telephone me-2 text-secondary"></i>
+                <span
+                  class="text-muted">{{ bookingForm.value.contact?.mobile ? bookingForm.value.contact?.mobile : 'Not provided' }}</span>
+              </div>
+            } @else {
+              <ngx-intl-tel-input
+                [enableAutoCountrySelect]="false"
+                [enablePlaceholder]="true"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                [searchCountryFlag]="true"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.Morocco"
+                cssClass="form-control"
+                formControlName="mobile"
+                id="mobile"
+                inputId="mobile"
+              ></ngx-intl-tel-input>
+            }
+          </c-col>
+        </ng-container>
+      </c-row>
+      <!--Global note input-->
+      <c-row>
+        <c-col [md]="12">
+          <label cLabel class=" me-2" for="notes">
+            {{ 'bookings.pages.confirm.details-section.form.notes-input.label'|translate }}
+          </label>
+          @if (!editMode) {
+            <div>
+              <i class="bi bi-text-left me-2 text-secondary"></i>
+              <span
+                class="text-muted">{{ bookingForm.value.notes ? bookingForm.value.notes : 'No special notes' }}</span>
+            </div>
+          } @else {
+            <textarea cFormControl id="exampleFormControlTextarea1" rows="4" formControlName="notes"
+                      [placeholder]="'bookings.pages.confirm.details-section.form.notes-input.placeholder'|translate"></textarea>
+          }
+        </c-col>
+      </c-row>
+    </form>
+  </c-card-body>
+</c-card>

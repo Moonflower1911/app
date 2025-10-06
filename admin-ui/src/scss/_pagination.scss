@@ -1,0 +1,45 @@
+@use 'variables' as *;
+
+ul.pagination {
+
+  li.page-item {
+
+    margin-right: 3px !important;
+    margin-left: 3px !important;
+
+    &.pagination-first {
+      margin-left: 0px !important;
+    }
+
+    &.pagination-last {
+      margin-right: 0px !important;
+    }
+
+    a.page-link {
+      padding: 2px 8px !important;
+      border-radius: 5px !important;
+      color: $primary !important;
+      font-size: 14px !important;
+
+      &:hover {
+        background-color: $primary-02 !important;
+
+      }
+    }
+
+    &.active {
+      a.page-link {
+        background-color: $primary !important;
+        color: white !important;
+      }
+    }
+
+    &.disabled {
+      a.page-link {
+        background-color: $light !important;
+        color: $primary !important;
+      }
+    }
+
+  }
+}

@@ -1,0 +1,56 @@
+<ng-select class="custom"
+           (change)="valueChanged($event)"
+           (scrollToEnd)="onScrollToEnd()"
+           (search)="searchResources($event)"
+           [(ngModel)]="selectedResource"
+           [multiple]="false"
+           [disabled]="disable"
+           [items]="resourceSearchList"
+           [placeholder]="'commons.form.inputs.search-input.placeholder'|translate"
+           [typeahead]="$resourceSearch"
+           [virtualScroll]="true"
+           [compareWith]="compareParties">
+
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span class="me-1">{{ item.name }}</span>
+    <app-badge [color]="'primary'" [smaller]="false" class="me-1">
+      {{ item.code }}
+    </app-badge>
+    <span class="small text-body-secondary text-nowrap">
+      (
+      {{ item.amount | number:'1.2-2' }} MAD
+      @if (item.chargingBasis != 'FLAT') {
+        <span>
+          / {{ ('commons.form.inputs.charging-basis-input.values.' + item.chargingBasis + '.long')|translate }}
+        </span>
+      }
+      |
+      <span>
+        {{ ('commons.form.inputs.posting-timing-input.values.' + item.postingTiming)|translate }}
+      </span>
+      )
+    </span>
+    <!--    <span class="ng-value-icon right ms-1" (click)="clear(item)" aria-hidden="true">x</span>-->
+  </ng-template>
+
+  <ng-template let-item="item" ng-option-tmp>
+    <span class="me-1">{{ item.name }}</span>
+    <app-badge [color]="'primary'" [smaller]="false" class="me-1">
+      {{ item.code }}
+    </app-badge>
+    <span class="text-muted">
+      (
+      {{ item.amount | number:'1.2-2' }} MAD
+      @if (item.chargingBasis != 'FLAT') {
+        <span class="small text-body-secondary text-nowrap">
+                  / {{ ('commons.form.inputs.charging-basis-input.values.' + item.chargingBasis + '.long')|translate }}
+        </span>
+      }
+      |
+      <span>
+        {{ ('commons.form.inputs.posting-timing-input.values.' + item.postingTiming)|translate }}
+      </span>
+      )
+    </span>
+  </ng-template>
+</ng-select>

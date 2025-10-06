@@ -1,0 +1,28 @@
+<ng-select class="custom"
+           (change)="valueChanged($event)"
+           (scrollToEnd)="onScrollToEnd()"
+           (search)="searchResources($event)"
+           [(ngModel)]="selectedResource"
+           [multiple]="multi"
+           [disabled]="disable"
+           [items]="resourceSearchList"
+           [placeholder]="placeholder? placeholder: 'Select units ...'"
+           [typeahead]="$resourceSearch"
+           [virtualScroll]="true">
+  <ng-template let-item="item" ng-label-tmp>
+    <span class="me-1">{{ item.name }}</span>
+    <app-badge [color]="'primary'" [smaller]="false">
+      {{ item.code }}
+    </app-badge>
+  </ng-template>
+
+  <ng-template let-item="item" ng-option-tmp>
+      <span class="d-flex flex-column">
+        <span class="fw-bold">{{ item.name }}</span>
+        <app-badge [color]="'primary'" [smaller]="false">
+          {{ item.code }}
+        </app-badge>
+        <small class="text-muted">{{ item.subtitle }}</small>
+      </span>
+  </ng-template>
+</ng-select>

@@ -1,0 +1,72 @@
+@use '../../../../../../../scss/variables' as *;
+
+.table-container {
+  overflow-x: auto;
+
+  table.calendar-table {
+    margin-bottom: 0;
+    white-space: nowrap;
+
+    th {
+      background-color: $table-header-bg !important;
+      color: $primary;
+      font-weight: 600;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    td {
+      background-color: white;
+
+      &:hover {
+        background-color: $secondary-01 !important;
+        color: $secondary;
+        cursor: pointer;
+      }
+
+      &.room-name {
+        background-color: $primary-01 !important;
+        color: $primary;
+        font-weight: 600;
+        padding: 12px 15px;
+      }
+
+      &.price-cell {
+        padding: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #e3f2fd;
+        }
+      }
+
+      &.weekend {
+        background-color: $table-header-bg;
+      }
+    }
+
+    th, td {
+      &.units-col {
+        position: sticky;
+        left: 0;
+        z-index: 10;
+        background: white;
+        min-width: 180px;
+      }
+
+      div.iso-date {
+        font-size: 0.75rem;
+        opacity: 0.9;
+      }
+    }
+
+
+  }
+}
+
+
+
+
+

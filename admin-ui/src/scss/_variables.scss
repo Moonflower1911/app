@@ -1,0 +1,86 @@
+/*Brand colors*/
+$primary: #013557;
+$secondary: #2E7D8C;
+/*State colors*/
+$info: #1976D2;
+$success: #4CAF50;
+$warning: #FDA015;
+$danger: #FF3D00;
+/*Dark shades colors*/
+$dark: #262626;
+$gray: #5F5F5F;
+$light: #DFDFDF;
+/*Support colors*/
+$pink: #E91E63;
+$purple: #9C27B0;
+$deep-purple: #673AB7;
+$indigo: #3F51B5;
+$cyan: #00BCD4;
+$teal: #009688;
+$brown: #795548;
+$deep-orange: #FF5722;
+
+
+$nav-item: #61748f;
+$body-bg: #fafafa;
+
+/*Opacity colors*/
+$primary-01: #E5EAEE;
+$primary-02: #CCD7DD;
+$secondary-01: #EAF2F3;
+$secondary-02: #D5E5E8;
+$info-01: #E8F1FA;
+$info-02: #D1E4F6;
+$success-01: #28d7851a;
+$warning-01: #FFF5E7;
+$warning-02: #FFECD0;
+$danger-01: #FFEBE5;
+$danger-02: #FFD8CC;
+$pink-01: #FDE8EF;
+$pink-02: #FBD2E0;
+$purple-01: #F5E9F7;
+$purple-02: #EBD4EF;
+$deep-purple-01: #F0EBF8;
+$deep-purple-02: #E1D8F1;
+$brown-01: #F2EEED;
+$brown-02: #E4DDDA;
+$teal-01: #E5F4F3;
+$teal-02: #CCEAE7;
+$dark-01: #0a0a0a1a;
+$pink-01: #f171b11a;
+
+$dark-10: #26262633;
+
+
+$primary-10: #F3FBFF;
+$secondary-10: #E6F0FB;
+$info-10: #F1FBFE;
+$success-10: #EAF6EA;
+$warning-10: #FDF2E1;
+$danger-10: #FFEDE8;
+
+
+$primary-40: #5A9BC2;
+$secondary-40: #64A9E8;
+$info-40: #7FB2F7;
+$success-40: #A8E6A3;
+$danger-40: #FFB399;
+$warning-40: #FDC766;
+
+/*Typography colors*/
+$muted-color: #8d9eb5;
+
+
+/*Body colors*/
+$body-color: $gray;
+$body-bg: #f1fbfe;
+
+/*Table colors*/
+$table-header-bg: #f5f5f5;
+$table-header-color: $body-color;
+$table-body-separator: $table-header-bg !default;
+$table-body-color: $dark !default;
+$table-body-hover-color: #f9f9f9 !default;
+
+/*Form border colors*/
+$border-color: #dbdfe6;

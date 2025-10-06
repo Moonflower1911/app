@@ -1,0 +1,63 @@
+@use '../../../../../scss/variables' as *;
+
+// Wizard navigation
+.wizard-navigation {
+  .step-indicator {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid $border-color;
+    background-color: $light;
+    color: $gray;
+    transition: all 0.2s ease;
+
+    &.active {
+      background-color: $primary;
+      border-color: $primary;
+      color: white;
+    }
+
+    &.completed {
+      background-color: $success;
+      border-color: $success;
+      color: white;
+    }
+  }
+
+  .step-connector {
+    width: 3rem;
+    height: 2px;
+    background-color: $border-color;
+  }
+}
+
+.step1 {
+
+  input#name {
+    text-transform: capitalize;
+  }
+
+  .form-check {
+    margin-top: 0.5rem; // Descendre un peu plus le toggle
+  }
+
+  button.add-subunit-link {
+    color: $secondary;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+    text-decoration: none ;
+
+    &:hover {
+      color: $secondary;
+      text-decoration: underline;
+    }
+
+    i {
+      font-size: 0.75rem;
+    }
+  }
+}

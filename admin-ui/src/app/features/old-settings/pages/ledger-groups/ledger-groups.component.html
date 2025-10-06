@@ -1,0 +1,334 @@
+<c-container class="ledger-groups-container">
+  <c-card class="ledger-groups-card">
+    <c-card-header class="ledger-groups-header">
+      <div class="header-content">
+        <div class="header-text">
+          <h4 class="mb-2">{{ 'settings.finance.ledgerGroups.title' | translate }}</h4>
+          <p class="text-medium-emphasis mb-0">
+            {{ 'settings.finance.ledgerGroups.subtitle' | translate }}
+          </p>
+        </div>
+        <div class="header-actions">
+          <button
+            cButton
+            color="primary"
+            variant="outline"
+            size="sm"
+            (click)="openAddGroupModal()"
+            class="add-group-btn">
+            <c-icon name="cilPlus" size="sm"></c-icon>
+            {{ 'settings.finance.ledgerGroups.buttons.addGroup' | translate }}
+          </button>
+          <button
+            cButton
+            color="info"
+            variant="outline"
+            size="sm"
+            (click)="expandAll()"
+            class="expand-all-btn">
+            <c-icon name="cilList" size="sm"></c-icon>
+            {{ 'settings.finance.ledgerGroups.buttons.expandAll' | translate }}
+          </button>
+        </div>
+      </div>
+    </c-card-header>
+
+    <c-card-body class="ledger-groups-body p-0">
+      <div class="groups-list">
+        @for (group of getMainGroups(); track group) {
+          <div class="group-item" [class.expanded]="isExpanded(group.id)">
+            <!-- Main Group Row -->
+            <c-row class="group-row align-items-center" (click)="toggleExpansion(group.id)">
+              <c-col class="group-info">
+                <div class="group-details">
+                  <span class="arrow">&gt;</span>
+                  <h5 class="group-name mb-1">
+                    {{ group.name }}
+                  </h5>
+                  <p class="group-description mb-0 text-muted">{{ group.description }}</p>
+                </div>
+              </c-col>
+
+              <c-col xs="auto" class="group-status">
+                <app-badge [smaller]="false" [color]="group.enabled ? 'success' : 'danger'">{{ (group.enabled ? 'settings.finance.ledgerGroups.status.enabled' : 'settings.finance.ledgerGroups.status.disabled') | translate }}</app-badge>
+                <!-- <span
+                  class="status-badge"
+                  [class]="group.enabled ? 'status-enabled' : 'status-disabled'"
+                  (click)="$event.stopPropagation(); toggleGroupEnabled(group)">
+                  {{ group.enabled ? 'ENABLED' : 'DISABLED' }}
+                </span> -->
+                <span class="subgroup-count text-muted">{{ getSubgroups(group.id).length }} {{ 'settings.finance.ledgerGroups.labels.subgroups' | translate }}</span>
+              </c-col>
+
+              <c-col xs="auto" class="group-actions">
+                <div cButtonGroup size="sm" (click)="$event.stopPropagation()">
+                  <button
+                    cButton
+                    size="sm"
+                    color="primary"
+                    (click)="openAddSubgroupModal(group)"
+                    [title]="'settings.finance.ledgerGroups.tooltips.addSubgroup' | translate">
+                    <span>+</span>
+                  </button>
+                  <button
+                    cButton
+                    size="sm"
+                    color="secondary"
+                    (click)="openEditModal(group)"
+                    [title]="'settings.finance.ledgerGroups.tooltips.editGroup' | translate">
+                    <c-icon name="cilPencil" size="sm"></c-icon>
+                  </button>
+                  <button
+                    cButton
+                    size="sm"
+                    color="danger"
+                    (click)="deleteGroup(group.id)"
+                    [title]="'settings.finance.ledgerGroups.tooltips.deleteGroup' | translate">
+                    <c-icon name="cilTrash" size="sm"></c-icon>
+                  </button>
+                </div>
+              </c-col>
+            </c-row>
+
+            <div class="subgroups-section" [class.show]="isExpanded(group.id)">
+              @for (subgroup of getSubgroups(group.id); track subgroup) {
+                <c-row class="subgroup-row align-items-center">
+                  <c-col class="subgroup-info">
+                    <div class="subgroup-details">
+                      <div class="subgroup-details-name-container">
+                        <h6 class="subgroup-name mb-1" (click)="openEditModal(subgroup)">
+                          {{ subgroup.name }}
+                        </h6>
+                        <app-badge color="info" [smaller]="false">{{ 'settings.finance.ledgerGroups.labels.subgroup' | translate }}</app-badge>
+                      </div>
+                      <p class="subgroup-description mb-0 text-muted">{{ subgroup.description }}</p>
+                    </div>
+                    <!-- <span class="badge bg-info">Subgroup</span> -->
+                  </c-col>
+
+                  <c-col xs="auto" class="subgroup-status">
+                    <app-badge [smaller]="true" [color]="subgroup.enabled ? 'success' : 'danger'">{{ (subgroup.enabled ? 'settings.finance.ledgerGroups.status.enabled' : 'settings.finance.ledgerGroups.status.disabled') | translate }}</app-badge>
+                    <!--                    <span -->
+                    <!--                      class="status-badge"-->
+                    <!--                      [class]="subgroup.enabled ? 'status-enabled' : 'status-disabled'"-->
+                    <!--                      (click)="toggleGroupEnabled(subgroup)">-->
+                    <!--                      {{ subgroup.enabled ? 'ENABLED' : 'DISABLED' }}-->
+                    <!--                    </span>-->
+                  </c-col>
+
+                  <c-col xs="auto" class="subgroup-actions">
+                    <div cButtonGroup  size="sm">
+                      <button
+                        cButton
+                        size="sm"
+                        color="secondary"
+                        (click)="openEditModal(subgroup)"
+                        [title]="'settings.finance.ledgerGroups.tooltips.editSubgroup' | translate">
+                        <c-icon name="cilPencil" size="sm"></c-icon>
+                      </button>
+                      <button
+                        cButton
+                        size="sm"
+                        color="danger"
+                        (click)="deleteGroup(subgroup.id)"
+                        [title]="'settings.finance.ledgerGroups.tooltips.deleteSubgroup' | translate">
+                        <c-icon name="cilTrash" size="sm"></c-icon>
+                      </button>
+                    </div>
+                  </c-col>
+                </c-row>
+              }
+
+              @if (getSubgroups(group.id).length === 0) {
+                <c-row class="no-subgroups">
+                  <c-col class="text-center py-4">
+                    <p class="text-muted mb-0">{{ 'settings.finance.ledgerGroups.messages.noSubgroups' | translate }}</p>
+                  </c-col>
+                </c-row>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </c-card-body>
+  </c-card>
+
+  <!-- Edit Group/Subgroup Modal -->
+  <c-modal
+    #editModal
+    [visible]="editModalVisible"
+    (visibleChange)="editModalVisible = $event">
+    <c-modal-header>
+      <h4 cModalTitle>
+        {{ (modalData.isSubgroup ? 'settings.finance.ledgerGroups.modals.editSubgroup.title' : 'settings.finance.ledgerGroups.modals.editGroup.title') | translate }}
+      </h4>
+      <button size="sm" cButtonClose (click)="closeEditModal()"></button>
+    </c-modal-header>
+
+    <c-modal-body>
+      <form>
+        <div class="mb-3">
+          <label cLabel for="groupName">{{ 'settings.finance.ledgerGroups.forms.name' | translate }}</label>
+          <input
+            cFormControl
+            type="text"
+            id="groupName"
+            [(ngModel)]="modalData.name"
+            name="groupName"
+            [placeholder]="'settings.finance.ledgerGroups.placeholders.enterGroupName' | translate">
+        </div>
+
+        <div class="mb-3">
+          <label cLabel for="groupDescription">{{ 'settings.finance.ledgerGroups.forms.description' | translate }}</label>
+          <textarea
+            cFormControl
+            id="groupDescription"
+            [(ngModel)]="modalData.description"
+            name="groupDescription"
+            rows="3"
+            [placeholder]="'settings.finance.ledgerGroups.placeholders.enterGroupDescription' | translate"></textarea>
+        </div>
+        <div class="mb-3" (click)="modalData.enabled = !modalData.enabled">
+          <label cLabel for="groupStatus">{{ 'settings.finance.ledgerGroups.forms.status' | translate }}</label>
+          <div [title]="'settings.finance.ledgerGroups.tooltips.changeStatus' | translate" class="edit-modal-badge-wrapper">
+            <app-badge  [smaller]="false" [color]="modalData.enabled ? 'success' : 'danger'">{{ (modalData.enabled ? 'settings.finance.ledgerGroups.status.enabled' : 'settings.finance.ledgerGroups.status.disabled') | translate }}</app-badge>
+          </div>
+        </div>
+      </form>
+    </c-modal-body>
+
+    <c-modal-footer>
+      <button
+        cButton
+        color="secondary"
+        variant="ghost"
+        (click)="closeEditModal()">
+        {{ 'settings.finance.ledgerGroups.buttons.cancel' | translate }}
+      </button>
+      <button
+        cButton
+        color="primary"
+        (click)="saveEditModal()">
+        {{ 'settings.finance.ledgerGroups.buttons.saveChanges' | translate }}
+      </button>
+    </c-modal-footer>
+  </c-modal>
+
+  <!-- Add New Group Modal -->
+  <c-modal
+    #addGroupModal
+    [visible]="addGroupModalVisible"
+    (visibleChange)="addGroupModalVisible = $event">
+    <c-modal-header>
+      <h4 cModalTitle>{{ 'settings.finance.ledgerGroups.modals.addGroup.title' | translate }}</h4>
+      <button cButtonClose (click)="closeAddGroupModal()"></button>
+    </c-modal-header>
+
+    <c-modal-body>
+      <form>
+        <div class="mb-3">
+          <label cLabel for="newGroupName">{{ 'settings.finance.ledgerGroups.forms.name' | translate }}</label>
+          <input
+            cFormControl
+            type="text"
+            id="newGroupName"
+            [(ngModel)]="newGroupData.name"
+            name="newGroupName"
+            [placeholder]="'settings.finance.ledgerGroups.placeholders.enterGroupName' | translate">
+        </div>
+
+        <div class="mb-3">
+          <label cLabel for="newGroupDescription">{{ 'settings.finance.ledgerGroups.forms.description' | translate }}</label>
+          <textarea
+            cFormControl
+            id="newGroupDescription"
+            [(ngModel)]="newGroupData.description"
+            name="newGroupDescription"
+            rows="3"
+            [placeholder]="'settings.finance.ledgerGroups.placeholders.enterGroupDescription' | translate"></textarea>
+        </div>
+        <div class="mb-3" (click)="newGroupData.enabled = !newGroupData.enabled">
+          <label cLabel for="newGroupStatus">{{ 'settings.finance.ledgerGroups.forms.status' | translate }}</label>
+          <div [title]="'settings.finance.ledgerGroups.tooltips.changeStatus' | translate" class="edit-modal-badge-wrapper">
+            <app-badge  [smaller]="false" [color]="newGroupData.enabled ? 'success' : 'danger'">{{ (newGroupData.enabled ? 'settings.finance.ledgerGroups.status.enabled' : 'settings.finance.ledgerGroups.status.disabled') | translate }}</app-badge>
+          </div>
+        </div>
+      </form>
+    </c-modal-body>
+
+    <c-modal-footer>
+      <button
+        cButton
+        color="secondary"
+        variant="ghost"
+        (click)="closeAddGroupModal()">
+        {{ 'settings.finance.ledgerGroups.buttons.cancel' | translate }}
+      </button>
+      <button
+        cButton
+        color="primary"
+        (click)="saveAddGroupModal()">
+        {{ 'settings.finance.ledgerGroups.buttons.addGroup' | translate }}
+      </button>
+    </c-modal-footer>
+  </c-modal>
+
+  <!-- Add New Subgroup Modal -->
+  <c-modal
+    #addSubgroupModal
+    [visible]="addSubgroupModalVisible"
+    (visibleChange)="addSubgroupModalVisible = $event">
+    <c-modal-header>
+      <h4 cModalTitle>{{ 'settings.finance.ledgerGroups.modals.addSubgroup.titlePrefix' | translate }} "{{ selectedParentGroup?.name }}"</h4>
+      <button cButtonClose (click)="closeAddSubgroupModal()"></button>
+    </c-modal-header>
+
+    <c-modal-body>
+      <form>
+        <div class="mb-3">
+          <label cLabel for="newSubgroupName">{{ 'settings.finance.ledgerGroups.forms.name' | translate }}</label>
+          <input
+            cFormControl
+            type="text"
+            id="newSubgroupName"
+            [(ngModel)]="newSubgroupData.name"
+            name="newSubgroupName"
+            [placeholder]="'settings.finance.ledgerGroups.placeholders.enterSubgroupName' | translate">
+        </div>
+
+        <div class="mb-3">
+          <label cLabel for="newSubgroupDescription">{{ 'settings.finance.ledgerGroups.forms.description' | translate }}</label>
+          <textarea
+            cFormControl
+            id="newSubgroupDescription"
+            [(ngModel)]="newSubgroupData.description"
+            name="newSubgroupDescription"
+            rows="3"
+            [placeholder]="'settings.finance.ledgerGroups.placeholders.enterSubgroupDescription' | translate"></textarea>
+        </div>
+        <div class="mb-3" (click)="newSubgroupData.enabled = !newSubgroupData.enabled">
+          <label cLabel for="newSubgroupStatus">{{ 'settings.finance.ledgerGroups.forms.status' | translate }}</label>
+          <div [title]="'settings.finance.ledgerGroups.tooltips.changeStatus' | translate" class="edit-modal-badge-wrapper">
+            <app-badge  [smaller]="false" [color]="newSubgroupData.enabled ? 'success' : 'danger'">{{ (newSubgroupData.enabled ? 'settings.finance.ledgerGroups.status.enabled' : 'settings.finance.ledgerGroups.status.disabled') | translate }}</app-badge>
+          </div>
+        </div>
+      </form>
+    </c-modal-body>
+
+    <c-modal-footer>
+      <button
+        cButton
+        color="secondary"
+        variant="ghost"
+        (click)="closeAddSubgroupModal()">
+        {{ 'settings.finance.ledgerGroups.buttons.cancel' | translate }}
+      </button>
+      <button
+        cButton
+        color="primary"
+        (click)="saveAddSubgroupModal()">
+        {{ 'settings.finance.ledgerGroups.buttons.addSubgroup' | translate }}
+      </button>
+    </c-modal-footer>
+  </c-modal>
+</c-container>

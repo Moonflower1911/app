@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/admin-ui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/booking" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gateway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/guest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/invoice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mailing" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/media" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pricing" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/task" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/uaa" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/unit" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/webapp-ui" vcs="Git" />
+  </component>
+</project>

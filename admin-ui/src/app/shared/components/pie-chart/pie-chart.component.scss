@@ -1,0 +1,29 @@
+// ...existing code...
+.chart-container {
+  padding: 24px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #f0f0f0;
+  height: 397px; // Match income chart height
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.chart-container h5 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+#chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  overflow: hidden;
+}
+

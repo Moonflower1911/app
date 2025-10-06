@@ -1,0 +1,78 @@
+@use './variables' as *;
+
+label.form-label, label.form-check-label {
+
+  font-weight: 500;
+  color: $primary;
+
+  &.required:after {
+    content: " *";
+    color: $danger;
+  }
+}
+
+.form-check-input {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-control {
+  border-radius: 0.25rem;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+}
+
+.ng-select.custom {
+  div.ng-select-container {
+    height: 38px;
+    border-color: $border-color;
+    //background-color: $body-bg;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+}
+
+
+// search input
+.search-input {
+  border: 1px solid #dbdfe6;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 0.25rem;
+
+  &:focus-within {
+    border-color: #accdff !important;
+    input{
+      background-color: white;
+    }
+  }
+
+  span.input-group-text {
+    background-color: white;
+    border: none;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    background-color: white;
+  }
+}
+
+.iti {
+  width: 100%;
+}
+
+.invalid-feedback {
+  display: block;
+  color: $danger !important;
+  font-size: 0.8rem;
+}

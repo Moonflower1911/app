@@ -1,0 +1,100 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    {{ ('administration.accounting.taxes.rules.pages.cu-modal.title.' + (taxRuleToEdit ? 'edit' : 'create'))|translate }}
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form cForm [formGroup]="taxRuleForm" (ngSubmit)="submit()">
+
+    <!--Name input-->
+    <c-row class="mb-3">
+      <!--Name input-->
+      <c-col [md]="6">
+        <label cLabel class="required"
+               for="name">{{ 'commons.form.name-input.label' | translate }}</label>
+        <input cFormControl formControlName="name" id="name" type="text"/>
+        @if (taxRuleForm.get('name')?.touched && taxRuleForm.get('name')?.invalid) {
+          @if (taxRuleForm.get('name')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+
+      <!--Amount input-->
+      <c-col [md]="6">
+        <label cLabel for="amount" class="required">
+          {{ 'administration.accounting.taxes.rules.pages.cu-modal.form.amount-input.label' | translate }}
+        </label>
+        <c-input-group>
+          <input id="amount" cFormControl type="number" formControlName="amount" min="0"/>
+          <c-dropdown>
+            <button cButton cDropdownToggle color="secondary" variant="outline">
+              {{ taxRuleForm.get('amountType')?.value === 'FLAT' ? 'MAD' : '%' }}
+            </button>
+            <div cDropdownMenu>
+              <button type="button" cDropdownItem (click)="setAmountType('FLAT')">
+                MAD
+              </button>
+              <button type="button" cDropdownItem (click)="setAmountType('PERCENT')">
+                %
+              </button>
+            </div>
+          </c-dropdown>
+        </c-input-group>
+        @if (taxRuleForm.get('amount')?.touched && taxRuleForm.get('amount')?.invalid) {
+          @if (taxRuleForm.get('amount')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <!--Description input-->
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel for="description">{{ 'commons.form.description-input.label' | translate }}</label>
+        <textarea cFormControl formControlName="description" rows="4"
+                  [placeholder]="'administration.accounting.taxes.rules.pages.cu-modal.form.description-input.placeholder'|translate">
+        </textarea>
+        @if (taxRuleForm.get('description')?.touched && taxRuleForm.get('description')?.invalid) {
+          @if (taxRuleForm.get('description')?.errors?.['maxlength']) {
+            <c-form-feedback [valid]="false">
+              {{ 'administration.accounting.posting-account.pages.cu-modal.form.description-input.errors.maxlength' | translate }}
+            </c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <!--Enabled input-->
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <c-form-check [switch]="true">
+          <input id="enabled-input" cFormCheckInput type="checkbox" formControlName="enabled"/>
+          <label cFormCheckLabel for="enabled-input">
+            {{ 'commons.form.enabled-check.label'|translate }}</label>
+        </c-form-check>
+        <div class="form-text">
+          {{ 'administration.accounting.taxes.rules.pages.cu-modal.form.enabled-input.placeholder'|translate }}
+        </div>
+      </c-col>
+    </c-row>
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!taxRuleForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+
+  </form>
+</div>

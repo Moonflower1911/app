@@ -1,0 +1,115 @@
+<app-page-title [title]="('rate-management.rate-plan.pages.list.title'|translate)"
+                [subTitle]="'rate-management.rate-plan.pages.list.subtitle'|translate"></app-page-title>
+
+<c-row class="mb-3">
+  <c-col [md]="4">
+    <c-input-group sizing="sm" class="search-input">
+      <span cInputGroupText>
+        <svg [cIcon]="icons.cilSearch"></svg>
+      </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+
+  <c-col [md]="8" class="d-flex justify-content-end">
+    <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openCreateModal()">
+      <i class="bi bi-plus-lg"></i> {{ 'rate.rate-management.buttons.add-rate-btn' |translate }}
+    </button>
+  </c-col>
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+    <div>
+      <table cTable [responsive]="true">
+        <thead>
+        <tr>
+          <th scope="col">{{ 'rate.rate-management.table.header.name' |translate }}</th>
+          <th scope="col">{{ 'rate.rate-management.table.header.units' |translate }}</th>
+          <th scope="col">{{ 'rate.rate-management.table.header.type' |translate }}</th>
+          <th scope="col">{{ 'rate.rate-management.table.header.parent' |translate }}</th>
+          <th scope="col">{{ 'rate.rate-management.table.header.status' |translate }}</th>
+          <th scope="col" class="text-center">{{ 'rate.rate-management.table.header.actions' |translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (ratePlan of listContent; track ratePlan.id) {
+            <tr>
+              <td>
+                <span class="me-1">
+                  {{ ratePlan.name | titlecase }}
+                </span>
+                <app-badge [color]="'primary'" [smaller]="false">
+                  {{ ratePlan.code }}
+                </app-badge>
+              </td>
+
+              <td>
+                {{ ratePlan.units[0].name }}
+                @if (ratePlan.units.length > 1) {
+                  <span class="fst-italic text-muted"
+                        [tooltip]="getTooltipText(ratePlan.units)">+ {{ ratePlan.units.length - 1 }} {{ 'commons.labels.more'|translate }}
+                  </span>
+                }
+              </td>
+
+              <td>
+                <app-badge [smaller]="false">
+                  {{ ratePlan.type | titlecase }}
+                </app-badge>
+              </td>
+
+              <td>
+                @if (ratePlan.type === 'BASE') {
+                  {{ 'commons.labels.n-a'|translate }}
+                } @else {
+                  {{ ratePlan.parent?.name }}
+                }
+              </td>
+
+              <td>
+                <app-badge [color]="ratePlan.enabled?'success':'dark'" [rounded]="true"
+                           [smaller]="false">
+                  {{ ('commons.labels.' + (ratePlan.enabled ? 'enabled' : 'disabled'))|translate }}
+                </app-badge>
+              </td>
+
+              <td class="text-center">
+                <button type="button" cButton size="sm"
+                        (click)="goToEdit(ratePlan)"
+                        class="btn-info-light py-1 px-2 me-1">
+                  <i class="bi bi-pencil"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/no-rate-plans.gif"
+                      [message]="'rate-management.rate-plan.pages.list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}

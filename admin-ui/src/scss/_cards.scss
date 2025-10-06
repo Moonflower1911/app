@@ -1,0 +1,37 @@
+@use './variables' as *;
+
+.card {
+  background-color: white;
+  border-color: $border-color !important;
+
+  .card-header {
+    background-color: white;
+    border: none;
+    padding: 1rem;
+
+    &.bg-secondary-light{
+      background-color: $secondary-01 !important;
+      color: $secondary !important;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+    }
+  }
+
+}
+
+
+/*.card {
+
+  &.bg-white {
+    border: 1px white solid;
+    border-radius: .375rem;
+
+    .card-body {
+      background-color: white;
+    }
+  }
+
+
+}*/

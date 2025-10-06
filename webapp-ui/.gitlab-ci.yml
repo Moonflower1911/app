@@ -1,0 +1,43 @@
+image: node:23-alpine3.20
+
+services:
+  - docker:dind
+
+variables:
+  # Defined variable can be used in case of a job failed
+  # If a job failed we set the corresponding variable to true, so we can know which stage we notify about to the developer
+  JOB_NAME: "default_value"
+  JOB_URL: "default_value"
+  PIPELINE_ID: "default_value"
+  STATUS: "default_value"
+  VERSION: "${CI_COMMIT_BRANCH#release/}"
+  GIT_STRATEGY: clone
+# Cache downloaded dependencies and plugins between builds.
+# To keep cache across branches add 'key: "$CI_JOB_NAME"'
+cache:
+  key: "$CI_JOB_NAME"
+
+stages:
+  - Compilation
+  - Conflict check
+  - Test
+  - Quality
+  - Packaging
+  - Deployment
+  - Manual versioning
+  - Auto versioning
+  - Notify
+
+#==== Jobs related to packaging stage
+Docker image build & push:
+  stage: Packaging
+  allow_failure: false
+  rules:
+    - if: '($CI_COMMIT_BRANCH =~ /^release\/.*/ || $CI_COMMIT_REF_NAME == "dev" || $CI_COMMIT_TAG) && $CI_COMMIT_MESSAGE !~ /chore: generate changelog.md file/'
+  image: docker:latest
+  script:
+    - ls -lh
+    - chmod +x .gitlab/push-docker-image.sh
+    - apk update && apk add --no-cache nodejs
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - ./.gitlab/push-docker-image.sh

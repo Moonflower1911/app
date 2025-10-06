@@ -1,0 +1,102 @@
+<app-page-title [title]="('settings.policies.cancellation.pages.list.title'|translate)"
+                [subTitle]="'settings.policies.cancellation.pages.list.subtitle'|translate"></app-page-title>
+
+<c-row class="mb-3">
+  <c-col [md]="4">
+    <c-input-group sizing="sm" class="search-input">
+      <span cInputGroupText>
+        <svg [cIcon]="icons.cilSearch"></svg>
+      </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+
+  <c-col [md]="8" class="d-flex justify-content-end">
+    <button cButton type="button" size="sm" variant="outline" color="secondary" (click)="openCuModal()">
+      <i class="bi bi-plus-lg"></i> {{ 'settings.policies.cancellation.pages.list.add-btn' |translate }}
+    </button>
+  </c-col>
+</c-row>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+  @if (!isListEmpty) {
+    <table cTable [responsive]="true">
+      <thead>
+      <tr>
+        <th scope="col">{{ 'commons.table.header.name' |translate }}</th>
+        <th scope="col">{{ 'commons.table.header.description' |translate }}</th>
+        <th scope="col">{{ 'commons.table.header.amount' |translate }}</th>
+        <th scope="col">{{ 'settings.charges.pages.list.table.header.posting-account' |translate }}</th>
+        <th scope="col">{{ 'commons.table.header.status' |translate }}</th>
+        <th scope="col" class="text-center">{{ 'commons.table.header.actions' |translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (policy of listContent; track policy.id) {
+          <tr>
+            <td>
+              <span class="me-1">
+                {{ policy.name }}
+              </span>
+              <app-badge [color]="'primary'" [smaller]="false">
+                {{ policy.code }}
+              </app-badge>
+            </td>
+            <td>
+              {{ policy.description }}
+            </td>
+            <td>
+              @if (policy.type == 'FLAT') {
+                <span class="fw-semibold text-primary">{{ policy.amount | number:'1.2-2' }}</span> MAD
+              } @else {
+                <span class="fw-semibold text-primary">{{ policy.amount }}</span> %
+                {{ ('settings.policies.cancellation.pages.list.labels.' + policy.type)|translate }}
+              }
+            </td>
+            <td>
+              <div>{{ policy.postingAccount.name |titlecase }}</div>
+              <div class="small text-body-secondary text-nowrap">
+                  <span>
+                    {{ 'settings.charges.pages.list.table.body.posting-account'|translate }}
+                    {{ ('commons.form.inputs.posting-timing-input.values.' + policy.postingTiming)|translate }}
+                  </span>
+              </div>
+            </td>
+            <td>
+              <app-badge [color]="policy.enabled?'success':'dark'" [rounded]="true"
+                         [smaller]="false">
+                {{ ('commons.labels.' + (policy.enabled ? 'enabled' : 'disabled'))|translate }}
+              </app-badge>
+            </td>
+            <td class="text-center">
+              <button type="button" cButton size="sm" class="btn-info-light py-1 px-2 me-1"
+                      (click)="openCuModal(policy)">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/no-cancellation-policy.gif"
+                      [message]="'settings.policies.cancellation.pages.list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+}

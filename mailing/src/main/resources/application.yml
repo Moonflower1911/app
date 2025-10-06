@@ -1,0 +1,68 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: mailing
+  # ===================================================================
+  # General configuration
+  # ===================================================================
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  # ==================================================================
+  # Jackson configuration
+  # ==================================================================
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+  # ==================================================================
+  # Discovery configuration
+  # ==================================================================
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: "${spring.application.name}"
+        prefer-ip-address: true
+        health-check-critical-timeout: "1m"
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+    # ===================================================================
+    # Cloud Stream configuration
+    # ===================================================================
+    function:
+      definition: processMailingInputEvent;
+    stream:
+      bindings:
+        processMailingInputEvent-in-0:
+          destination: send-email
+          group: send-email-mailing
+
+# ===================================================================
+# Mailing configuration
+# ===================================================================
+mailing:
+  mailjet:
+    api-key: fa3ba4ef18c90f387f9c61d753627579
+    api-secret: 51a17e104ff3e4c66293f3fde3261ac4
+    sender:
+      email: "hamza.habchi@messaging-technologies.com"
+      name: "xStay"
+# ===================================================================
+# Monitoring & Traceability configuration
+# ===================================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+

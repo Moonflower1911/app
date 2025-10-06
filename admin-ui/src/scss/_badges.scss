@@ -1,0 +1,125 @@
+@use "./variables" as *;
+
+span.badge {
+  padding: 0.25rem 0.45rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  font-size: 0.75rem !important;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  display: inline-block;
+
+  &.bg-primary {
+    background-color: $primary !important;
+    color: white !important;
+  }
+
+  &.bg-primary-light {
+    background-color: $primary-01 !important;
+    color: $primary !important;
+  }
+
+  &.bg-secondary {
+    background-color: $secondary !important;
+    color: white !important;
+  }
+
+  &.bg-secondary-light {
+    background-color: $secondary-01 !important;
+    color: $secondary !important;
+  }
+
+  &.bg-info {
+    background-color: $info !important;
+    color: white !important;
+  }
+
+  &.bg-info-light {
+    background-color: $info-01 !important;
+    color: $info !important;
+  }
+
+  &.bg-success {
+    background-color: $success !important;
+    color: white !important;
+  }
+
+  &.bg-success-light {
+    background-color: $success-01 !important;
+    color: $success !important;
+  }
+
+  &.bg-warning {
+    background-color: $warning !important;
+    color: white !important;
+  }
+
+  &.bg-warning-light {
+    background-color: $warning-01 !important;
+    color: $warning !important;
+  }
+
+  &.bg-danger {
+    background-color: $danger !important;
+    color: white !important;
+  }
+
+  &.bg-danger-light {
+    background-color: $danger-01;
+    color: $danger !important;
+  }
+
+  &.bg-purple {
+    background-color: $purple !important;
+    color: white !important;
+  }
+
+  &.bg-purple-light {
+    background-color: $purple-01;
+    color: $purple !important;
+  }
+
+  &.bg-deep-purple {
+    background-color: $deep-purple !important;
+    color: white !important;
+  }
+
+  &.bg-deep-purple-light {
+    background-color: $deep-purple-01;
+    color: $deep-purple !important;
+  }
+
+  &.bg-brown {
+    background-color: $brown !important;
+    color: white !important;
+  }
+
+  &.bg-brown-light {
+    background-color: $brown-01;
+    color: $brown !important;
+  }
+
+  &.bg-teal {
+    background-color: $teal !important;
+    color: white !important;
+  }
+
+  &.bg-teal-light {
+    background-color: $teal-01;
+    color: $teal !important;
+  }
+
+  &.bg-dark {
+    background-color: $dark !important;
+    color: white !important;
+  }
+
+  &.bg-dark-light {
+    background-color: $dark-01 !important;
+    color: $dark !important;
+  }
+
+
+}
+

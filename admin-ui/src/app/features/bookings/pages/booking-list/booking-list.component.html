@@ -1,0 +1,138 @@
+<app-page-title title="{{'bookings.pages.list.title'|translate}}"
+                subTitle="{{'bookings.pages.list.subtitle'|translate}}"></app-page-title>
+
+<c-card>
+
+  <c-card-header>
+    <!--Search input-->
+    <c-row class="mb-3">
+      <c-col [md]="2">
+        <c-input-group sizing="sm" class="search-input">
+        <span cInputGroupText>
+          <svg [cIcon]="icons.cilSearch"></svg>
+        </span>
+          <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+                 [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+        </c-input-group>
+      </c-col>
+    </c-row>
+  </c-card-header>
+
+  <c-card-body>
+
+    <!--App table control-->
+    <app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                       [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                       [hasPrevious]="hasPrevious"
+                       [size]="size"
+                       [totalElements]="totalElements"></app-table-control>
+
+    <!--Table result wrapper-->
+    @if (!firstCallDone) {
+      <c-row class="d-flex justify-content-center mt-5">
+        <c-spinner color="secondary"/>
+      </c-row>
+      <c-row class="d-flex justify-content-center mt-1">
+        <c-col [md]="4" class="d-flex justify-content-center text-center">
+          {{ 'commons.snippets.loading'|translate }}
+        </c-col>
+      </c-row>
+    } @else {
+
+      @if (!isListEmpty) {
+        <table cTable [responsive]="true">
+          <thead>
+          <tr>
+            <th>{{ 'bookings.pages.list.table.header.reference'|translate }}</th>
+            <th>{{ 'bookings.pages.list.table.header.period'|translate }}</th>
+            <th>{{ 'bookings.pages.list.table.header.status'|translate }}</th>
+            <th>{{ 'bookings.pages.list.table.header.parent'|translate }}</th>
+            <th>{{ 'bookings.pages.list.table.header.unit-room'|translate }}</th>
+            <th>{{ 'bookings.pages.list.table.header.guests'|translate }}</th>
+            <th>{{ 'bookings.pages.list.table.header.actions'|translate }}</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (booking of listContent; track booking.id) {
+              <tr>
+                <td>
+                  <div>
+                    {{ 'bookings.pages.list.table.body.reference-prefix'|translate }}
+                    <span class="fst-italic fw-semibold">#{{ booking.reference }}</span>
+                  </div>
+                  <div class="small text-body-secondary text-nowrap">
+                  <span>
+                    {{ booking.contact?.name }} | {{ booking.contact?.email }} - {{ booking.contact?.mobile }}
+                  </span>
+                  </div>
+                </td>
+
+                <td>
+                  <span class="fw-semibold">
+                    {{ booking.checkinDate|date: 'MMM d, y' }}
+                  </span>
+                  <i class="bi bi-arrow-right"></i>
+                  <span class="fw-semibold">
+                    {{ booking.checkoutDate|date: 'MMM d, y' }}
+                  </span>
+                </td>
+
+                <td>{{ booking.status }}</td>
+
+                <td>
+                  @if (booking.parent) {
+                    <a [routerLink]="'/bookings/'+booking.parent.id" class="parent-ref">
+                      {{ 'bookings.pages.list.table.body.reference-prefix'|translate }}
+                      <span class="fst-italic fw-semibold">
+                        #{{ booking.parent.reference }}
+                      </span>
+                    </a>
+                  }
+
+                </td>
+
+                <td>
+                  <div>
+                    <span class="fw-semibold">{{ booking.unitRef?.name }}</span>
+                  </div>
+                  <div class="small text-body-secondary text-nowrap">
+                    <span>
+                      {{ 'bookings.pages.list.table.body.room'|translate }} {{ booking.roomRef ? booking.roomRef.name : ('bookings.pages.list.table.body.room-empty'|translate) }}
+                    </span>
+                  </div>
+                </td>
+
+                <td>
+                  <c-avatar src="./assets/images/avatars/7.jpg" status="success"/>
+                  <c-avatar color="secondary" status="danger">CUI</c-avatar>
+                </td>
+
+                <td>
+                  <button cButton class="me-1 btn-primary-light" size="sm" (click)="routeToDetails(booking.id)">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        @if (!isSearchActive) {
+          <app-empty-data imageSrc="assets/images/animations/no-bookings.gif"
+                          [message]="'bookings.pages.list.empty-data'|translate">
+          </app-empty-data>
+        } @else {
+          <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+          </app-empty-data>
+        }
+      }
+
+    }
+
+
+  </c-card-body>
+
+</c-card>
+
+
+

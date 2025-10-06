@@ -1,0 +1,247 @@
+<form [formGroup]="bookingForm" cForm>
+  <div class="card p-4">
+
+    <!-- Guest Details -->
+    <h6 class="section-title underline mb-3 mt-3">
+      {{ 'availability.check.booking.guest-details.title' | translate }}
+    </h6>
+
+    <c-row >
+      <c-col [md]="4" class="mb-3">
+        <app-guest-select formControlName="guest" (guestSelected)="fillGuestFields($event)"></app-guest-select>
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col [md]="4" class="mb-3">
+        <label cLabel class="required" for="guestName">
+          {{ 'availability.check.booking.guest-details.name' | translate }}
+        </label>
+        <input id="guestName" cFormControl formControlName="guestName" />
+        @if (bookingForm.get('guestName')?.hasError('required') && bookingForm.get('guestName')?.touched) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+        }
+      </c-col>
+
+      <c-col [md]="4" class="mb-3">
+        <label cLabel class="required" for="guestEmail">
+          {{ 'availability.check.booking.guest-details.email' | translate }}
+        </label>
+        <input id="guestEmail" cFormControl formControlName="guestEmail" type="email" />
+        @if (bookingForm.get('guestEmail')?.hasError('required') && bookingForm.get('guestEmail')?.touched) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+        }
+        @if (bookingForm.get('guestEmail')?.hasError('email') && bookingForm.get('guestEmail')?.touched) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.email' | translate }}</c-form-feedback>
+        }
+      </c-col>
+
+      <c-col [md]="4" class="mb-3">
+        <label cLabel for="guestPhone">
+          {{ 'availability.check.booking.guest-details.phone' | translate }}
+        </label>
+        <ngx-intl-tel-input
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.Morocco"
+          cssClass="form-control"
+          formControlName="guestPhone"
+          id="guestPhone">
+        </ngx-intl-tel-input>
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col [md]="4" class="mb-3">
+        <label cLabel class="required" for="source">
+          {{ 'availability.check.booking.source' | translate }}
+        </label>
+        <select id="source" class="form-select" formControlName="source">
+          <option *ngFor="let source of bookingSources" [value]="source">{{ source }}</option>
+        </select>
+      </c-col>
+
+      <c-col [md]="4" class="mb-3">
+        <label cLabel class="required" for="adults">
+          {{ 'availability.check.booking.adults' | translate }}
+        </label>
+        <input id="adults" cFormControl formControlName="adults" type="number" min="1" />
+        @if (bookingForm.get('adults')?.hasError('required') && bookingForm.get('adults')?.touched) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+        }
+        @if (bookingForm.get('adults')?.hasError('min')) {
+          <c-form-feedback [valid]="false">{{ 'commons.errors.strictly-positive' | translate }}</c-form-feedback>
+        }
+      </c-col>
+
+      <c-col [md]="4" class="mb-3">
+        <label cLabel for="children">
+          {{ 'availability.check.booking.children' | translate }}
+        </label>
+        <input id="children" cFormControl formControlName="children" type="number" min="0" />
+      </c-col>
+    </c-row>
+
+    <!-- Rental Details -->
+    <h6 class="section-title underline mb-3 mt-3">
+      {{ 'availability.check.booking.rental-details.title' | translate }}
+    </h6>
+
+    <c-row>
+      <c-col [md]="4" class="mb-3">
+        <label cLabel class="required">
+          {{ 'availability.check.booking.rental-details.select' | translate }}
+        </label>
+        <app-unit-select formControlName="unit" [allowMultiUnit]="false" [disableFilter]="true" [multiple]="false"></app-unit-select>
+      </c-col>
+
+      <c-col [md]="4" class="mb-3">
+        <div *ngIf="!isNavigating" class="form-group">
+          <label cLabel class="required" for="dateRange">
+            {{ 'availability.check.booking.rental-details.dates' | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            ngxDaterangepickerBootstrap
+            [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+            [ngModel]="bookingForm.get('dateRange')?.value"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Select dates"
+            id="dateRange"
+          />
+        </div>
+      </c-col>
+
+      <c-col [md]="4" class="mb-3">
+        <label cLabel class="required" for="baseCharge">
+          {{ 'availability.check.booking.rental-details.base-charge' | translate }}
+        </label>
+        <input id="baseCharge" cFormControl formControlName="baseCharge" type="number" min="0" />
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col [md]="4" class="mb-3" >
+        <label cLabel for="feeAmount">{{ 'availability.check.booking.fee-section.amount' | translate }}</label>
+        <input id="feeAmount" cFormControl formControlName="feeAmount" type="number" min="0" />
+      </c-col>
+    </c-row>
+
+
+    <!-- Booking Fees Section -->
+    <div *ngIf="fees.length > 0">
+      <c-row>
+        <c-col [md]="10">
+          <h6 class="section-title underline mb-3 mt-3">
+            {{ 'availability.check.booking.fee-section.title' | translate }}
+          </h6>
+        </c-col>
+        <c-col [md]="2" class="d-flex justify-content-end align-items-end">
+          <button cButton type="button" color="secondary" class="mb-3 mt-3" size="sm" (click)="addFee()">
+            {{ 'availability.check.booking.fee-section.add-btn' | translate }}
+          </button>
+        </c-col>
+      </c-row>
+
+
+      <div formArrayName="fees">
+        <div *ngFor="let feeGroup of fees.controls; let i = index" [formGroupName]="i">
+          <c-row class="mb-3">
+            <c-col [md]="3">
+              <label cLabel class="required">{{ 'availability.check.booking.fee-section.name' | translate }}</label>
+              <input cFormControl formControlName="feeName" />
+              @if (feeGroup.get('feeName')?.hasError('required') && feeGroup.get('feeName')?.touched) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            </c-col>
+            <c-col [md]="3">
+              <label cLabel class="required">{{ 'availability.check.booking.fee-section.rate' | translate }}</label>
+              <input cFormControl formControlName="feeRate" type="number" />
+              @if (feeGroup.get('feeRate')?.hasError('required') && feeGroup.get('feeRate')?.touched) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+              @if (feeGroup.get('feeRate')?.hasError('min')) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.strictly-positive' | translate }}</c-form-feedback>
+              }
+            </c-col>
+            <c-col [md]="3">
+              <label cLabel class="required">{{ 'availability.check.booking.fee-section.modality' | translate }}</label>
+              <select cFormControl formControlName="modality" class="form-select">
+                <option *ngFor="let modality of modalities" [value]="modality">{{ modality }}</option>
+              </select>
+              @if (feeGroup.get('modality')?.hasError('required') && feeGroup.get('modality')?.touched) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+            </c-col>
+            <c-col [md]="2">
+              <label cLabel class="required">{{ 'availability.check.booking.fee-section.quantity' | translate }}</label>
+              <input cFormControl formControlName="quantity" type="number" />
+              @if (feeGroup.get('quantity')?.hasError('required') && feeGroup.get('quantity')?.touched) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+              }
+              @if (feeGroup.get('quantity')?.hasError('min')) {
+                <c-form-feedback [valid]="false">{{ 'commons.errors.strictly-positive' | translate }}</c-form-feedback>
+              }
+            </c-col>
+            <c-col [md]="1" class="d-flex justify-content-end align-items-end">
+              <button cButton size="sm" color="danger" class="btn-light" (click)="removeFee(i)">
+                <svg [cIcon]="icons.cilTrash"></svg>
+              </button>
+            </c-col>
+          </c-row>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Total -->
+    <c-row class="mt-3 mb-3">
+      <c-col [md]="12" class="text-end">
+        <strong class="total-label">{{ 'availability.check.booking.total' | translate }}: {{ total }}</strong>
+      </c-col>
+    </c-row>
+
+    <!-- Buttons -->
+    <c-row class="mt-4 mb-2">
+      <c-col class="d-flex justify-content-end">
+        <!-- Cancel Button -->
+        <button cButton class="ms-1" color="light" variant="ghost">
+          {{ 'commons.form.cancel-btn' | translate }}
+        </button>
+
+        <!-- Save Dropdown Button -->
+        <c-dropdown direction="dropup" variant="btn-group">
+
+          <button cButton
+                  color="primary"
+                  [disabled]="!bookingForm.valid"
+                  (click)="onSave('booking')">
+            {{ 'availability.check.booking.save-as-booking' | translate }}
+          </button>
+
+          <button [split]="true" cButton cDropdownToggle color="primary">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+
+          <ul cDropdownMenu>
+            <li>
+              <button cDropdownItem size="sm"
+                      (click)="onSave('quote')">
+                {{ 'availability.check.booking.save-as-quote' | translate }}
+            </button>
+            </li>
+          </ul>
+        </c-dropdown>
+
+      </c-col>
+    </c-row>
+
+  </div>
+</form>

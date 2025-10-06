@@ -1,0 +1,121 @@
+<app-page-title [title]="'invoices.invoice-list.title'|translate">
+  <c-button-group>
+  </c-button-group>
+</app-page-title>
+
+<c-row class="mb-3">
+  <c-col [md]="2">
+    <c-input-group sizing="sm" class="search-input">
+      <span cInputGroupText>
+        <svg [cIcon]="icons.cilSearch"></svg>
+      </span>
+      <input id="searchBar" cFormControl (input)="triggerBasicSearch($event)"
+             [placeholder]="'commons.form.search-input.placeholder'|translate"/>
+    </c-input-group>
+  </c-col>
+</c-row>
+
+<app-table-control (nextClicked)="next()" (previousClicked)="previous()" (sizeChanged)="changeSize($event)"
+                   [currentNumberElements]="currentNumberOfElements" [hasNext]="hasNext"
+                   [hasPrevious]="hasPrevious"
+                   [size]="size"
+                   [totalElements]="totalElements"></app-table-control>
+
+@if (!firstCallDone) {
+  <c-row class="d-flex justify-content-center mt-5">
+    <c-spinner color="secondary"/>
+  </c-row>
+  <c-row class="d-flex justify-content-center mt-1">
+    <c-col [md]="4" class="d-flex justify-content-center text-center">
+      {{ 'commons.snippets.loading'|translate }}
+    </c-col>
+  </c-row>
+} @else {
+
+  @if (!isListEmpty) {
+    <div class="table-responsive">
+      <table cTable [responsive]="true">
+        <thead>
+        <tr>
+          <th>{{ 'invoices.invoice-list.table.header.client'|translate }}</th>
+          <th>{{ 'invoices.invoice-list.table.header.reference'|translate }}</th>
+          <th>{{ 'invoices.invoice-list.table.header.date'|translate }}</th>
+          <th>{{ 'invoices.invoice-list.table.header.amount'|translate }}</th>
+          <th>{{ 'invoices.invoice-list.table.header.status'|translate }}</th>
+          <th>{{ 'invoices.invoice-list.table.header.actions'|translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (invoice of listContent; track invoice.id) {
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <c-avatar [size]="'md'" shape="rounded" textColor="white"
+                            [color]="UtilsService.getAvatarColor(invoice.clientName)">
+                    {{ getNameInitials(invoice.clientName) }}
+                  </c-avatar>
+                  <div class="d-flex flex-column" [adaptivePosition]="true" [tooltip]="invoice.clientName">
+                    <div>
+                      <span class="me-1">{{ invoice.clientName }}</span>
+                    </div>
+                    <div class="small text-body-secondary text-nowrap">
+                      <span>{{ 'commons.snippets.audit.created-by'|translate }} {{ invoice.audit.createdBy | auditName }}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                {{ invoice.reference }}
+              </td>
+
+              <td>
+                <span class="badge bg-light text-dark">
+                  {{ invoice.date }}
+                </span>
+              </td>
+
+              <td>
+                {{ invoice.totalAmount }}
+              </td>
+
+              <td>
+                <app-badge
+                  [color]="
+                  invoice.status === InvoiceStatusEnum.PAID
+                    ? 'success'
+                    : invoice.status === InvoiceStatusEnum.PENDING
+                    ? 'warning'
+                    : invoice.status === InvoiceStatusEnum.CANCELLED
+                    ? 'danger'
+                    : ''
+                ">
+                  {{ 'invoices.invoice-list.table.body.invoice-status.' + invoice.status | translate }}
+                </app-badge>
+              </td>
+
+
+              <td>
+                <button size="sm" cButton class="btn-secondary-light me-1" type="button" (click)="viewInvoice(invoice)">
+                  <svg [cIcon]="icons.cilChevronRight" size="sm"></svg>
+                </button>
+                <button size="sm" cButton class="btn-secondary-light" type="button" (click)="downloadInvoice(invoice)">
+                  <svg [cIcon]="icons.cilCloudDownload" size="sm"></svg>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    @if (!isSearchActive) {
+      <app-empty-data imageSrc="assets/images/animations/invoices.gif" [message]="'invoices.invoice-list.empty-data'|translate">
+      </app-empty-data>
+    } @else {
+      <app-empty-data imageSrc="assets/images/animations/no-result.gif">
+      </app-empty-data>
+    }
+  }
+
+}

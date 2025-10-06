@@ -1,0 +1,197 @@
+<c-row class="mb-2">
+  <c-col [md]="12">
+    <c-card>
+      <!-- Header -->
+      <c-card-header class="d-flex justify-content-between align-items-start pb-0">
+        <!-- Name, Price & Availability -->
+        <div class="d-flex align-items-center">
+          <div>
+            <h4 class="card-title mb-0 me-1">
+              {{ unitInventory.name }}
+              <span *ngIf="unitInventory.avgRateNight" class="text-info">
+                {{ unitInventory.avgRateNight | number: '1.0-0' }} MAD /
+                {{ 'bookings.pages.new.result-section.element.labels.night' | translate }}
+              </span>
+            </h4>
+            <p class="fs-13 text-muted small mb-0">
+              <span class="fw-bold">{{ available }}</span>
+              {{ 'bookings.pages.new.result-section.element.labels.available' | translate }}
+              {{ 'bookings.pages.new.result-section.element.labels.on' | translate }}
+              <span class="fw-bold">{{ unitInventory.availability.quantity }}</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Max occupancy -->
+        <div class="d-flex align-items-center">
+          <div
+            class="small text-muted me-2">
+            {{ 'bookings.pages.new.result-section.element.labels.max-occupancy' | translate }}
+          </div>
+          <div>
+            <span class="text-muted">{{ unitInventory.maxOccupancy.adults }} </span>
+            <svg [cIcon]="icons.cilUser" class="me-1"></svg>
+            <span class="text-muted">{{ unitInventory.maxOccupancy.children }} </span>
+            <svg [cIcon]="icons.cilBaby" class="me-1"></svg>
+          </div>
+        </div>
+      </c-card-header>
+
+      <!-- Body -->
+      <c-card-body>
+        <!-- Description -->
+        <c-row class="mb-2">
+          <c-col [md]="isExpanded ? 12 : 8">
+            <p class="card-text text-muted">
+              {{
+                isExpanded
+                  ? unitInventory.description
+                  : (unitInventory.description | slice: 0 : limit) +
+                  (unitInventory.description.length > limit ? '...' : '')
+              }}
+              @if (unitInventory.description.length > limit) {
+                <span
+                  class="text-primary small"
+                  style="cursor: pointer;"
+                  (click)="toggleExpand()"
+                >
+                  {{
+                    !isExpanded
+                      ? ('bookings.pages.new.result-section.element.labels.see-more'
+                        | translate)
+                      : 'bookings.pages.new.result-section.element.labels.less'
+                        | translate
+                  }}
+                </span>
+              }
+            </p>
+          </c-col>
+        </c-row>
+
+        <!-- Details -->
+        <c-row class="mb-2">
+          <c-col [md]="12" class="text-muted">
+            @if (unitInventory.floorSize) {
+              <span class="me-2">
+                <i class="bi bi-rulers text-secondary me-1"></i>
+                <span class="small">
+                  {{ unitInventory.floorSize }}
+                  {{ unitInventory.floorSizeUnit == 'sqm' ? 'm²' : 'ft²' }}
+                </span>
+              </span>
+            }
+            @if (unitInventory.beds.length > 0) {
+              <span>
+                <i class="bi bi-moon-stars text-secondary me-1"></i>
+                @for (bed of unitInventory.beds; track bed) {
+                  <span class="small">
+                    {{ bed.quantity }}×{{ bed.type | titlecase }}
+                  </span>
+                }
+              </span>
+            }
+          </c-col>
+        </c-row>
+
+        <!-- Amenities -->
+        <c-row class="mb-2">
+          <c-col [md]="12">
+            @for (
+                amenity of (showAllAmenities
+              ? unitInventory.amenities
+              : unitInventory.amenities.slice(0, 4));
+              track amenity
+              ) {
+              <app-badge
+                [rounded]="true"
+                [smaller]="false"
+                color="dark"
+                [mb]="true"
+                class="me-1"
+              >
+                <i class="bi bi-check-circle me-1"></i>
+                {{ ('commons.amenities.' + amenity) | translate }}
+              </app-badge>
+            }
+
+            @if (unitInventory.amenities.length > 4) {
+              <span
+                class="text-primary cursor-pointer small"
+                role="button"
+                (click)="toggleAmenities()"
+              >
+                {{
+                  showAllAmenities
+                    ? ('bookings.pages.new.result-section.element.labels.less'
+                      | translate)
+                    : ('+' +
+                      (unitInventory.amenities.length - 4) +
+                      ' ' +
+                      ('bookings.pages.new.result-section.element.labels.see-more'
+                        | translate))
+                }}
+              </span>
+            }
+          </c-col>
+        </c-row>
+
+        <!-- Pricing Details -->
+        <c-row class="mb-2">
+          <c-col [md]="12" class="text-muted small">
+            @if (unitInventory.totalBookingRate) {
+              <span class="me-3">
+                <strong>
+                  {{ 'bookings.pages.new.result-section.element.labels.total' | translate }}:
+                </strong>
+                {{ unitInventory.totalBookingRate | number: '1.0-0' }} MAD
+              </span>
+            }
+
+            @if (unitInventory.avgRateNight) {
+              <span>
+                <strong>
+                  {{ 'bookings.pages.new.result-section.element.labels.average-night' | translate }}:
+                </strong>
+                {{ unitInventory.avgRateNight | number: '1.0-0' }} MAD
+              </span>
+            }
+          </c-col>
+        </c-row>
+
+        <!-- Daily Rates -->
+        <c-row *ngIf="unitInventory.dailyRates?.length" class="mb-3">
+          <c-col [md]="12" class="text-muted small">
+            <strong>
+              {{ 'bookings.pages.new.result-section.element.labels.daily-rates' | translate }}:
+            </strong>
+            <ul class="mb-0 small text-muted">
+              <li *ngFor="let rate of unitInventory.dailyRates">
+                {{ rate.date | date: 'mediumDate' }}:
+                {{ rate.rate | number: '1.0-0' }} MAD
+              </li>
+            </ul>
+          </c-col>
+        </c-row>
+
+        <!-- Actions -->
+        <c-row class="d-flex justify-content-between align-items-start">
+          <c-col class="d-flex justify-content-end">
+            <button
+              cButton
+              class="btn-primary-light"
+              size="sm"
+              (click)="addToSelection()"
+              [disabled]="available == 0"
+            >
+              <i class="bi bi-calendar-plus small me-1"></i>
+              {{
+                'bookings.pages.new.result-section.element.add-to-selection-btn'
+                  | translate
+              }}
+            </button>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

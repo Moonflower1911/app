@@ -1,0 +1,346 @@
+<c-card class="mb-3">
+
+  <c-card-header class="pb-0 d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div class="d-flex align-items-center">
+      <h4 class="card-title mb-0 me-2">
+        Ref: #<span class="text-muted">{{ booking.reference }}</span>
+      </h4>
+      <app-booking-status [status]="booking.status"></app-booking-status>
+    </div>
+
+    <div>
+      <span class="text-muted me-2">
+        {{ UtilsService.getNights(booking.stay.checkinDate, booking.stay.checkoutDate) }} nights
+      </span>
+
+      <span class="text-muted me-2">
+        {{ BookingService.getOccupancy(booking.stay.occupancy, 'short') }}
+      </span>
+
+      <span class="text-muted me-2">
+        <a class="text-decoration-none" [routerLink]="['/properties/units/'+booking.stay.unitRef.id]">
+          {{ booking.stay.unitRef.name }}</a> -
+        @if (booking.stay.roomRef) {
+          <span class="text-secondary">
+            <a class="text-decoration-none" [routerLink]="['/properties/units/'+booking.stay.roomRef.id]">
+          {{ booking.stay.roomRef.name }}</a>
+          </span>
+        } @else {
+          <span class="text-secondary">Room unassigned</span>
+        }
+      </span>
+
+      <span class="fw-bold me-2">
+        {{ getBookingTotal() | number:'1.2-2' }} Mad
+      </span>
+    </div>
+  </c-card-header>
+
+  <c-card-body>
+
+    <!--Stay-->
+    <c-row class="stay-section">
+      <c-col [md]="12">
+        <!--Title-->
+        <div class="mb-2 mt-2">
+          <h6>Stay</h6>
+        </div>
+
+        <!--Description-->
+        <table cTable [responsive]="true">
+          <tr class="align-middle">
+            <td class="text-start">
+              <p class="mb-0 pb-0">
+                <a [routerLink]="'/properties/units/'+booking.stay.unitRef.id">
+                  {{ booking.stay.unitRef.name |titlecase }}</a>
+                <span class="small text-muted">
+                     |
+                    <span class="me-1">
+                      {{ BookingService.getOccupancy(booking.stay.occupancy, 'short') }}
+                    </span>
+                  <span>
+                  </span>
+                </span>
+              </p>
+              <p class="small mb-0 pt-0">
+                {{ 'bookings.pages.confirm.booking-item.labels.from'|translate }}
+                <span class="fw-medium">
+                      {{ booking.stay.checkinDate|date: 'EEEE, MMM d, y' }}
+                  </span>
+                {{ 'bookings.pages.confirm.booking-item.labels.to'|translate }}
+                <span class="fw-medium">
+                      {{ booking.stay.checkoutDate|date: 'EEEE, MMM d, y' }}
+                </span>
+
+
+              </p>
+            </td>
+
+            <td class="text-start">
+                  <span class="text-muted">
+                {{ booking.stay.totalPrice.unitPriceInclTax| number:'1.2-2' }} Mad /
+                    {{ 'bookings.pages.confirm.booking-item.labels.night'|translate }}
+              </span>
+            </td>
+
+            <td class="text-start text-muted">
+              {{ booking.stay.totalPrice.quantity }} nights
+            </td>
+
+            <td class="text-end">
+              <span class="text-primary fw-bold">
+                {{ booking.stay.totalPrice.amountInclTax| number:'1.2-2' }}
+              </span>
+            </td>
+          </tr>
+        </table>
+      </c-col>
+    </c-row>
+
+    <!--Fees & Services-->
+    <c-row class="stay-section ">
+      <c-col [md]="12">
+        <!--Title-->
+        <div class="d-flex align-items-center title-section">
+          <h6 class="mb-0 me-1">
+            Fees & Services
+          </h6>
+          <span class="small text-muted">
+            ({{ booking.fees ? booking.fees.length : 0 }}) <span class="text-primary">+ Add fee</span>
+          </span>
+        </div>
+
+        <!--Description-->
+        @if (booking.fees && booking.fees.length > 0) {
+          <table cTable [responsive]="true">
+            @for (fee of booking.fees; track fee.id) {
+              <tr class="align-middle">
+                <td class="text-start">
+                  <p class="mb-0 pb-0">
+                    <a [routerLink]="'/properties/units/'+booking.stay.unitRef.id">
+                      {{ fee.feeRef.name |titlecase }}</a>
+                    @if (fee.modality != 'PER_STAY') {
+                      <span class="small text-muted">
+                     |
+                        @if (fee.modality == 'PER_PERSON') {
+                          {{ fee.occupancy.adults + ('bookings.pages.new.summary-section.labels.adult'|translate) }},
+                          {{ (fee.occupancy.children ? fee.occupancy.children.quantity : 0) + ('bookings.pages.new.summary-section.labels.child'|translate) }}
+                        }
+                        @if (fee.modality == 'PER_PERSON_PER_NIGHT') {
+                          ,
+                        }
+                        @if (fee.modality == 'PER_NIGHT' || fee.modality == 'PER_PERSON_PER_NIGHT') {
+                          {{ fee.quantity }}N
+                        }
+                    </span>
+                    }
+                  </p>
+                  <p class="small mb-0 pt-0">
+                    {{ 'bookings.commons.labels.price'|translate }}
+                    {{ ('bookings.commons.modality.' + fee.modality + '.text')|translate }}
+                  </p>
+                </td>
+                <td class=" text-center">
+              <span class="text-muted">
+                {{ fee.feeRef.price| number:'1.2-2' }} Mad /
+                {{ ('bookings.commons.modality.' + fee.modality + '.symbol')|translate|titlecase }}
+              </span>
+                </td>
+                <td class="text-end ">
+                  <span class="text-primary fw-bold">{{ fee.price| number:'1.2-2' }} Mad</span>
+                </td>
+              </tr>
+            }
+          </table>
+        } @else {
+          <p class="text-muted small">No fees</p>
+        }
+      </c-col>
+    </c-row>
+
+    <!--Guests-->
+    <c-row class="stay-section">
+      <c-col [md]="12">
+        <!--Title-->
+        <div class="d-flex align-items-center title-section">
+          <h6 class="mb-0 me-1">
+            Guests
+          </h6>
+          <span class="small text-muted">
+            ({{ 0 }}) <span class="text-primary">+ Add guest</span>
+          </span>
+        </div>
+
+        <!--Description-->
+        <!--        @if (booking.gu && booking.fees.length > 0) {-->
+        <!--<table cTable [responsive]="true">
+          <tr class="align-middle">
+            <td class="text-start">
+              <p class="mb-0 pb-0">
+                <a [routerLink]="'/properties/units/'+booking.stay.unitRef.id">
+                  {{ booking.stay.unitRef.name |titlecase }}</a>
+                <span class="small text-muted">
+                   |
+                  <span class="me-1">
+                    {{ BookingService.getOccupancy(booking.stay.occupancy, 'short') }}
+                  </span>
+                <span>
+                </span>
+              </span>
+              </p>
+              <p class="small mb-0 pt-0">
+                {{ 'bookings.pages.confirm.booking-item.labels.from'|translate }}
+                <span class="fw-medium">
+                    {{ booking.stay.checkinDate|date: 'EEEE, MMM d, y' }}
+                </span>
+                {{ 'bookings.pages.confirm.booking-item.labels.to'|translate }}
+                <span class="fw-medium">
+                    {{ booking.stay.checkoutDate|date: 'EEEE, MMM d, y' }}
+              </span>
+
+
+              </p>
+            </td>
+
+            <td class="text-start">
+            <span class="text-muted">
+               <span class="fw-bold">{{ booking.stay.totalPrice.unitPrice | number:'1.2-2' }}</span> Mad / night
+            </span>
+            </td>
+
+            <td class="text-start text-muted">
+              {{ booking.stay.totalPrice.quantity }} nights
+            </td>
+
+            <td class="text-end">
+            <span class="text-primary fw-bold">
+              {{ booking.stay.totalPrice.amountInclTax| number:'1.2-2' }}
+            </span>
+            </td>
+          </tr>
+        </table>-->
+        <!--        } @else {-->
+        <p class="text-muted small">No guests added yet</p>
+        <!--        }-->
+      </c-col>
+    </c-row>
+
+    <!--Payments-->
+    <c-row class="stay-section">
+      <c-col [md]="12">
+        <!--Title-->
+        <div class="d-flex align-items-center title-section">
+          <h6 class="mb-0 me-1">
+            Payments
+          </h6>
+          <span class="small text-muted">
+            ({{ 0 }}) <span class="text-primary">+ Add payment</span>
+          </span>
+        </div>
+
+        <!--Description-->
+        <!--        @if (booking.fees && booking.fees.length > 0) {-->
+        <!--<table cTable [responsive]="true">
+          <tr class="align-middle">
+            <td class="text-start">
+              <p class="mb-0 pb-0">
+                <a [routerLink]="'/properties/units/'+booking.stay.unitRef.id">
+                  {{ booking.stay.unitRef.name |titlecase }}</a>
+                <span class="small text-muted">
+                   |
+                  <span class="me-1">
+                    {{ BookingService.getOccupancy(booking.stay.occupancy, 'short') }}
+                  </span>
+                <span>
+                </span>
+              </span>
+              </p>
+              <p class="small mb-0 pt-0">
+                {{ 'bookings.pages.confirm.booking-item.labels.from'|translate }}
+                <span class="fw-medium">
+                    {{ booking.stay.checkinDate|date: 'EEEE, MMM d, y' }}
+                </span>
+                {{ 'bookings.pages.confirm.booking-item.labels.to'|translate }}
+                <span class="fw-medium">
+                    {{ booking.stay.checkoutDate|date: 'EEEE, MMM d, y' }}
+              </span>
+
+
+              </p>
+            </td>
+
+            <td class="text-start">
+            <span class="text-muted">
+               <span class="fw-bold">{{ booking.stay.totalPrice.unitPrice | number:'1.2-2' }}</span> Mad / night
+            </span>
+            </td>
+
+            <td class="text-start text-muted">
+              {{ booking.stay.totalPrice.quantity }} nights
+            </td>
+
+            <td class="text-end">
+            <span class="text-primary fw-bold">
+              {{ booking.stay.totalPrice.amountInclTax| number:'1.2-2' }}
+            </span>
+            </td>
+          </tr>
+        </table>-->
+        <!--        } @else {-->
+        <p class="text-muted small">No payments recorded yet</p>
+        <!--        }-->
+      </c-col>
+    </c-row>
+
+    <!--Notes-->
+    <c-row class="stay-section">
+      <c-col [md]="12">
+        <!--Title-->
+        <div class="d-flex align-items-center title-section">
+          <h6 class="mb-0 me-1">
+            Notes
+          </h6>
+          <span class="small text-muted">
+            <span class="text-primary">+ Add notes</span>
+          </span>
+        </div>
+        <div class="bg-warning-light text-warning py-2 px-2 " style="border-radius: 5px;">
+          {{ booking.notes ? booking.notes : 'No special notes' }}
+        </div>
+      </c-col>
+    </c-row>
+
+  </c-card-body>
+
+  @if (booking.status != 'DRAFT') {
+    <c-card-footer>
+      <c-row>
+        <c-col [md]="6">
+          <button cButton color="primary" size="sm" variant="outline" class="me-2" (click)="openModal()">Assign room
+          </button>
+          <button cButton color="success" size="sm" (click)="checkin()"><i class="bi bi-door-open me-1"></i>
+            @if (clicked) {
+              Checked-in at {{getCurrentDate()|date: 'MMM d, y'}}
+            }@else{
+              Check-in
+            }
+          </button>
+        </c-col>
+
+        <c-col [md]="6" class="d-flex justify-content-end">
+          <button
+            cButton
+            color="info"
+            size="sm"
+            (click)="onGenerateQuote()"
+            [disabled]="loading"
+          >
+            {{ loading ? ('commons.snippets.loading' | translate) : 'Generate quote' }}
+          </button>
+        </c-col>
+
+      </c-row>
+    </c-card-footer>
+  }
+
+</c-card>

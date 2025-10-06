@@ -1,0 +1,21 @@
+<ng-select class="custom"
+           (change)="valueChanged($event)"
+           (scrollToEnd)="onScrollToEnd()"
+           (search)="searchUnits($event)"
+           [(ngModel)]="selectedSegments"
+           [multiple]="multiple"
+           [disabled]="disable"
+           [items]="segmentSearchList"
+           [placeholder]="'Select segments ...'"
+           [typeahead]="$segmentSearch"
+           [virtualScroll]="true"
+           [compareWith]="compareSegments">
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span>{{ item.parent?.name ? (item.parent.name + ' : ' + item.name) : item.name }}</span>
+    <span class="ng-value-icon right ms-1" (click)="clear(item)" aria-hidden="true">x</span>
+  </ng-template>
+
+  <ng-template let-item="item" ng-option-tmp>
+    <span>{{ item.parent?.name ? (item.parent.name + ' : ' + item.name) : item.name }}</span>
+  </ng-template>
+</ng-select>

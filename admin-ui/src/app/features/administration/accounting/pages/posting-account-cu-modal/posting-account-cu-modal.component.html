@@ -1,0 +1,125 @@
+<!-- Modal title -->
+<div class="modal-header justify-content-center align-items-center bg-primary">
+  <h6 class="modal-title text-white fw-bold">
+    {{ ('administration.accounting.posting-account.pages.cu-modal.title.' + (postingAccountToEdit ? 'edit' : 'create'))|translate }}
+  </h6>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+
+  <form cForm [formGroup]="postingAccountForm" (ngSubmit)="submit()">
+
+    <!--Name & Code inputs-->
+    <c-row class="mb-3">
+      <!--Name input-->
+      <c-col [md]="6">
+        <label cLabel class="required"
+               for="name">{{ 'commons.form.name-input.label' | translate }}</label>
+        <input cFormControl formControlName="name" id="name" type="text"/>
+        @if (postingAccountForm.get('name')?.touched && postingAccountForm.get('name')?.invalid) {
+          @if (postingAccountForm.get('name')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+      </c-col>
+
+      <!--Code input-->
+      <c-col [md]="6">
+        <label cLabel class="required" for="name">
+          {{ 'administration.accounting.posting-account.pages.cu-modal.form.code-input.label' | translate }}
+        </label>
+        <input cFormControl formControlName="code" id="code" type="text"
+               [placeholder]="'administration.accounting.posting-account.pages.cu-modal.form.code-input.placeholder'|translate"/>
+        @if (postingAccountForm.get('code')?.touched && postingAccountForm.get('code')?.invalid) {
+          @if (postingAccountForm.get('code')?.errors?.['required']) {
+            <c-form-feedback [valid]="false">{{ 'commons.errors.required' | translate }}</c-form-feedback>
+          }
+        }
+        @if (formErrors?.code?.unique) {
+          <c-form-feedback
+            [valid]="false">{{ 'administration.accounting.posting-account.pages.cu-modal.form.code-input.errors.unique' | translate }}
+          </c-form-feedback>
+        }
+      </c-col>
+    </c-row>
+
+    <!--Description input-->
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel for="description">{{ 'commons.form.description-input.label' | translate }}</label>
+        <textarea cFormControl formControlName="description" rows="3"
+                  [placeholder]="'administration.accounting.posting-account.pages.cu-modal.form.description-input.placeholder'|translate">
+        </textarea>
+        @if (postingAccountForm.get('description')?.touched && postingAccountForm.get('description')?.invalid) {
+          @if (postingAccountForm.get('description')?.errors?.['maxlength']) {
+            <c-form-feedback [valid]="false">
+              {{ 'administration.accounting.posting-account.pages.cu-modal.form.description-input.errors.maxlength' | translate }}
+            </c-form-feedback>
+          }
+        }
+      </c-col>
+    </c-row>
+
+    <!--Account class input-->
+    <c-row class="mb-3">
+      <c-col [md]="12">
+        <label cLabel for="accountClass" class="required">
+          {{ 'administration.accounting.posting-account.pages.cu-modal.form.account-class-input.label' | translate }}
+        </label>
+        <app-account-classes-select id="accountClass" formControlName="accountClass"></app-account-classes-select>
+      </c-col>
+    </c-row>
+
+    <!--Ledger Group & Sub-Ledger Group inputs-->
+    <c-row class="mb-3">
+      <!--Ledger Group input-->
+      <c-col [md]="6">
+        <label cLabel for="accountClass" class="required">
+          {{ 'administration.accounting.posting-account.pages.cu-modal.form.ledger-group-input.label' | translate }}
+        </label>
+        <app-ledger-group-select id="accountClass" formControlName="ledgerGroup"></app-ledger-group-select>
+      </c-col>
+
+      <!--Sub-Ledger Group input-->
+      <c-col [md]="6">
+        <label cLabel for="accountClass" class="required">
+          {{ 'administration.accounting.posting-account.pages.cu-modal.form.sub-ledger-group-input.label' | translate }}
+        </label>
+        <app-ledger-group-select id="accountClass" formControlName="subLedgerGroup"
+                                 [parentId]="postingAccountForm.value.ledgerGroup?.id"
+                                 [disable]="disableSubLedger"></app-ledger-group-select>
+      </c-col>
+    </c-row>
+
+    <!--Enabled input-->
+    @if (postingAccountToEdit) {
+      <c-row class="mb-3">
+        <c-col [md]="12">
+          <c-form-check [switch]="true">
+            <input id="enabled-input" cFormCheckInput type="checkbox" formControlName="enabled"/>
+            <label cFormCheckLabel for="enabled-input">
+              {{ 'commons.form.enabled-check.label'|translate }}</label>
+          </c-form-check>
+          <div class="form-text">
+            {{ 'administration.accounting.posting-account.pages.cu-modal.form.enabled-input.placeholder'|translate }}
+          </div>
+        </c-col>
+      </c-row>
+    }
+
+    <!--Modal footer-->
+    <c-row class="mt-4">
+      <c-col class="d-flex justify-content-end">
+        <button cButton color="dark" size="sm" variant="ghost" (click)="closeModal()">
+          {{ 'commons.form.cancel-btn'|translate }}
+        </button>
+        <button cButton class="ms-3" color="secondary" size="sm" type="submit" [disabled]="!postingAccountForm.valid">
+          {{ 'commons.form.save-btn'|translate }}
+        </button>
+      </c-col>
+    </c-row>
+
+  </form>
+
+</div>

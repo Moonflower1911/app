@@ -1,0 +1,17 @@
+@use '../../../../../scss/variables' as *;
+
+.unit-card {
+  border-radius: 5px;
+}
+
+.selectable {
+  &:hover {
+    cursor: pointer;
+  }
+
+
+}
+
+.selected {
+  border: 1px solid $success !important;
+}

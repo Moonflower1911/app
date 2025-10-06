@@ -1,0 +1,131 @@
+<c-row class="justify-content-end mb-3">
+  <c-col [md]="3">
+    <form [formGroup]="searchForm">
+      <div class="form-group text-start">
+        <label cLabel for="dateRange">Period</label>
+        <input
+          id="dateRange"
+          (datesUpdated)="dateRangeUpdated()"
+          [showDropdowns]="true"
+          [opens]="'left'"
+          [alwaysShowCalendars]="true"
+          [showRangeLabelOnInput]="true"
+          [linkedCalendars]="false"
+          size="sm"
+          type="text"
+          class="form-control"
+          [locale]="{ applyLabel: 'ok', format: 'DD-MM-YYYY' }"
+          ngxDaterangepickerBootstrap
+          formControlName="period"
+        />
+      </div>
+    </form>
+  </c-col>
+</c-row>
+
+<c-row class="mb-3">
+  <c-col [md]="12">
+    <app-badge [smaller]="false" color="deep-purple" class="me-2">
+      <i class="bi bi-person me-1"></i>
+      Single Adult
+    </app-badge>
+
+    <app-badge [smaller]="false" color="purple" class="me-2">
+      <i class="bi bi-people me-1"></i>
+      Double Adult
+    </app-badge>
+
+    <app-badge [smaller]="false" color="teal" class="me-2">
+      <i class="bi bi-person-plus me-1"></i>
+      Extra Adult
+    </app-badge>
+
+    <app-badge [smaller]="false" color="brown">
+      <i class="bi bi-emoji-smile me-1"></i>
+      Extra Child
+    </app-badge>
+  </c-col>
+</c-row>
+<div class="table-container">
+  <table cTable class="calendar-table">
+    <thead>
+    <tr>
+      <th class="header-cell units-col fw-bold">
+        {{ 'rate-management.rate-plan.pages.rates-grid.table.header.units'|translate|uppercase }}
+      </th>
+      @for (date of dates; track date) {
+        <th class="header-cell">
+          <div class="day-name">{{ date|date: 'EEE' }}</div>
+          <div class="iso-date">{{ date|date: 'dd/MM/yy' }}</div>
+        </th>
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @for (rate of rates; track rate.unitId) {
+        <tr>
+          <td class="units-col room-name">
+            {{ rate.unitName|titlecase }}
+          </td>
+
+          @for (dailyRate of rate.dailyRates; track dailyRate) {
+            <td class="price-cell low-price weekend" [ngClass]="{'weekend': isWeekend(dailyRate)}" (click)="editRate(rate, dailyRate)">
+              <div>
+                <app-badge [smaller]="false" color="deep-purple">
+                  <i class="bi bi-person me-1"></i>
+                  <span class="fw-bold">{{ dailyRate.singleAdult| number:'1.2-2' }}</span> MAD
+                </app-badge>
+              </div>
+
+              <div class="mt-1">
+                <app-badge [smaller]="false" color="purple">
+                  <i class="bi bi-people me-1"></i>
+                  <span class="fw-bold">{{ dailyRate.doubleAdult| number:'1.2-2' }}</span> MAD
+                </app-badge>
+              </div>
+
+              <div class="mt-1">
+                <app-badge [smaller]="false" color="teal">
+                  <i class="bi bi-person-plus me-1"></i>
+                  <span class="fw-bold">{{ dailyRate.extraAdult| number:'1.2-2' }}</span> MAD
+                </app-badge>
+              </div>
+
+              <div class="mt-1">
+                <app-badge [smaller]="false" color="brown">
+                  <i class="bi bi-emoji-smile me-1"></i>
+                  <span class="fw-bold">{{ dailyRate.extraChild| number:'1.2-2' }}</span> MAD
+                </app-badge>
+              </div>
+
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<c-offcanvas
+  placement="end"
+  [visible]="visible" [backdrop]="'static'"
+  id="OffcanvasEnd">
+
+  <c-offcanvas-header>
+    <h5 cOffcanvasTitle>{{ 'rate-management.rate-plan.pages.edit-rate.title'|translate }}</h5>
+    <button
+      cButtonClose
+      class="text-reset ms-auto"
+      (click)="closeEditRate()"
+      aria-label="Close"
+    ></button>
+  </c-offcanvas-header>
+
+  @if (visible) {
+    <c-offcanvas-body>
+      <app-rate-modal-edit [ratePlanId]="ratePlanId"  [rateToEdit]="rateToEdit"
+                           (updatedRates)="handleUpdatedRates($event)"></app-rate-modal-edit>
+    </c-offcanvas-body>
+  }
+
+</c-offcanvas>
